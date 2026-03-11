@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mix Hiperfoco</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: rgba(255,255,255,0.06);
+      --border: rgba(255,255,255,0.12);
+      --text: #f5f7ff;
+      --muted: #aab4d6;
+      --primary: #7c5cff;
+      --primary-2: #00d4ff;
+      --success: #29d391;
+      --warning: #ffb84d;
+      --shadow: 0 20px 50px rgba(0,0,0,.35);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(124, 92, 255, 0.22), transparent 28%),
+        radial-gradient(circle at top right, rgba(0, 212, 255, 0.16), transparent 24%),
+        linear-gradient(160deg, var(--bg), #080c18 60%, #0e1430 100%);
+      padding: 28px 16px 60px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1280px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(124, 92, 255, 0.18), rgba(0, 212, 255, 0.1));
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      padding: 28px;
+      margin-bottom: 20px;
+      backdrop-filter: blur(16px);
+    }
+
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      max-width: 820px;
+      line-height: 1.55;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 20px 22px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .panel-header h2 {
+      margin: 0 0 6px;
+      font-size: 1.15rem;
+    }
+
+    .panel-header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .panel-body {
+      padding: 20px 22px 22px;
+    }
+
+    .total-box {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      background: linear-gradient(135deg, rgba(124,92,255,.12), rgba(0,212,255,.10));
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .input-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+    }
+
+    .input-group label,
+    .total-box label {
+      font-weight: 700;
+      font-size: .95rem;
+    }
+
+    .input-group input,
+    .total-box input {
+      width: 82px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 12px;
+      background: rgba(8,12,24,0.85);
+      color: white;
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .input-group input:focus,
+    .total-box input:focus {
+      border-color: var(--primary-2);
+      box-shadow: 0 0 0 3px rgba(0,212,255,.12);
+    }
+
+    .actions,
+    .moods {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      transition: .2s ease;
+      font-weight: 800;
+      border-radius: 16px;
+      padding: 14px 18px;
+      font-size: .95rem;
+      color: white;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      box-shadow: 0 12px 24px rgba(124, 92, 255, 0.28);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .btn-success {
+      background: rgba(41, 211, 145, 0.18);
+      border: 1px solid rgba(41, 211, 145, 0.25);
+      color: #dffff1;
+    }
+
+    .btn-warning {
+      background: rgba(255, 184, 77, 0.16);
+      border: 1px solid rgba(255, 184, 77, 0.24);
+      color: #fff0cf;
+    }
+
+    .btn-mood {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 12px 15px;
+      font-size: .9rem;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: .88rem;
+      line-height: 1.5;
+      margin-top: 14px;
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .status-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .status-card .label {
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .status-card .value {
+      font-size: 1rem;
+      font-weight: 800;
+      line-height: 1.35;
+      word-break: break-word;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 12px;
+      background: rgba(41, 211, 145, 0.12);
+      border: 1px solid rgba(41, 211, 145, 0.2);
+      color: #b8ffe2;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+    }
+
+    .player-wrap {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    #player {
+      width: 100%;
+      min-height: 320px;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    #playlist-resultado {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 520px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .track-item {
+      display: grid;
+      grid-template-columns: 52px 130px 1fr;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 16px;
+      padding: 12px 14px;
+    }
+
+    .track-number {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(124,92,255,.22), rgba(0,212,255,.16));
+      border: 1px solid rgba(255,255,255,0.08);
+      font-weight: 900;
+    }
+
+    .track-category {
+      justify-self: start;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: #eaf0ff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .track-title {
+      color: #f7f9ff;
+      font-weight: 600;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .track-item.active {
+      border-color: rgba(0,212,255,.45);
+      background: rgba(0,212,255,0.08);
+    }
+
+    .empty-state {
+      padding: 24px;
+      border-radius: 18px;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed rgba(255,255,255,0.12);
+    }
+
+    @media (max-width: 960px) {
+      .layout { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .grid, .status-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .track-item {
+        grid-template-columns: 42px 1fr;
+      }
+
+      .track-category,
+      .track-title {
+        grid-column: 2;
+      }
+
+      #player {
+        min-height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Meu Mix Hiperfoco</h1>
+      <p>
+        Monte uma playlist personalizada, com nomes reais das músicas, alternância de categorias,
+        categoria Aleatória própria e botões de Mood para gerar mixes prontos.
+      </p>
+    </section>
+
+    <div class="layout">
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Configuração do mix</h2>
+          <p>Defina quantas músicas quer e a porcentagem de cada categoria.</p>
+        </div>
+
+        <div class="panel-body">
+          <div class="total-box">
+            <label for="total_musicas">Quantidade de músicas</label>
+            <input type="number" id="total_musicas" min="1" value="15" />
+          </div>
+
+          <div class="grid">
+            <div class="input-group"><label>Nostálgica</label><input type="number" id="perc_nostalgica" min="0" value="0" /></div>
+            <div class="input-group"><label>INFINITE</label><input type="number" id="perc_infinite" min="0" value="0" /></div>
+            <div class="input-group"><label>TRAP</label><input type="number" id="perc_trap" min="0" value="0" /></div>
+            <div class="input-group"><label>FOCO</label><input type="number" id="perc_foco" min="0" value="0" /></div>
+            <div class="input-group"><label>MPB</label><input type="number" id="perc_mpb" min="0" value="0" /></div>
+            <div class="input-group"><label>Motivação</label><input type="number" id="perc_motivacao" min="0" value="0" /></div>
+            <div class="input-group"><label>De Agora</label><input type="number" id="perc_de_agora" min="0" value="0" /></div>
+            <div class="input-group"><label>Latina</label><input type="number" id="perc_latina" min="0" value="0" /></div>
+            <div class="input-group"><label>Reggae</label><input type="number" id="perc_reggae" min="0" value="0" /></div>
+            <div class="input-group"><label>Aleatória</label><input type="number" id="perc_aleatoria" min="0" value="0" /></div>
+          </div>
+
+          <div class="actions">
+            <button class="btn-primary" onclick="gerarEPlayar()">▶ Gerar e tocar mix</button>
+            <button class="btn-warning" onclick="musicaAnterior()">⏮ Anterior</button>
+            <button class="btn-success" onclick="proximaMusica()">⏭ Próxima</button>
+            <button class="btn-secondary" onclick="limparCampos()">Limpar</button>
+          </div>
+
+          <div class="moods">
+            <button class="btn-mood" onclick="aplicarMood('arrumar_quarto')">🧹 Mood Arrumar Quarto</button>
+            <button class="btn-mood" onclick="aplicarMood('sad')">🌧 Mood Sad</button>
+            <button class="btn-mood" onclick="aplicarMood('reset')">🧠 Mood Reset</button>
+            <button class="btn-mood" onclick="aplicarMood('happy')">🌞 Mood Happy</button>
+          </div>
+
+          <div class="note">
+            O autoplay pode depender de um clique do usuário no botão “Gerar e tocar mix”.
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Player e fila</h2>
+          <p>As categorias tentam não se repetir em sequência sempre que isso for possível.</p>
+        </div>
+
+        <div class="panel-body">
+          <div class="status-grid">
+            <div class="status-card">
+              <div class="label">Tocando agora</div>
+              <div class="value" id="tocando-agora">Nenhuma música iniciada</div>
+            </div>
+            <div class="status-card">
+              <div class="label">Próxima da fila</div>
+              <div class="value" id="proxima-faixa">Nenhuma</div>
+            </div>
+          </div>
+
+          <div class="badge" id="total-gerado">0 músicas na fila</div>
+
+          <div class="player-wrap">
+            <div id="player"></div>
+          </div>
+
+          <div id="playlist-resultado">
+            <div class="empty-state">Gere uma playlist para ver a fila aqui.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    const bancoDeMusicas = {
+      motivacao: ["ysfm_adxRrI","GO9cAsNu3nw","6eEOegzrwJg","tI9kSZgMLsc","kwrYDTHKxiE","bJQhFYJvtx4","hTUEjPmX0tE","0dLX40UMUKo","J87pJrxvJ5E","rs6Y4kZ8qtw","sNY_2TEmzho","HJNa9Ih3haA","Lx3MGrafykU","XEV4x7xEprw","eYBw6Cl4ico","MxEjnYdfLXU","uzS3WG6__G4","S2PVsv2K1Bg","k49I5m1J6Is","sBzrzS1Ag_g","2g5xkLqIElU","ox7RsX1Ee34","IJilkMPqvs0","HmAsUQEFYGI","IwRZP9V-gYE","MXJtW1P3Ae8","Y3Ng6e7QmSI","0wVuYrwFmFQ","uPD0QOGTmMI","JoFkQ7iAQcw","glscfhJyZHo","loSRfGd07Ks","ljHdccyQbT4","VMFJwSR1MQQ","jHTa6Uj9q8Q","0cRLFSQa-Sg","mn5kFTG6gpg","leZsqe2w5AY","rXJa1YcV6OQ","EkIlM0lYtT0","9PydvdEdGwE","qPsYRy9HHsc","53VZ8Wsynj4","ZAz3rnLGthg","1Xfdjqa5dfY","6P42031uuOU","f9Hg8Mgv64o"],
+      mpb: ["-XES9-nyk9I","s9c614gBu6U","nOB25eYi_6g","peR8eOcGA3M","-UQwmj3dHps","3RrDAI7tFzU","RytrevkteVs","1g_p4Xcn5CE","BJAkeUvCL1s","_CSjq-UyaWA","MWh78SM5G7k","dB6mPGLj2J8","bGAJlOwUgHY","unWVj4kXUBU","2HlpJaatYH4","RhLJFYwutUs","RzlniinsBeY","QiIRQhGxi4E","g5BlUYtioIE","wBfVsucRe1w","he_ghOAXbSM","7VE6PNwmr9g","_Jcn10Iiuu4","fUjOfsoBhMY","l-FxY25lYzY","5j3QjEk-6c0","leL7KSkm97M","HV7QNFkr-SQ","IorW4oy0Cvo","RQjbE_BIn9A","0ya1pVwxmDE","dtRbk-dW8zo","u4vU9dv8WsY","zqKgYIqGmkM","96Ke5TPILF0","4syrZTW2aiI","S_hY89b05mo","61jSSF3Vu54","1Ngn3fZIK2E","WLxw8SGA_ew","3_o8JhPWvUs","CFC9ceKUm5Y","CqttYsSYA3k","bUjQNMH1HYw","FAm9QKnaBhI","-T-esXst0sc","tMWpm_GOLaA"],
+      trap: ["YBZHx7Pdagk","bZ4q3PCYTcU","u6H1YIFiGls","5zuRU9odIYs","_bs6IDFz0ww","oX8XECzXq58","Dw2VsZMT-TM","jegzIdw2Dkw","PF7e0ji0Dls","lKqxFicLn_c","CO_0dOw1EbI","RKZ8Sg192dM","DB8hiqmzX4M","Z3_jY015bsE","1Qus1HEB_fA","8Xvi1V4NEFs","aq-DH4iwviE","uNoZ3mewXX8","LVePdd1SgTE","d-6DzlhlBxA","Bd5250uaE_k","9LOwIpjqN7Y","gyVmdwtvKwg","lcA7Pu9W_y0","VO0syh30Nw4","CUFMfGu1yQc","ZPcG9PCfagM","BUL7zecHZjA","yHqOj8sLl_c","FdLto-aFbS8","45GOBTJVMSM","kpEox77hDmk","QawDPNaUT4c","mV4cWyl7zYU","9uemaN7kWm0","iDJM3HTdjck","OBt21_24zqU","bYkxMW0uWGE","DCPBUaVx7gk","_p6MGZyBhCc","jBE_X3cMCyM","SP1qu6_zw3s","kGhVpV7NjeM","hr_83ZXhmOI","LljF8Gom9jM"],
+      foco: ["-cnr9jHlB0c","nrsqPO6pYG4","tlKM6Q2e2cU","j_HEEoW1gTQ","EpZujpd0yyQ","p472xXVHQ7Q","hBvXrFNvf40","qbcUJHp4HyM","LEa3Eow30l4","csmkfP8rb5A","6N4WjJ0gMXQ","Tcn19uHTmJc","97A2WvXrIg0","0a-9AC6ELx0","_Z4De_rWPx0","Swtl_Wlm91Q","T1XOAq7JqsU","jB_6qFNJQQc","tNRknGHgH2w","haAHVYCJJQw","yUsdtn19vgQ","UcVSH8D1laI","kzOIJy2-bqg","729hV2KFPoI","wXrZmX2LH_Y","l9HVK0--uyw","x2SjSlNY6j4","pFSJbLfoMmI","IThrJYRCcAA","kYsw12LacxI","Dz3R5tF_JPM","nSJkYW8Fs90","zzjAnM_kPXw","7KVOS4tTANc","GWBv9ClXIgc","YFoWRkTpcrA","giTzMl4xPs8","01Y96CfmVz4","9NcyxkJwvN8","yMhL25ijNxo","qfeYd3mx4Mw","qBANGkTgSZk","f7O3-Tbe8_E"],
+      infinite: ["yuHK4AMgw3w","metUmr6HeTY","e_8mss0AgyY","K0ibBPhiaG0","JTeKpWp8Psw","5mF4pKSi2SU","Man4Xw8Xypo","6gluNoLVKiQ","m4BuziKGMy4","sGDuGybCRSE","3jL4S4X97sQ","vWZ6hmHj2MA","IXdNnw99-Ic","JwYX52BP2Sk","sgxm6eCt1oA","Em9MVG6h9GU","qr94_23bUjA","HtUH9z_Oey8","X791IzOwt3Q","jiFDiW312v0","tPgf_btTFlc","OJ62RzJkYUo","v1HDt1tknTc","IwOfCgkyEj0","PYF8Y47qZQY","RuR_-V_sezE"],
+      nostalgica: ["uSD4vsh1zDA","pa14VNsdSYM","dvgZkm1xWPE","M11SvDtPBhA","F90Cw4l-8NY","SDTZ7iX4vTQ","uelHwf8o7_U","CCHdMIEGaaM","pXRviuL6vMY","ktvTqknDobU","-ncIVUXZla8","UprcpdwuwCg","450p7goxZqg","UqyT8IEBkvY","EkHTsc9PU2A","34Na4j8AVgA","6uaq8GJJxAQ","16YnOUnbE6s","pok8H_KF1FA","jJPMnTXl63E","9Zj0JOHJR-s","Rb6Scz-5YOs","uDr9hRJqPX4","N2Y2vQ-1m7M","eYDI8b5Nn5s","Mvaosumc4hU","r7qovpFAGrQ","_83KqwEEGw4","lYoWuaw5nSk","ApXoWvfEYVU","YVkUvmDQ3HY","wXhTHyIgQ_U","HyHNuVaZJ-k","sBzrzS1Ag_g","KEI4qSrkPAs","yzTuBuRdAyA","V1Pl8CzNzCw","PT2_F-1esPk","DyDfgMOUjCI","PMivT7MJ41M","6EEW-9NDM5k","eRhg7qPLeN8","Pw-0pbY9JeU","T3E9Wjbq44E","yKNxeF4KMsY","2Vv-BfVoq4g","nSDgHBxUbVQ","lp-EO5I60KA","orJSJGHjBLI","ywZqBGHDTlA"],
+      de_agora: ["25dzRdiiNMo","ZqTGc9GXu1Y","bxL3Hczjgbg","yc4j-pIq20M","R-b3mYzFLsI","9e_oCbJ5uU8","GwccKjN3OWY","kTQqY7KeyL8","StGgzGjZ67Y","5R2KCJGsOUw","iHsObIWkM-s","lY5V4hSLWY8","Iilq1noiB48","xy3AcmW0lrQ","6P42031uuOU","a1Femq4NPxs","rK5TyISxZ_M","tD4HCZe-tew","mrV8kK5t0V8","rltG2qA_RnA","jX-Bb5ATnUc","z2ZmXRkXREw","pU8qf_hPST4","dfdGOi3OuGI","w6nNddTCzTM","1bOEM3-_0-g","LcldH2JNN8U","feDWQX7eiuA","VklymStK1Vo","rh8QUos2_5k","xqvg1rJs3j4","6XQkn3aCnsA","EiEXsoRJ-d4","YHywr8c0LRE","YHSvy5RdWK4","HEw460HYI4s","RwsVKQqmGeE","5Zj9aef2AEE"],
+      reggae: ["6BaCNYU2YR0","i1Nm-MJ313w","etlCmhhn-VI","sTMRBJS0ofQ","bHjQc3bFBLE","_DCt1AdRN0Y","hxzCrS519BU","UNNOHk60ojk","8g23lUx94fY","KdG1L4kK1j4","h8xA8Oqx2FI","akpfMSn9mMw","LMDbZA9obvk","KuiQy9AVbGQ","V1oor7kC8lU","9GhWFIgaqL0","XTmz9ikVCHw","0Q32gVdQ5ck","m9EN6CkMOs8","-a6REn2bMUg","mMMnW26o82I","-XES9-nyk9I","6J5qxzHC2TU","JkXnLik65jA","wjHE1xWN-cA","bJEQLj23QEE","6jQv9tvl0Gg","2NAlWaC1v44","vHN-2Dm9dhk","n4y2GZj_9so","kkGDWRIe8rs","F19PnbWigSA","hFRUKbhtovo","hCCe-AYLQ-Q","S2EEo0AQ4iQ","JEtQcIGQ6VA","5a8nCfO6hgc","EZ6gDZ-Pdig","xGpk-k-TK4s","WNWmy_LSChM","d79LDHnZz00","nqxZMimq3Xk","Jcj4Ra9pMQ0","icjEC-7c16Y","BB-95awQO-g","ecL9nUPEZGI","9BuwCQwJRiQ","VmMqf5SdehM","5OoOIgMCaBE","tRmtL8yxcSA","w-rgE0VDPLM","skokRZhBHwM","vi78r5-Ym9k"],
+      latina: ["DkFJE8ZdeG8","0hcoNykaI3k","bnaTLcFpQnE","v9T_MGfzq7I","dB6mPGLj2J8","cg1wDc9JVB4","teprNzF6J1I","a1Femq4NPxs","WuenyQ4NCQE","kRt2sRyup6A","MepPfI7ebMY","saGYMhApaH8","pjPA7CXutDw","T_FkEw27XJ0","_P7S2lKif-A","kC8cAUQE-aE","kJQP7kiw5Fk","SJ1aTPM-dyE","ca48oMV59LU","0nBFWzpWXuM","TjLhdHwE2EE","o5cELP06Mik","oCM_VWzSiMo","ZMUqIoDtSwc","QpKkNIT84GY","t_jHrUE5IOk","hFCjGiawJi4","LxOTsiV4tkQ","XtPY5kxjCWo","DUT5rEU6pqM","rltG2qA_RnA","YMODnRc2WKg","ZAjASemgx3E","_w5_nBYEWC4","bWSn9jL1g7I","upCptHeThio","stYJkLlNmsY","S98-BIpzZuk","iyLdoQGBchQ","wnJ6LuUFpMo","v_zZmsFZDaM","cIrGQD84F1g","yG7MPEQm1-w","Oe1o13CItv4","IKmPci5VXz0","YXnjy5YlDwk","-UV0QGLmYys","yNGUW8uZ1oo","WPiEbYSF9kE","rs6Y4kZ8qtw","TiM_TFpT_DE","zAfrPjTvSNs","hitCWMxsMi4","7K7Sl0FPsVo","lSrLb_rERdI"],
+      aleatoria: [
+        "_bs6IDFz0ww","XjvcDoVG6cs","JMWbuQHNXvI","F5IT5XQm3Og","kND0AfjGaiA","zNGlFo7-AKQ",
+        "ABfQuZqq8wg","H-kA3UtBj4M","TvnYmWpD_T8","L-Lxn-lQUMc","Sq7pVppXesU","DkVCb-81KFU",
+        "nz_zPrUdGVg","YzH2uTwr70o","mfRj60-MpRU","KS_TrJOQB-g","dXcxDI95hM4","_dnB4nWckxg",
+        "q0u47Nl7N7M","e4Ez99gCOiY","yjxriFArvMk","q_dJUjmHIIM","hYnfIYNIoTY","FRl8vu0f6do",
+        "uWElRIZMGMQ","1iBoKXZr8C0","nonJx3Q0ZNo","BW73u2yGGa8","kjR_jfCHLQc","lhvNgPjBP4Y",
+        "EaNp9EqxdoA","_HLsxDQ_98s","PL53fH-x0rw","zFIqVUrh3zw","F4RK4uNf2vU","yfzhwgHmqHY",
+        "1edwebkYvYQ","eJtMldxr0lc","hzP3VzG3pww","bGAJlOwUgHY","1BWk5jxw9r0","WkLpoUiasZ8",
+        "97ohmdZjwxo","lxhqCcrnTv4","T6QKqFPRZSA","cE-bnWqLqxE","GJDmvDSWK64","lSD_L-xic9o",
+        "3sur4BmjQt8","4TYv2PhG89A","oIv_Y2RPQ_A","QBMjvGjKnAc","qBBwXuEV4jA","e7utABB3V_A",
+        "l0zaebtU-CA","wbxTlxuECJA","BT5j9OQ7Sh0","s1X-q7MweIc","xdcSFVXd3MU","RhoprlMxteE",
+        "rLzfo59AdEc","6e01nNA02vw","Uq0aeEYLkIE","ELlLIwhvknk","Tb9L3iAUhc0","7kXusIyqQ2o",
+        "r95-7zfgtLw","pHNbHn3i9S4","l8WMGBuNaus","wsRatIMUSu8","Z1ONJQLdZrk","ixmOAb6qzvY",
+        "tCXsFjzMKdc","t1Jm5epJr10","ywZqBGHDTlA","10LSq_J5ol4","vfxQ1oDiEJM","i5m-sgtwFck",
+        "1A8sOOKianA","CDko2ux1bkE","_396y7Vk9NA","0Qhjiz_Ceu4","80LhtHY_fHw","hOhTDRdcx4o",
+        "q9NtWkikVAE","5wth9BScmGY","e3n4fRYTc94","Rly0qaXeSPg","4wYd-sqzY-k","zBqW6yKz8WA",
+        "MUNNRAdizz0","WjGiUVrQEB0","2U91ELKMNlE","7kyg6F-E4fg","e2ad7O8-5Xg","n6P0SitRwy8",
+        "dWXa9lKuCfk"
+      ]
+    };
+
+    const nomesCategorias = {
+      nostalgica: "Nostálgica",
+      infinite: "INFINITE",
+      trap: "TRAP",
+      foco: "FOCO",
+      mpb: "MPB",
+      motivacao: "Motivação",
+      de_agora: "De Agora",
+      latina: "Latina",
+      reggae: "Reggae",
+      aleatoria: "Aleatória"
+    };
+
+    const moods = {
+      arrumar_quarto: {
+        mpb: 20,
+        trap: 35,
+        de_agora: 25,
+        infinite: 10,
+        aleatoria: 5
+      },
+      sad: {
+        nostalgica: 35,
+        infinite: 20,
+        mpb: 15,
+        reggae: 15,
+        aleatoria: 15
+      },
+      reset: {
+        mpb: 10,
+        reggae: 15,
+        aleatoria: 5,
+        motivacao: 20,
+        infinite: 15,
+        foco: 40
+      },
+      happy: {
+        nostalgica: 15,
+        trap: 25,
+        reggae: 8,
+        foco: 2,
+        aleatoria: 15,
+        de_agora: 15,
+        motivacao: 20
+      }
+    };
+
+    const idsCampos = [
+      "perc_nostalgica",
+      "perc_infinite",
+      "perc_trap",
+      "perc_foco",
+      "perc_mpb",
+      "perc_motivacao",
+      "perc_de_agora",
+      "perc_latina",
+      "perc_reggae",
+      "perc_aleatoria"
+    ];
+
+    let player;
+    let youtubeReady = false;
+    let playlistAtual = [];
+    let indiceAtual = 0;
+    let iniciarQuandoPronto = false;
+    const cacheTitulos = {};
+
+    function onYouTubeIframeAPIReady() {
+      youtubeReady = true;
+      player = new YT.Player("player", {
+        height: "360",
+        width: "100%",
+        videoId: "",
+        playerVars: {
+          autoplay: 0,
+          controls: 1,
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1
+        },
+        events: {
+          onStateChange: onPlayerStateChange
+        }
+      });
+
+      if (iniciarQuandoPronto && playlistAtual.length) {
+        tocarIndice(0);
+        iniciarQuandoPronto = false;
+      }
+    }
+
+    function embaralhar(lista) {
+      const copia = [...lista];
+      for (let i = copia.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copia[i], copia[j]] = [copia[j], copia[i]];
+      }
+      return copia;
+    }
+
+    function calcularVagasExatas(pesos, totalVagas) {
+      const somaPesos = Object.values(pesos).reduce((a, b) => a + b, 0);
+      if (somaPesos === 0) return null;
+
+      const inteiros = {};
+      const restos = [];
+
+      for (const cat in pesos) {
+        const valorExato = (pesos[cat] / somaPesos) * totalVagas;
+        inteiros[cat] = Math.floor(valorExato);
+        restos.push({ cat, resto: valorExato - inteiros[cat] });
+      }
+
+      const somaInteiros = Object.values(inteiros).reduce((a, b) => a + b, 0);
+      restos.sort((a, b) => b.resto - a.resto);
+
+      for (let i = 0; i < totalVagas - somaInteiros; i++) {
+        inteiros[restos[i].cat]++;
+      }
+
+      return inteiros;
+    }
+
+    function montarPoolPorCategoria(vagas) {
+      const pool = {};
+
+      for (const cat in vagas) {
+        const quantidade = vagas[cat];
+        if (!quantidade) continue;
+
+        const lista = bancoDeMusicas[cat] || [];
+        if (!lista.length) continue;
+
+        const embaralhada = embaralhar(lista);
+        pool[cat] = [];
+
+        for (let i = 0; i < quantidade; i++) {
+          pool[cat].push(embaralhada[i % embaralhada.length]);
+        }
+
+        pool[cat] = embaralhar(pool[cat]);
+      }
+
+      return pool;
+    }
+
+    function escolherProximaCategoria(pool, categoriaAnterior) {
+      const categoriasDisponiveis = Object.keys(pool).filter(cat => pool[cat].length > 0);
+      if (!categoriasDisponiveis.length) return null;
+
+      const semRepetir = categoriasDisponiveis.filter(cat => cat !== categoriaAnterior);
+      const base = semRepetir.length ? semRepetir : categoriasDisponiveis;
+
+      base.sort((a, b) => pool[b].length - pool[a].length);
+
+      const maiorQuantidade = pool[base[0]].length;
+      const empatadas = base.filter(cat => pool[cat].length === maiorQuantidade);
+
+      return empatadas[Math.floor(Math.random() * empatadas.length)];
+    }
+
+    function intercalarPlaylist(pool, totalEsperado) {
+      const resultado = [];
+      let ultimaCategoria = null;
+
+      while (resultado.length < totalEsperado) {
+        const proximaCategoria = escolherProximaCategoria(pool, ultimaCategoria);
+        if (!proximaCategoria) break;
+
+        const proximoId = pool[proximaCategoria].shift();
+
+        resultado.push({
+          catKey: proximaCategoria,
+          cat: nomesCategorias[proximaCategoria],
+          id: proximoId,
+          titulo: "Carregando nome..."
+        });
+
+        ultimaCategoria = proximaCategoria;
+      }
+
+      return resultado;
+    }
+
+    async function buscarTituloYoutube(videoId) {
+      if (cacheTitulos[videoId]) return cacheTitulos[videoId];
+
+      try {
+        const resp = await fetch(`https://noembed.com/embed?url=https://www.youtube.com/watch?v=${videoId}`);
+        const data = await resp.json();
+        const titulo = data.title || `Música ${videoId}`;
+        cacheTitulos[videoId] = titulo;
+        return titulo;
+      } catch (e) {
+        return `Música ${videoId}`;
+      }
+    }
+
+    async function preencherTitulosDaPlaylist() {
+      for (let i = 0; i < playlistAtual.length; i++) {
+        const musica = playlistAtual[i];
+        musica.titulo = await buscarTituloYoutube(musica.id);
+
+        const el = document.querySelector(`#track-${i} .track-title`);
+        if (el) {
+          el.textContent = musica.titulo;
+        }
+
+        if (i === indiceAtual || i === indiceAtual + 1) {
+          atualizarStatus();
+        }
+      }
+    }
+
+    function renderizarPlaylist(playlist) {
+      const resDiv = document.getElementById("playlist-resultado");
+
+      if (!playlist.length) {
+        resDiv.innerHTML = `<div class="empty-state">Nenhuma música encontrada para essa combinação.</div>`;
+        return;
+      }
+
+      resDiv.innerHTML = playlist.map((t, i) => `
+        <div class="track-item ${i === indiceAtual ? "active" : ""}" id="track-${i}">
+          <div class="track-number">${i + 1}</div>
+          <div class="track-category">${t.cat}</div>
+          <div class="track-title">${t.titulo || "Carregando nome..."}</div>
+        </div>
+      `).join("");
+    }
+
+    function atualizarStatus() {
+      const tocandoAgora = document.getElementById("tocando-agora");
+      const proximaFaixa = document.getElementById("proxima-faixa");
+      const totalGerado = document.getElementById("total-gerado");
+
+      if (!playlistAtual.length) {
+        tocandoAgora.textContent = "Nenhuma música iniciada";
+        proximaFaixa.textContent = "Nenhuma";
+        totalGerado.textContent = "0 músicas na fila";
+        return;
+      }
+
+      const atual = playlistAtual[indiceAtual];
+      const proxima = playlistAtual[indiceAtual + 1];
+
+      tocandoAgora.textContent = atual
+        ? `${atual.cat} • ${atual.titulo || "Carregando nome..."}`
+        : "Nenhuma";
+
+      proximaFaixa.textContent = proxima
+        ? `${proxima.cat} • ${proxima.titulo || "Carregando nome..."}`
+        : "Fim da fila";
+
+      totalGerado.textContent = `${playlistAtual.length} música${playlistAtual.length > 1 ? "s" : ""} na fila`;
+    }
+
+    function destacarAtual() {
+      document.querySelectorAll(".track-item").forEach(el => el.classList.remove("active"));
+      const atual = document.getElementById(`track-${indiceAtual}`);
+      if (atual) atual.classList.add("active");
+    }
+
+    function tocarIndice(indice) {
+      if (!playlistAtual.length) return;
+      if (indice < 0 || indice >= playlistAtual.length) return;
+
+      if (!youtubeReady || !player || typeof player.loadVideoById !== "function") {
+        iniciarQuandoPronto = true;
+        return;
+      }
+
+      indiceAtual = indice;
+      const musica = playlistAtual[indiceAtual];
+
+      player.loadVideoById(musica.id);
+      atualizarStatus();
+      renderizarPlaylist(playlistAtual);
+      destacarAtual();
+    }
+
+    function proximaMusica() {
+      if (!playlistAtual.length) return;
+      if (indiceAtual < playlistAtual.length - 1) {
+        tocarIndice(indiceAtual + 1);
+      }
+    }
+
+    function musicaAnterior() {
+      if (!playlistAtual.length) return;
+      if (indiceAtual > 0) {
+        tocarIndice(indiceAtual - 1);
+      }
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.ENDED) {
+        if (indiceAtual < playlistAtual.length - 1) {
+          tocarIndice(indiceAtual + 1);
+        }
+      }
+    }
+
+    function lerPesosDosInputs() {
+      return {
+        nostalgica: Number(document.getElementById("perc_nostalgica").value),
+        infinite: Number(document.getElementById("perc_infinite").value),
+        trap: Number(document.getElementById("perc_trap").value),
+        foco: Number(document.getElementById("perc_foco").value),
+        mpb: Number(document.getElementById("perc_mpb").value),
+        motivacao: Number(document.getElementById("perc_motivacao").value),
+        de_agora: Number(document.getElementById("perc_de_agora").value),
+        latina: Number(document.getElementById("perc_latina").value),
+        reggae: Number(document.getElementById("perc_reggae").value),
+        aleatoria: Number(document.getElementById("perc_aleatoria").value)
+      };
+    }
+
+    function gerarEPlayar() {
+      const total = parseInt(document.getElementById("total_musicas").value) || 12;
+      const pesos = lerPesosDosInputs();
+      const vagas = calcularVagasExatas(pesos, total);
+
+      if (!vagas) {
+        alert("Escolha pelo menos uma categoria com valor maior que zero.");
+        return;
+      }
+
+      const pool = montarPoolPorCategoria(vagas);
+      playlistAtual = intercalarPlaylist(pool, total);
+      indiceAtual = 0;
+
+      if (!playlistAtual.length) {
+        alert("Não há músicas cadastradas nessas categorias.");
+        return;
+      }
+
+      renderizarPlaylist(playlistAtual);
+      atualizarStatus();
+
+      if (youtubeReady && player && typeof player.loadVideoById === "function") {
+        tocarIndice(0);
+      } else {
+        iniciarQuandoPronto = true;
+        alert("Player carregando... clique novamente em 'Gerar e tocar mix' se não iniciar.");
+      }
+
+      preencherTitulosDaPlaylist();
+    }
+
+    function aplicarMood(nomeMood) {
+      const mood = moods[nomeMood];
+      if (!mood) return;
+
+      idsCampos.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = 0;
+      });
+
+      Object.entries(mood).forEach(([categoria, valor]) => {
+        const el = document.getElementById(`perc_${categoria}`);
+        if (el) el.value = valor;
+      });
+
+      gerarEPlayar();
+    }
+
+    function limparCampos() {
+      document.getElementById("total_musicas").value = 15;
+
+      idsCampos.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = 0;
+      });
+
+      playlistAtual = [];
+      indiceAtual = 0;
+
+      document.getElementById("playlist-resultado").innerHTML =
+        `<div class="empty-state">Gere uma playlist para ver a fila aqui.</div>`;
+
+      document.getElementById("tocando-agora").textContent = "Nenhuma música iniciada";
+      document.getElementById("proxima-faixa").textContent = "Nenhuma";
+      document.getElementById("total-gerado").textContent = "0 músicas na fila";
+
+      if (player && typeof player.stopVideo === "function") {
+        player.stopVideo();
+      }
+    }
+  </script>
+</body>
+</html>
