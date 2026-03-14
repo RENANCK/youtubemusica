@@ -394,12 +394,13 @@
             <button class="btn-secondary" onclick="limparCampos()">Limpar</button>
           </div>
 
-          <div class="moods">
-            <button class="btn-mood" onclick="aplicarMood('arrumar_quarto')">🧹 Mood Arrumar Quarto</button>
-            <button class="btn-mood" onclick="aplicarMood('sad')">🌧 Mood Sad</button>
-            <button class="btn-mood" onclick="aplicarMood('reset')">🧠 Mood Reset</button>
-            <button class="btn-mood" onclick="aplicarMood('happy')">🌞 Mood Happy</button>
-          </div>
+         <div class="moods">
+  <button class="btn-mood" onclick="aplicarMood('good_vibes')">✨ Good Vibes</button>
+  <button class="btn-mood" onclick="aplicarMood('sad')">🌧 SAD</button>
+  <button class="btn-mood" onclick="aplicarMood('reset')">🧠 RESET</button>
+  <button class="btn-mood" onclick="aplicarMood('slowed')">🐢 SLOWED</button>
+  <button class="btn-mood" onclick="aplicarMood('party_mood')">🎉 PARTY MOOD</button>
+</div>
 
           <div class="note">
             O autoplay pode depender de um clique do usuário no botão “Gerar e tocar mix”.
@@ -652,38 +653,67 @@
   };
 
   const moods = {
-    arrumar_quarto: {
-      mpb: 20,
-      trap: 35,
-      de_agora: 25,
-      infinite: 10,
-      aleatoria: 5
-    },
-    sad: {
-      nostalgica: 35,
-      infinite: 20,
-      mpb: 15,
-      reggae: 15,
-      aleatoria: 15
-    },
-    reset: {
-      mpb: 10,
-      reggae: 15,
-      aleatoria: 5,
-      motivacao: 20,
-      infinite: 15,
-      foco: 40
-    },
-    happy: {
-      nostalgica: 15,
-      trap: 25,
-      reggae: 8,
-      foco: 2,
-      aleatoria: 15,
-      de_agora: 15,
-      motivacao: 20
-    }
-  };
+  good_vibes: {
+    nostalgica: 9,
+    infinite: 18,
+    trap: 8,
+    foco: 1,
+    mpb: 12,
+    motivacao: 5,
+    de_agora: 2,
+    latina: 7,
+    reggae: 8,
+    aleatoria: 5
+  },
+  sad: {
+    nostalgica: 14,
+    infinite: 12,
+    trap: 2,
+    foco: 5,
+    mpb: 14,
+    motivacao: 2,
+    de_agora: 1,
+    latina: 8,
+    reggae: 9,
+    aleatoria: 3
+  },
+  reset: {
+    nostalgica: 3,
+    infinite: 6,
+    trap: 1,
+    foco: 20,
+    mpb: 10,
+    motivacao: 3,
+    de_agora: 1,
+    latina: 7,
+    reggae: 4,
+    aleatoria: 3
+  },
+  slowed: {
+    nostalgica: 18,
+    infinite: 18,
+    trap: 2,
+    foco: 15,
+    mpb: 12,
+    motivacao: 3,
+    de_agora: 3,
+    latina: 5,
+    reggae: 8,
+    aleatoria: 3
+  },
+  party_mood: {
+    nostalgica: 30,
+    infinite: 15,
+    trap: 45,
+    foco: 1,
+    mpb: 10,
+    motivacao: 35,
+    de_agora: 18,
+    latina: 12,
+    reggae: 4,
+    aleatoria: 15
+  }
+};
 
   const idsCampos = [
     "perc_nostalgica",
