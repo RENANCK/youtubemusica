@@ -370,7 +370,7 @@
         <div class="panel-body">
           <div class="total-box">
             <label for="total_musicas">Quantidade de músicas</label>
-            <input type="number" id="total_musicas" min="1" value="15" />
+            <input type="number" id="total_musicas" min="1" value="18" />
           </div>
 
           <div class="grid">
@@ -379,7 +379,7 @@
             <div class="input-group"><label>HipHop</label><input type="number" id="perc_trap" min="0" value="0" /></div>
             <div class="input-group"><label>FOCO</label><input type="number" id="perc_foco" min="0" value="0" /></div>
             <div class="input-group"><label>MPB</label><input type="number" id="perc_mpb" min="0" value="0" /></div>
-            <div class="input-group"><label>Motivação</label><input type="number" id="perc_motivacao" min="0" value="0" /></div>
+            <div class="input-group"><label>Motivação</label><input type="number" id="perc_motivacao" min="1" value="0" /></div>
             <div class="input-group"><label>NOW</label><input type="number" id="perc_de_agora" min="0" value="0" /></div>
             <div class="input-group"><label>Latina</label><input type="number" id="perc_latina" min="0" value="0" /></div>
             <div class="input-group"><label>Reggae</label><input type="number" id="perc_reggae" min="0" value="0" /></div>
@@ -671,64 +671,64 @@
 
   const moods = {
   good_vibes: {
-    nostalgica: 9,
-    infinite: 18,
-    trap: 8,
-    foco: 1,
+    nostalgica: 4,
+    infinite: 7,
+    trap: 4,
+    foco: 2,
     mpb: 12,
-    motivacao: 5,
+    motivacao: 4,
     de_agora: 2,
-    latina: 7,
+    latina: 3,
+    reggae: 9,
+    aleatoria: 3
+  },
+  sad: {
+    nostalgica: 10,
+    infinite: 10,
+    trap: 2,
+    foco: 4,
+    mpb: 8,
+    motivacao: 2,
+    de_agora: 2,
+    latina: 2,
     reggae: 6,
     aleatoria: 5
   },
-  sad: {
-    nostalgica: 14,
-    infinite: 12,
-    trap: 2,
-    foco: 5,
-    mpb: 14,
-    motivacao: 2,
-    de_agora: 1,
-    latina: 8,
-    reggae: 18,
-    aleatoria: 3
-  },
   reset: {
     nostalgica: 2,
-    infinite: 1,
+    infinite: 8,
     trap: 1,
-    foco: 20,
+    foco: 12,
     mpb: 5,
     motivacao: 3,
     de_agora: 1,
-    latina: 3,
-    reggae: 7,
-    aleatoria: 3
+    latina: 1,
+    reggae: 9,
+    aleatoria: 4
   },
   slowed: {
-    nostalgica: 12,
-    infinite: 18,
+    nostalgica: 5,
+    infinite: 8,
     trap: 2,
-    foco: 15,
-    mpb: 12,
-    motivacao: 8,
+    foco: 5,
+    mpb: 10,
+    motivacao: 2,
     de_agora: 3,
     latina: 5,
-    reggae: 15,
-    aleatoria: 3
+    reggae: 12,
+    aleatoria: 6
   },
   party_mood: {
-    nostalgica: 30,
-    infinite: 15,
-    trap: 45,
-    foco: 1,
-    mpb: 10,
-    motivacao: 35,
-    de_agora: 18,
-    latina: 12,
-    reggae: 3,
-    aleatoria: 15
+    nostalgica: 10,
+    infinite: 10,
+    trap: 14,
+    foco: 0,
+    mpb: 3,
+    motivacao: 8,
+    de_agora: 7,
+    latina: 6,
+    reggae: 4,
+    aleatoria: 7
   }
 };
 
