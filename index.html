@@ -3,418 +3,736 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MAKE PLAYLIST</title>
-
+  <title>MAKE YOU PLAYLIST</title>
   <style>
-    :root{
-      --bg:#111315;
-      --panel:#1a1d21;
-      --panel-2:#20242a;
-      --border:#2d333b;
-      --text:#f3f4f6;
-      --muted:#a9b0bb;
-      --accent:#8b5cf6;
-      --accent-2:#6d28d9;
-      --ok:#16a34a;
-      --warn:#ea580c;
+    :root {
+      --bg:#0c0320;
+      --paper:#e2a35f;
+      --violet:#401978;
+      --pink:#e30e6e;
+      --pink-2:#ff2a8a;
+      --cream:#f6e9ca;
+      --deep:#06010f;
+      --white:#f8f6ff;
+      --cyan:#37dbe8;
+      --shadow:0 18px 40px rgba(0,0,0,.35);
+      --border:rgba(255,255,255,.18);
     }
+    * { box-sizing:border-box; }
+    html, body { margin:0; padding:0; background:var(--bg); color:var(--white); font-family:Arial, Helvetica, sans-serif; scroll-behavior:smooth; }
+    body { overflow-x:hidden; }
 
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
-
-    body{
-      min-height:100vh;
-      font-family:Arial,Helvetica,sans-serif;
-      background:var(--bg);
-      color:var(--text);
-      padding:16px;
-    }
-
-    .container{
+    .section {
+      position:relative;
       width:100%;
-      max-width:1180px;
-      margin:0 auto;
+      min-height:100vh;
+      overflow:hidden;
     }
 
-    .hero,
-    .panel{
-      background:var(--panel);
-      border:1px solid var(--border);
-      border-radius:12px;
+    .section-hero {
+      background:
+        linear-gradient(to bottom, rgba(226,163,95,0.95) 0 22%, rgba(64,25,120,0.88) 22% 56%, rgba(64,25,120,0.20) 56% 100%),
+        url("./1000490664.jpg") center bottom / cover no-repeat;
     }
 
-    .hero{
-      padding:18px;
-      margin-bottom:16px;
-    }
-
-    .hero h1{
-      margin:0 0 8px;
-      font-size:28px;
-      letter-spacing:.04em;
-      text-transform:uppercase;
-      color:var(--text);
-    }
-
-    .hero p{
-      margin:0;
-      color:var(--muted);
-      line-height:1.5;
-    }
-
-    .layout{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:16px;
-    }
-
-    .panel-header{
-      padding:16px 16px 10px;
-      border-bottom:1px solid var(--border);
-    }
-
-    .panel-header h2{
-      margin:0 0 4px;
-      font-size:18px;
-      color:var(--text);
-    }
-
-    .panel-header p{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    .panel-body{
-      padding:16px;
-    }
-
-    .total-box,
-    .input-group,
-    .status-card,
-    .player-wrap,
-    .track-item,
-    .empty-state{
-      background:var(--panel-2);
-      border:1px solid var(--border);
-      border-radius:10px;
-    }
-
-    .total-box{
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:12px;
-      align-items:center;
-      padding:14px;
-      margin-bottom:14px;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-    }
-
-    .input-group{
+    .hero-top {
+      position:relative;
+      z-index:2;
+      padding:24px 5vw 10px;
       display:flex;
       justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      min-height:58px;
-      padding:12px;
+      align-items:flex-start;
+      gap:20px;
+      color:#111;
+      font-weight:900;
+      text-transform:uppercase;
+      font-style:italic;
+      letter-spacing:.04em;
     }
 
-    .input-group label,
-    .total-box label{
-      font-weight:700;
-      font-size:14px;
-    }
-
-    .input-group input,
-    .total-box input{
-      width:78px;
-      height:38px;
-      border:1px solid var(--border);
-      border-radius:8px;
-      background:#0f1115;
-      color:var(--text);
-      text-align:center;
-      font-size:15px;
-      font-weight:700;
-      outline:none;
-    }
-
-    .input-group input:focus,
-    .total-box input:focus{
-      border-color:var(--accent);
-    }
-
-    .actions{
+    .hero-brand {
       display:flex;
-      flex-wrap:wrap;
+      flex-direction:column;
       gap:10px;
-      margin-top:14px;
+      margin-top:8px;
     }
 
-    button{
-      border:1px solid var(--border);
-      background:#262b33;
-      color:var(--text);
-      border-radius:10px;
-      padding:11px 14px;
-      font-size:14px;
-      font-weight:700;
-      cursor:pointer;
-      transition:background .15s ease,border-color .15s ease;
+    .hero-brand h1 {
+      margin:0;
+      font-size:clamp(40px,7vw,86px);
+      line-height:.95;
+      color:#2f66b7;
+      font-weight:900;
+      text-transform:uppercase;
+      letter-spacing:.03em;
     }
 
-    button:hover{
-      background:#2d3440;
+    .hero-meta {
+      text-align:right;
+      font-size:clamp(20px,2.8vw,42px);
+      line-height:1.1;
     }
 
-    .btn-primary{background:var(--accent);border-color:var(--accent)}
-    .btn-primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
-    .btn-success{background:#16351f;border-color:#1f6b38}
-    .btn-success:hover{background:#1d4629}
-    .btn-warning{background:#3a2618;border-color:#7c2d12}
-    .btn-warning:hover{background:#4a301d}
-    .btn-secondary{background:#262b33}
-
-    .note{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.5;
-      margin-top:12px;
+    .hero-meta small {
+      display:block;
+      margin-top:6px;
+      font-size:clamp(14px,1.6vw,24px);
     }
 
-    .status-grid{
+    .hero-grid {
+      position:relative;
+      z-index:2;
+      padding:4vh 5vw 0;
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-bottom:12px;
+      grid-template-columns:repeat(3, minmax(180px, 1fr));
+      gap:24px 44px;
+      max-width:920px;
     }
 
-    .status-card{
+    .mood-btn {
+      appearance:none;
+      border:0;
+      min-height:82px;
+      border-radius:18px;
+      background:rgba(245,245,250,0.95);
+      color:#3e1084;
+      font-weight:1000;
+      font-size:clamp(22px,2.6vw,44px);
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      cursor:pointer;
+      position:relative;
+      box-shadow:var(--shadow);
+      transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+      text-shadow:-2px 0 #14d4ff, 2px 0 #ff248b;
       padding:14px;
     }
 
-    .status-card .label{
-      color:var(--muted);
-      font-size:12px;
-      margin-bottom:6px;
+    .mood-btn.small {
+      font-size:clamp(18px,2vw,30px);
+      letter-spacing:.04em;
+    }
+
+    .mood-btn:hover, .mood-btn.active {
+      transform:translateY(-3px) scale(1.01);
+      background:#fff;
+      box-shadow:0 14px 40px rgba(0,0,0,.45);
+    }
+
+    .hero-controls {
+      position:absolute;
+      left:5vw;
+      bottom:9vh;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:14px;
+    }
+
+    .mini-card {
+      background:rgba(250,250,255,.92);
+      color:#3f1485;
+      border-radius:18px;
+      padding:14px 18px;
+      box-shadow:var(--shadow);
+      min-width:160px;
+    }
+
+    .mini-card label {
+      display:block;
+      font-size:13px;
+      font-weight:900;
       text-transform:uppercase;
+      margin-bottom:8px;
       letter-spacing:.08em;
     }
 
-    .status-card .value{
-      font-size:14px;
-      font-weight:700;
-      line-height:1.45;
-      word-break:break-word;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      padding:7px 10px;
-      background:#232834;
-      border:1px solid var(--border);
-      color:var(--text);
-      border-radius:999px;
-      font-size:13px;
-      font-weight:700;
-      margin-bottom:12px;
-    }
-
-    .player-wrap{
-      padding:10px;
-      margin-bottom:12px;
-    }
-
-    #player{
+    .mini-card input {
       width:100%;
-      min-height:280px;
-      border-radius:8px;
-      overflow:hidden;
+      height:42px;
+      border:2px solid rgba(63,20,133,.18);
+      border-radius:12px;
+      padding:0 12px;
+      font-size:20px;
+      font-weight:900;
+      color:#27103f;
+      background:#fff;
+      outline:none;
     }
 
-    #playlist-resultado{
+    .ghost-btn {
+      appearance:none;
+      border:0;
+      background:rgba(250,250,255,.92);
+      color:#411986;
+      border-radius:18px;
+      padding:16px 18px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      font-size:clamp(16px,1.6vw,24px);
+      box-shadow:var(--shadow);
+      cursor:pointer;
+    }
+
+    .hero-hint {
+      position:absolute;
+      right:4vw;
+      bottom:4vh;
+      z-index:2;
+      background:rgba(5,3,15,.55);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(4px);
+      border-radius:18px;
+      padding:12px 16px;
+      max-width:360px;
+      color:#fff5fb;
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .section-player {
+      background:linear-gradient(90deg, #02084d 0%, #87648d 100%);
+    }
+
+    .scene-top {
+      min-height:56vh;
+      background:url("./1000473514.jpg") center center / cover no-repeat;
+      position:relative;
+      padding:26px 4vw 34px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:flex-start;
+    }
+
+    .scene-label {
+      position:absolute;
+      top:14px;
+      left:6vw;
+      font-size:clamp(20px,2vw,34px);
+      font-weight:1000;
+      color:var(--cream);
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      text-shadow:0 3px 0 rgba(0,0,0,.3);
+    }
+
+    .player-frame {
+      position:relative;
+      width:min(86vw, 720px);
+      aspect-ratio: 1.55 / 1;
+      margin:46px 0 0 4vw;
+      background:linear-gradient(135deg, var(--pink), #d00f5d);
+      border-radius:34px;
+      box-shadow:var(--shadow);
+      padding:24px;
+      isolation:isolate;
+    }
+
+    .player-frame::before {
+      content:"";
+      position:absolute;
+      inset:-10px;
+      border-radius:40px;
+      background:
+        linear-gradient(90deg, #000 50%, transparent 50%) 0 0/28px 10px repeat-x,
+        linear-gradient(90deg, #000 50%, transparent 50%) 0 100%/28px 10px repeat-x,
+        linear-gradient(0deg, #000 50%, transparent 50%) 0 0/10px 28px repeat-y,
+        linear-gradient(0deg, #000 50%, transparent 50%) 100% 0/10px 28px repeat-y;
+      z-index:-1;
+      filter:drop-shadow(0 8px 12px rgba(0,0,0,.28));
+    }
+
+    #player {
+      width:100%;
+      height:100%;
+      border-radius:18px;
+      overflow:hidden;
+      background:#140313;
+    }
+
+    .player-actions {
+      position:absolute;
+      right:4vw;
+      bottom:24px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .arrow-btn, .square-btn {
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      box-shadow:var(--shadow);
+    }
+
+    .square-btn {
+      background:#0f0222;
+      color:#fff;
+      border-radius:16px;
+      padding:16px 18px;
+      min-width:96px;
+      font-size:14px;
+    }
+
+    .arrow-btn {
+      clip-path:polygon(0 0, 72% 0, 100% 50%, 72% 100%, 0 100%, 12% 50%);
+      background:#fff;
+      color:#111;
+      min-width:190px;
+      min-height:72px;
+      font-size:clamp(18px,1.8vw,28px);
+      padding:0 34px 0 26px;
+    }
+
+    .scene-bottom {
+      padding:26px 5vw 60px;
+      min-height:44vh;
+      display:grid;
+      grid-template-columns:minmax(240px, 320px) 1fr;
+      gap:28px;
+      align-items:start;
+    }
+
+    .queue-card {
+      background:#000;
+      color:#f6e9ca;
+      border-radius:30px;
+      min-height:360px;
+      padding:18px 16px;
+      box-shadow:var(--shadow);
+    }
+
+    .queue-card h3 {
+      margin:0 0 16px;
+      font-size:18px;
+      line-height:1.1;
+      text-transform:uppercase;
+      font-style:italic;
+      letter-spacing:.03em;
+    }
+
+    #playlist-resultado {
       display:flex;
       flex-direction:column;
-      gap:8px;
-      max-height:460px;
-      overflow:auto;
-      padding-right:2px;
-    }
-
-    #playlist-resultado::-webkit-scrollbar{width:8px}
-    #playlist-resultado::-webkit-scrollbar-track{background:#161a20}
-    #playlist-resultado::-webkit-scrollbar-thumb{background:#3a4150;border-radius:999px}
-
-    .track-item{
-      display:grid;
-      grid-template-columns:40px 140px 1fr;
-      align-items:center;
       gap:10px;
+      max-height:560px;
+      overflow:auto;
+      padding-right:4px;
+    }
+
+    #playlist-resultado::-webkit-scrollbar { width:8px; }
+    #playlist-resultado::-webkit-scrollbar-thumb { background:#6e5c7f; border-radius:999px; }
+
+    .track-item {
+      display:grid;
+      grid-template-columns:34px 1fr;
+      gap:10px;
+      border-radius:18px;
       padding:10px 12px;
-      position:relative;
-      overflow:hidden;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
     }
 
-    .track-item.active{
-      border-color:var(--accent);
-      background:#252131;
+    .track-item.active {
+      background:rgba(227,14,110,.32);
+      border-color:rgba(255,255,255,.25);
     }
 
-    .track-number{
+    .track-number {
       width:28px;
       height:28px;
+      border-radius:999px;
       display:grid;
       place-items:center;
-      border-radius:6px;
-      background:#2d3440;
-      border:1px solid var(--border);
-      font-weight:700;
-      color:var(--text);
+      background:#fff;
+      color:#26053d;
+      font-size:13px;
+      font-weight:1000;
+      margin-top:2px;
     }
 
-    .track-category{
-      padding:6px 8px;
-      border-radius:999px;
-      background:#2a3039;
-      color:var(--text);
-      font-size:12px;
-      font-weight:700;
-      white-space:nowrap;
-      border:1px solid var(--border);
-      text-align:center;
+    .track-category {
+      font-size:11px;
+      font-weight:1000;
+      color:#ffd5ea;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      margin-bottom:4px;
     }
 
-    .track-title{
-      color:var(--text);
-      font-size:14px;
-      font-weight:500;
+    .track-title {
+      font-size:13px;
       line-height:1.4;
-      word-break:break-word;
+      color:#fff;
     }
 
-    .empty-state{
-      padding:18px;
+    .empty-state {
+      color:#c9bdda;
+      font-size:13px;
+      line-height:1.5;
+      padding:8px 4px;
+    }
+
+    .info-wrap {
+      padding-top:14px;
+    }
+
+    #nome-musica-destaque {
+      margin:0 0 18px;
       text-align:center;
-      color:var(--muted);
+      font-size:clamp(30px,4vw,62px);
+      line-height:1;
+      text-transform:uppercase;
+      font-weight:1000;
+      color:#fff;
+      font-style:italic;
+      text-shadow:
+        -3px -3px 0 #c31663,
+         3px -3px 0 #c31663,
+        -3px  3px 0 #c31663,
+         3px  3px 0 #c31663,
+         0 8px 20px rgba(0,0,0,.35);
     }
 
-    @media (max-width:960px){
-      .layout{grid-template-columns:1fr}
+    .status-line {
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      align-items:center;
+      justify-content:center;
+      margin-bottom:18px;
     }
 
-    @media (max-width:640px){
-      body{padding:12px}
-      .grid,.status-grid{grid-template-columns:1fr}
-      .hero{padding:14px}
-      .hero h1{font-size:22px}
-      .panel-header,.panel-body{padding-left:14px;padding-right:14px}
-      .track-item{grid-template-columns:32px 1fr}
-      .track-category,.track-title{grid-column:2}
-      #player{min-height:220px}
+    .status-pill {
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;
+      padding:10px 14px;
+      font-size:14px;
+      line-height:1.35;
+      color:#fff;
+    }
+
+    .status-pill strong {
+      color:#ffe7f2;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+      font-size:12px;
+    }
+
+    .advanced-overlay {
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background:rgba(6,1,15,.78);
+      backdrop-filter:blur(6px);
+      z-index:50;
+      padding:20px;
+    }
+
+    .advanced-overlay.show {
+      display:flex;
+    }
+
+    .advanced-modal {
+      width:min(1100px, 96vw);
+      max-height:90vh;
+      overflow:auto;
+      background:linear-gradient(180deg, rgba(245,245,255,.97), rgba(235,227,245,.96));
+      color:#1b1031;
+      border-radius:28px;
+      box-shadow:0 30px 80px rgba(0,0,0,.45);
+      padding:24px;
+    }
+
+    .advanced-head {
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:center;
+      margin-bottom:18px;
+    }
+
+    .advanced-head h2 {
+      margin:0;
+      font-size:clamp(24px,2.5vw,40px);
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      color:#43188a;
+    }
+
+    .advanced-grid {
+      display:grid;
+      grid-template-columns:repeat(2, minmax(240px, 1fr));
+      gap:12px;
+    }
+
+    .input-group {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      padding:12px 14px;
+      border-radius:16px;
+      background:#fff;
+      border:1px solid rgba(67,24,138,.12);
+    }
+
+    .input-group label {
+      font-size:14px;
+      font-weight:900;
+      line-height:1.25;
+    }
+
+    .input-group input {
+      width:86px;
+      height:42px;
+      border-radius:12px;
+      border:1px solid rgba(67,24,138,.18);
+      text-align:center;
+      font-size:18px;
+      font-weight:900;
+      outline:none;
+      color:#2a1245;
+      background:#fff;
+    }
+
+    .advanced-actions {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:18px;
+    }
+
+    .advanced-actions button {
+      appearance:none;
+      border:0;
+      cursor:pointer;
+      border-radius:14px;
+      padding:14px 18px;
+      font-weight:1000;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    .btn-fill { background:#43188a; color:#fff; }
+    .btn-alt { background:#e9dfff; color:#43188a; }
+
+    @media (max-width: 980px) {
+      .hero-top { flex-direction:column; align-items:flex-start; }
+      .hero-meta { text-align:left; }
+      .hero-grid { grid-template-columns:repeat(2, minmax(150px, 1fr)); max-width:680px; }
+      .scene-bottom { grid-template-columns:1fr; }
+      .queue-card { order:2; min-height:260px; }
+      .info-wrap { order:1; }
+      .player-actions { position:static; padding:16px 4vw 0; }
+      .scene-top { padding-bottom:18px; }
+      .player-frame { width:min(92vw, 720px); margin-left:0; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-grid { grid-template-columns:1fr 1fr; gap:16px; }
+      .mood-btn { min-height:72px; font-size:24px; }
+      .mood-btn.small { font-size:18px; }
+      .scene-label { left:20px; }
+      .advanced-grid { grid-template-columns:1fr; }
+      .player-frame { aspect-ratio: 1 / 0.78; }
+      .arrow-btn { min-width:150px; min-height:62px; font-size:18px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <section class="hero">
-      <h1>MAKE YOUR PLAYLIST</h1>
-      <p>Monte uma playlist personalizada.</p>
-    </section>
+  <section class="section section-hero" id="home">
+    <div class="hero-top">
+      <div class="hero-brand">
+        <h1>MAKE YOU PLAYLIST</h1>
+      </div>
+      <div class="hero-meta">
+        <div>• BY: RENANCK</div>
+        <small>soundon.global/bio/renanck</small>
+      </div>
+    </div>
 
-    <div class="layout">
-      <section class="panel">
-        <div class="panel-header">
-          <h2>Configuração do mix</h2>
-          <p>Defina quantas músicas quer e a porcentagem de cada categoria.</p>
+    <div class="hero-grid">
+      <button class="mood-btn" data-mood="party" onclick="selecionarMood('party', this)">PARTY</button>
+      <button class="mood-btn small" data-mood="noite_sozinho" onclick="selecionarMood('noite_sozinho', this)">SOZINHO</button>
+      <button class="mood-btn" data-mood="foco" onclick="selecionarMood('foco', this)">FOCO</button>
+
+      <button class="mood-btn" data-mood="modo_shonem" onclick="selecionarMood('modo_shonem', this)">SHONEN</button>
+      <button class="mood-btn" data-mood="noite_neon" onclick="selecionarMood('noite_neon', this)">NEON</button>
+      <button class="mood-btn small" data-mood="faculdade_fm" onclick="selecionarMood('faculdade_fm', this)">FACULDADE FM</button>
+
+      <button class="mood-btn small" data-mood="caminhada" onclick="selecionarMood('caminhada', this)">CAMINHADA</button>
+    </div>
+
+    <div class="hero-controls">
+      <div class="mini-card">
+        <label for="total_musicas">Quantidade de músicas</label>
+        <input type="number" id="total_musicas" min="1" value="18" />
+      </div>
+
+      <button class="ghost-btn" onclick="toggleAdvanced()">
+        ABRIR OPÇÕES AVANÇADAS
+      </button>
+    </div>
+
+    <div class="hero-hint">
+      Escolha um mood para gerar a playlist no mesmo instante. O banco completo de músicas foi mantido.
+    </div>
+  </section>
+
+  <section class="section section-player" id="player-section">
+    <div class="scene-top">
+      <div class="scene-label">RITMO</div>
+
+      <div class="player-frame">
+        <div id="player"></div>
+      </div>
+
+      <div class="player-actions">
+        <button class="square-btn" onclick="musicaAnterior()">ANTERIOR</button>
+        <button class="arrow-btn" onclick="proximaMusica()">PROXIMA</button>
+      </div>
+    </div>
+
+    <div class="scene-bottom">
+      <div class="queue-card">
+        <h3>FILA DE MÚSICAS</h3>
+        <div id="playlist-resultado">
+          <div class="empty-state">Escolha um mood para ver a fila aqui.</div>
         </div>
+      </div>
 
-        <div class="panel-body">
-          <div class="total-box">
-            <label for="total_musicas">Quantidade de músicas</label>
-            <input type="number" id="total_musicas" min="1" value="18" />
-          </div>
+      <div class="info-wrap">
+        <h2 id="nome-musica-destaque">MUSICA</h2>
 
-          <div class="grid" id="categorias-grid"></div>
-
-          <div class="actions">
-            <button class="btn-primary" onclick="gerarEPlayar()">▶ Gerar e tocar mix</button>
-            <button class="btn-warning" onclick="musicaAnterior()">⏮ Anterior</button>
-            <button class="btn-success" onclick="proximaMusica()">⏭ Próxima</button>
-            <button class="btn-secondary" onclick="limparCampos()">Limpar</button>
-          </div>
-
-          <div class="note">
-            O autoplay pode depender de um clique do usuário no botão “Gerar e tocar mix”.
-          </div>
+        <div class="status-line">
+          <div class="status-pill"><strong>Tocando agora</strong><br><span id="tocando-agora">Nenhuma música iniciada</span></div>
+          <div class="status-pill"><strong>Próxima</strong><br><span id="proxima-faixa">Nenhuma</span></div>
+          <div class="status-pill"><strong>Fila</strong><br><span id="total-gerado">0 músicas na fila</span></div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      <section class="panel">
-        <div class="panel-header">
-          <h2>Player e fila</h2>
-          <p>As categorias tentam não se repetir em sequência sempre que isso for possível.</p>
-        </div>
+  <div class="advanced-overlay" id="advancedOverlay">
+    <div class="advanced-modal">
+      <div class="advanced-head">
+        <h2>Configuração avançada</h2>
+        <button class="ghost-btn" style="box-shadow:none;background:#43188a;color:#fff;" onclick="toggleAdvanced(false)">FECHAR</button>
+      </div>
 
-        <div class="panel-body">
-          <div class="status-grid">
-            <div class="status-card">
-              <div class="label">Tocando agora</div>
-              <div class="value" id="tocando-agora">Nenhuma música iniciada</div>
-            </div>
-            <div class="status-card">
-              <div class="label">Próxima da fila</div>
-              <div class="value" id="proxima-faixa">Nenhuma</div>
-            </div>
-          </div>
+      <div class="advanced-grid" id="categorias-grid"></div>
 
-          <div class="badge" id="total-gerado">0 músicas na fila</div>
-
-          <div class="player-wrap">
-            <div id="player"></div>
-          </div>
-
-          <div id="playlist-resultado">
-            <div class="empty-state">Gere uma playlist para ver a fila aqui.</div>
-          </div>
-        </div>
-      </section>
+      <div class="advanced-actions">
+        <button class="btn-fill" onclick="gerarEPlayar(); toggleAdvanced(false);">GERAR PLAYLIST</button>
+        <button class="btn-alt" onclick="limparCampos()">LIMPAR</button>
+      </div>
     </div>
   </div>
 
   <script src="https://www.youtube.com/iframe_api"></script>
-
   <script>
-        const categorias = [
-      { key: "chirriro", nome: "CHIRRIRO" },
-      { key: "copacabana", nome: "COPACABANA" },
-      { key: "dazed_and_confused", nome: "DAZED AND CONFUSED" },
-      { key: "anos_2020", nome: "2020,S" },
-      { key: "indie", nome: "INDIE" },
-      { key: "pop_rock", nome: "POP ROCK" },
-      { key: "rock", nome: "ROCK" },
-      { key: "bossa_nova", nome: "BOSSA NOVA" },
-      { key: "nova_mpb", nome: "NOVA MPB" },
-      { key: "as_veias_abertas_da_america_latina", nome: "AS VEIAS ABERTAS DA AMERICA LATINA" },
-      { key: "invicta", nome: "INVICTA" },
-      { key: "poop_america_europa", nome: "POOP AMERICA EUROPA" },
-      { key: "poop_africa_asia", nome: "POOP AFRICA E ASIA" },
-      { key: "nostalgia", nome: "NOSTALGIA" },
-      { key: "latina", nome: "LATINA" },
-      { key: "reggea", nome: "REGGEA" },
-      { key: "psicodelica", nome: "PSICODELICA" },
-      { key: "now", nome: "NOW" },
-      { key: "trap", nome: "TRAP" },
-      { key: "bombap", nome: "BOMBAP" }
-    ];
+    const categorias = [
+  { key: "chirriro", nome: "CHIRRIRO" },
+  { key: "copacabana", nome: "COPACABANA" },
+  { key: "dazed_and_confused", nome: "DAZED AND CONFUSED" },
+  { key: "anos_2020", nome: "2020,S" },
+  { key: "indie", nome: "INDIE" },
+  { key: "pop_rock", nome: "POP ROCK" },
+  { key: "rock", nome: "ROCK" },
+  { key: "bossa_nova", nome: "BOSSA NOVA" },
+  { key: "nova_mpb", nome: "NOVA MPB" },
+  { key: "as_veias_abertas_da_america_latina", nome: "AS VEIAS ABERTAS DA AMERICA LATINA" },
+  { key: "invicta", nome: "INVICTA" },
+  { key: "poop_america_europa", nome: "POOP AMERICA EUROPA" },
+  { key: "poop_africa_asia", nome: "POOP AFRICA E ASIA" },
+  { key: "nostalgia", nome: "NOSTALGIA" },
+  { key: "latina", nome: "LATINA" },
+  { key: "reggea", nome: "REGGEA" },
+  { key: "psicodelica", nome: "PSICODELICA" },
+  { key: "poop_brasil", nome: "POOP BRASIL" },
+  { key: "now", nome: "NOW" },
+  { key: "trap", nome: "TRAP" },
+  { key: "bombap", nome: "BOMBAP" }
+];
 
-        const bancoDeMusicas = {
+    const moodsPredefinidos = {
+  party: {
+    nome: "PARTY",
+    pesos: {
+      chirriro: 0, copacabana: 1, dazed_and_confused: 2, anos_2020: 0, indie: 6, pop_rock: 5,
+      rock: 2, bossa_nova: 3, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 8,
+      poop_america_europa: 4, poop_africa_asia: 2, nostalgia: 2, latina: 1, reggea: 0,
+      psicodelica: 2, poop_brasil: 0, now: 12, trap: 25, bombap: 15
+    }
+  },
+  faculdade_fm: {
+    nome: "FACULDADE FM",
+    pesos: {
+      chirriro: 0, copacabana: 1, dazed_and_confused: 3, anos_2020: 0, indie: 5, pop_rock: 4,
+      rock: 5, bossa_nova: 4, nova_mpb: 12, as_veias_abertas_da_america_latina: 6, invicta: 5,
+      poop_america_europa: 3, poop_africa_asia: 2, nostalgia: 8, latina: 1, reggea: 10,
+      psicodelica: 4, poop_brasil: 0, now: 8, trap: 5, bombap: 12
+    }
+  },
+  noite_sozinho: {
+    nome: "SOZINHO",
+    pesos: {
+      chirriro: 4, copacabana: 2, dazed_and_confused: 5, anos_2020: 0, indie: 6, pop_rock: 12,
+      rock: 2, bossa_nova: 5, nova_mpb: 8, as_veias_abertas_da_america_latina: 1, invicta: 12,
+      poop_america_europa: 2, poop_africa_asia: 1, nostalgia: 1, latina: 0, reggea: 7,
+      psicodelica: 2, poop_brasil: 0, now: 3, trap: 8, bombap: 20
+    }
+  },
+  modo_shonem: {
+    nome: "SHONEM",
+    pesos: {
+      chirriro: 27, copacabana: 0, dazed_and_confused: 10, anos_2020: 0, indie: 3, pop_rock: 2,
+      rock: 7, bossa_nova: 2, nova_mpb: 0, as_veias_abertas_da_america_latina: 1, invicta: 0,
+      poop_america_europa: 0, poop_africa_asia: 10, nostalgia: 1, latina: 0, reggea: 0,
+      psicodelica: 6, poop_brasil: 0, now: 2, trap: 20, bombap: 10
+    }
+  },
+  noite_neon: {
+    nome: "NEON",
+    pesos: {
+      chirriro: 8, copacabana: 0, dazed_and_confused: 6, anos_2020: 0, indie: 3, pop_rock: 10,
+      rock: 1, bossa_nova: 6, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 10,
+      poop_america_europa: 5, poop_africa_asia: 1, nostalgia: 0, latina: 1, reggea: 0,
+      psicodelica: 20, poop_brasil: 0, now: 0, trap: 8, bombap: 10
+    }
+  },
+  caminhada: {
+    nome: "CAMINHADA",
+    pesos: {
+      chirriro: 7, copacabana: 4, dazed_and_confused: 2, anos_2020: 0, indie: 8, pop_rock: 12,
+      rock: 2, bossa_nova: 1, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 1,
+      poop_america_europa: 3, poop_africa_asia: 2, nostalgia: 4, latina: 0, reggea: 6,
+      psicodelica: 1, poop_brasil: 0, now: 14, trap: 10, bombap: 12
+    }
+  },
+  foco: {
+    nome: "FOCO",
+    pesos: {
+      chirriro: 18, copacabana: 4, dazed_and_confused: 2, anos_2020: 0, indie: 3, pop_rock: 1,
+      rock: 1, bossa_nova: 16, nova_mpb: 15, as_veias_abertas_da_america_latina: 0, invicta: 5,
+      poop_america_europa: 2, poop_africa_asia: 1, nostalgia: 1, latina: 5, reggea: 12,
+      psicodelica: 4, poop_brasil: 0, now: 0, trap: 0, bombap: 10
+    }
+  }
+};
+
+    const bancoDeMusicas = {
   chirriro: [
     "hhRG7-yacQM", "CaL-HmcEgLE", "WpH-cVtaU78", "ptlrZ4ZL5ng", "TzIZPZN5K60",
     "dtZVQGa9eDw", "X-Fv6aKUCCQ", "-yU1BfguC-4", "tBa2Z28oPRU", "XxHzjOi_mMM",
@@ -650,54 +968,19 @@
     "jkPyB-g3asI", "jn52ojCCPWI", "cbG7HEEPE1o", "qLOIKF33EPQ", "UKRo86ccTtY",
     "W_K0hemcU5o"
   ],
+
   now: [
-     "gEAXyEUQPUs", "s5oSscNIyIs", "kTQqY7KeyL8", "jfwmSNLIqZk", "5Tvw2sAZUVM",
-  "78QVCTj7PJg", "-R-rqf-w2MY", "lRfP50UpfJ0", "uLtR1n4xGQk", "7_cLuhd7BPo",
-  "itYvJNfM36Q", "bVnCknNwAsk", "2tDL-7w3owY", "feDWQX7eiuA", "bbKcKmG2FJE",
-  "FvNmjVQwE0o", "iDBPrs9YGHg", "hIFMdoi2jjM", "5hzVDm0RHFs", "EgDATV79Oz0",
-  "nTd6kjmecGM", "PGIwjNths6Q", "eqE_LDQPiEI", "3hI7YSq1p7E", "PGSLPiTWtv0",
-  "9RFxZgyF3fc", "G1--F4N-Gvs", "r20zq0QfVM4", "nAYulW88V0I", "sM2ZWJcWOmA",
-  "scKBpZ4FF3Y", "e_60aTlsAFk", "Dyz6--f1FgE", "_CW6HPGN7Vo", "izKIyc4oeys",
-  "7KEcpyTUNQw", "vDQfpixwaWI", "dbcOTQtJcZU", "2zoRomLIZE4", "uezc3dkyhoo",
-  "mKdSmS-kGrM", "wGvyi7rxVZw", "UO4GP8RsZsM", "M8WOsDY8DV4", "tfDqPvVAn_o",
-  "kC8cAUQE-aE"
+    "bbKcKmG2FJE", "kTQqY7KeyL8", "_CW6HPGN7Vo", "wGvyi7rxVZw", "lRfP50UpfJ0", "hIFMdoi2jjM", "2tDL-7w3owY", "eqE_LDQPiEI", "uLtR1n4xGQk", "EgDATV79Oz0", "3hI7YSq1p7E", "gEAXyEUQPUs", "Dyz6--f1FgE", "izKIyc4oeys", "5hzVDm0RHFs", "feDWQX7eiuA", "nTd6kjmecGM", "nAYulW88V0I", "e_60aTlsAFk", "7_cLuhd7BPo", "7KEcpyTUNQw", "PGIwjNths6Q", "jfwmSNLIqZk", "78QVCTj7PJg", "bVnCknNwAsk", "iDBPrs9YGHg", "PGSLPiTWtv0", "M8WOsDY8DV4", "dbcOTQtJcZU", "tfDqPvVAn_o", "kC8cAUQE-aE", "5Tvw2sAZUVM", "G1--F4N-Gvs", "scKBpZ4FF3Y", "sM2ZWJcWOmA", "uezc3dkyhoo", "s5oSscNIyIs", "-R-rqf-w2MY", "r20zq0QfVM4", "2zoRomLIZE4", "UO4GP8RsZsM", "vDQfpixwaWI", "itYvJNfM36Q", "9RFxZgyF3fc", "FvNmjVQwE0o", "mKdSmS-kGrM"
   ],
-
   trap: [
-     "ACG26-1iOis", "mnCDmzDyjsU", "Bw11jpB7yuw", "Mw0OnFZtwlw", "kXSwJ1pBTpc",
-  "4Qbo4B6Yhjk", "sPYFGNcBAdw", "ZPcG9PCfagM", "O_YVhp0hvlc", "EzlmtD22rUw",
-  "bDOVDVgEJl4", "3ZYhsIB5LQE", "CX41Blwm_h0", "lKqxFicLn_c", "tzXbFrOkkEw",
-  "SB3fDOjqvlc", "nO5LTAjueD0", "bZ4q3PCYTcU", "Yn8xn77wyt0", "cy31ZUhhfUw",
-  "yvg0V2QfAc0", "zxHObyWGzIA", "uwaHvnIhmXU", "1ZoKXazOhzU", "9_PKJ5Lq168",
-  "nWEil-UhYWg", "vvwgtX8mwOY", "5zuRU9odIYs", "Y3Li__lsQE4", "Zbvfg4JmIII",
-  "p21vfIqttTY", "INWbQJqoFog", "nqgUKAXlJ0k", "UYktaYkqnXU", "DfFz9y3U2U8",
-  "GoRTWHrko8w", "WNmTTVRyMb4", "rXrbw-UdVk4", "IzbUY5zdZGU", "rV5WR8I5QLo",
-  "a7ERfHsiC-8", "ZgiETqM7qbg", "SousDVMKHLc", "PJGddEknplo", "SlYjubHc590",
-  "6HXZgi2d3aU", "mTsjCx4oZSM", "BlHOQPQ8w3M", "2OYoXYDQcpU", "ATrFio56WDc",
-  "LKgg7-YMDxU", "P6-4prI2XTY", "pUpuTfQliQg", "EjuS8MqT_Xc", "2i2h9Hw9Ddw",
-  "y-_3QWO-xKI", "dOFKVu9XL3s", "nM385HRiZs4", "ap5IB1mUMA4", "Xbu4cijJBnQ",
-  "KI_wav-Nm3s", "b5ajkPhJRAE", "Oozr7pwG5gA", "vcIDkDZwhk4", "Dw2VsZMT-TM",
-  "0WUj6XHZzog", "UJ6j-ouHJGA", "NXhnHM6rk6k", "aDPcdqp45po", "tTI3eV8Q9iw"
+    "dY_he3_PPz0", "sbMxIHvHNf0", "KI_wav-Nm3s", "ZgiETqM7qbg", "EzlmtD22rUw", "Rl7s3QlfN1w", "YBZHx7Pdagk", "7FHdj4WaKgM", "PjlVv3dE-jw", "lPtC-S7-5r8", "1EFEcnodPvs", "0cI2a4TVgVU", "Dw2VsZMT-TM", "eVuPwgIvdck", "ATrFio56WDc", "Zbvfg4JmIII", "SWtZPqXJzhk", "2dwyQqeHOow", "SousDVMKHLc", "2ms5K1Wn5_o", "2OYoXYDQcpU", "nqgUKAXlJ0k", "misopRRRaQs", "gXoJBE8gnqs", "EnPUuEmMicw", "uQnHSAdqshE", "TL1dBcm1FwY", "dfKLwp5KHvQ", "-yowroOntv8", "4Qbo4B6Yhjk", "EAHMkqpMbm4", "VPLvZDAsRGk", "vER4N5p8Eo0", "mnCDmzDyjsU", "nruIhPmgxAA", "hIhoVPUy8So", "pEMCmbOcSBI", "EGJV_RdZfKU", "dh2L9hwIy38", "7nf0G7cQgc8", "zpfGtNeB15E", "JKY4kLOdZG4", "5zuRU9odIYs", "tzXbFrOkkEw", "yPBogx4o7_M", "3yn4B5VT25A", "rV5WR8I5QLo", "HirYKKBFAcY", "pUpuTfQliQg", "u_PkiQyZYtw", "UuM9viG2Uo0", "CX41Blwm_h0", "EjuS8MqT_Xc", "a8U2ikVxaBo", "JCU3gQq5pYs", "EzlmtD22rUw", "nqgUKAXlJ0k", "ATrFio56WDc", "nWEil-UhYWg", "Y3Li__lsQE4", "mnCDmzDyjsU", "rY2jRYs0-Kg", "pRhBivGseDU", "1e_AWmgrt_4", "6WaEM2qCk_E", "SWtZPqXJzhk", "BlHOQPQ8w3M", "ap5IB1mUMA4", "WNmTTVRyMb4", "p21vfIqttTY", "JiUzd7tIvoM", "ECDqzZniyEQ", "ytYhS0m8amU", "Z70OKZvbo1E", "pe3fkLBu9BI", "ht7TxPHcybk", "sHZYaDpL96Y", "UT4hZ8WjILE", "7L8kCHCW17U", "wq71OtMamuo", "za1IIm-yLbg", "AtolYzaMoXc", "bk84p5Yt7vU", "l54a1O53ZiA", "JMSMng9Avyo", "OI18S84edPw", "ba969xr3krs", "OZgQnRcGZXs", "1ZoKXazOhzU", "F-OgpQY4d6M"
   ],
-
   bombap: [
-      "S95E-tAdyZk", "Sq7pVppXesU", "5fQuNus24aU", "esciBxyjNio", "UuaiMZu0_0U",
-  "soXz8LSWu8w", "8Yjv8Qrmjm4", "-y2ZvXqTWWs", "R1WAEflvGvo", "MVeoG6Au4zE",
-  "3ZYhsIB5LQE", "Y9y5nkYXB_Y", "f4bbCzSBaDg", "P6-4prI2XTY", "L7OJm7sP2Uw",
-  "ImiTCZokBOE", "QzRo0xUgwOM", "IDhFa-Q5vlU", "fAtgK00G52g", "e8yxF-0qk8o",
-  "xfFsu5_EByY", "WLuicF-20RA", "UYktaYkqnXU", "a_wVSSR7svQ", "J-BAHrl2twQ",
-  "bwrCYUU1Jjk", "ELdwY0MSWio", "5XxW6cwXLMc", "Pxq0pP5raa4", "Cz7SNDO9Vfs",
-  "CLqS0jF1gTU", "EM4Q5qb5sQg", "nk6e6RW042s", "KWQjHgU7vOI", "5ylZdbHg93A",
-  "PN8NVwkkkBw", "uk-tO-s5G04", "B9o-0Inz04s", "POayBrcauBE", "d6uhcxL49R4",
-  "UFPperhXtUo", "D7oyLPYukkU", "8Q8ob15QoGk", "ORq_gTCYNzk", "x0aLJ-G1fvc",
-  "UQCi8GAwpzQ", "5NC_fVUD478", "GX-x-PEKmmQ", "W1eYLGpmkvg", "9T2LD3DRX1w",
-  "bMyN7AiJLOc", "uuCfQyde4Ww", "WjBlLkqOF3M", "wz_mdL5entY", "cy31ZUhhfUw",
-  "7k7RZuG9Q3s", "Hyc68xAqVPM", "onCw9XRm46Y", "60srTLdH83s", "sOCNQ2COT_w",
-  "tMh882zY_FE", "WWzut3UH2yE", "Vu51vXkBGNI", "3cwrB_ZQHU8", "AeX9vS7u1Ks",
-  "jaFbIHJ2rZ8", "xb3m_V3wXo0", "abWs5rY-vEI", "8idPpp1x0ZE", "08xviUgh1Yw",
-  "qnfzZvyMmqM", "TdqZBLK9dyQ", "3rnx0mL-j1E", "WdVszU5ah2s", "_p3cb31S3qk"
-  ]
+    "S95E-tAdyZk", "d6uhcxL49R4", "e8yxF-0qk8o", "Sq7pVppXesU", "5NC_fVUD478", "W1eYLGpmkvg", "onCw9XRm46Y", "7k7RZuG9Q3s", "POayBrcauBE", "ELdwY0MSWio", "Cz7SNDO9Vfs", "5XxW6cwXLMc", "8idPpp1x0ZE", "KWQjHgU7vOI", "x0aLJ-G1fvc", "60srTLdH83s", "bMyN7AiJLOc", "abWs5rY-vEI", "GX-x-PEKmmQ", "WWzut3UH2yE", "jaFbIHJ2rZ8", "Vu51vXkBGNI", "TdqZBLK9dyQ", "08xviUgh1Yw", "xb3m_V3wXo0", "3cwrB_ZQHU8", "3rnx0mL-j1E", "esciBxyjNio", "uuCfQyde4Ww", "qnfzZvyMmqM", "Y9y5nkYXB_Y", "soXz8LSWu8w", "UQCi8GAwpzQ", "WLuicF-20RA", "fAtgK00G52g", "cy31ZUhhfUw", "xfFsu5_EByY", "Hyc68xAqVPM", "WdVszU5ah2s", "AeX9vS7u1Ks", "B9o-0Inz04s", "a_wVSSR7svQ", "tMh882zY_FE", "8Yjv8Qrmjm4", "L7OJm7sP2Uw", "D7oyLPYukkU", "Pxq0pP5raa4", "5ylZdbHg93A", "uk-tO-s5G04", "UFPperhXtUo", "WjBlLkqOF3M", "wz_mdL5entY", "IDhFa-Q5vlU", "QzRo0xUgwOM", "ORq_gTCYNzk", "EM4Q5qb5sQg", "_p3cb31S3qk", "f4bbCzSBaDg", "9T2LD3DRX1w", "bwrCYUU1Jjk", "3ZYhsIB5LQE", "ImiTCZokBOE", "MVeoG6Au4zE", "UuaiMZu0_0U", "PN8NVwkkkBw", "J-BAHrl2twQ", "R1WAEflvGvo", "8Q8ob15QoGk", "CLqS0jF1gTU", "5fQuNus24aU", "P6-4prI2XTY", "UYktaYkqnXU", "-y2ZvXqTWWs", "nk6e6RW042s", "sOCNQ2COT_w"
+  ],
+  poop_brasil: []
 };
+
     const nomesCategorias = Object.fromEntries(
       categorias.map(categoria => [categoria.key, categoria.nome])
     );
@@ -707,6 +990,7 @@
     let playlistAtual = [];
     let indiceAtual = 0;
     let iniciarQuandoPronto = false;
+    let moodAtual = "";
     const cacheTitulos = {};
 
     function criarInputsCategorias() {
@@ -715,23 +999,49 @@
       grid.innerHTML = categorias.map(categoria => `
         <div class="input-group">
           <label for="perc_${categoria.key}">${categoria.nome}</label>
-          <input
-            type="number"
-            id="perc_${categoria.key}"
-            min="0"
-            value="0"
-          />
+          <input type="number" id="perc_${categoria.key}" min="0" value="0" />
         </div>
       `).join("");
+    }
+
+    function toggleAdvanced(force) {
+      const overlay = document.getElementById("advancedOverlay");
+      if (typeof force === "boolean") {
+        overlay.classList.toggle("show", force);
+        return;
+      }
+      overlay.classList.toggle("show");
+    }
+
+    function aplicarPesosNosInputs(pesos) {
+      categorias.forEach(categoria => {
+        const input = document.getElementById(`perc_${categoria.key}`);
+        if (input) input.value = pesos[categoria.key] ?? 0;
+      });
+    }
+
+    function marcarMoodAtivo(botao) {
+      document.querySelectorAll(".mood-btn").forEach(el => el.classList.remove("active"));
+      if (botao) botao.classList.add("active");
+    }
+
+    function selecionarMood(moodKey, botao = null) {
+      const mood = moodsPredefinidos[moodKey];
+      if (!mood) return;
+      moodAtual = moodKey;
+      aplicarPesosNosInputs(mood.pesos);
+      marcarMoodAtivo(botao || document.querySelector(`.mood-btn[data-mood="${moodKey}"]`));
+      gerarEPlayar();
+      document.getElementById("player-section").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     function onYouTubeIframeAPIReady() {
       youtubeReady = true;
 
       player = new YT.Player("player", {
-        height: "360",
+        height: "100%",
         width: "100%",
-        videoId: bancoDeMusicas.chirriro[0],
+        videoId: (bancoDeMusicas.chirriro && bancoDeMusicas.chirriro[0]) || "hhRG7-yacQM",
         playerVars: {
           autoplay: 0,
           controls: 1,
@@ -764,7 +1074,7 @@
 
       categorias.forEach(categoria => {
         const input = document.getElementById(`perc_${categoria.key}`);
-        pesos[categoria.key] = Number(input.value || 0);
+        pesos[categoria.key] = Number(input?.value || 0);
       });
 
       return pesos;
@@ -773,13 +1083,19 @@
     function limparCampos() {
       categorias.forEach(categoria => {
         const input = document.getElementById(`perc_${categoria.key}`);
-        input.value = 0;
+        if (input) input.value = 0;
       });
+      moodAtual = "";
+      document.querySelectorAll(".mood-btn").forEach(el => el.classList.remove("active"));
+      playlistAtual = [];
+      indiceAtual = 0;
+      renderizarPlaylist([]);
+      atualizarStatus();
+      atualizarTituloHeroico();
     }
 
     function calcularVagasExatas(pesos, totalVagas) {
       const somaPesos = Object.values(pesos).reduce((a, b) => a + b, 0);
-
       if (somaPesos === 0) return null;
 
       const inteiros = {};
@@ -888,6 +1204,7 @@
 
         if (i === indiceAtual || i === indiceAtual + 1) {
           atualizarStatus();
+          atualizarTituloHeroico();
         }
       }
     }
@@ -896,17 +1213,29 @@
       const resDiv = document.getElementById("playlist-resultado");
 
       if (!playlist.length) {
-        resDiv.innerHTML = `<div class="empty-state">Nenhuma música encontrada para essa combinação.</div>`;
+        resDiv.innerHTML = `<div class="empty-state">Escolha um mood para ver a fila aqui.</div>`;
         return;
       }
 
       resDiv.innerHTML = playlist.map((t, i) => `
         <div class="track-item ${i === indiceAtual ? "active" : ""}" id="track-${i}">
           <div class="track-number">${i + 1}</div>
-          <div class="track-category">${t.cat}</div>
-          <div class="track-title">${t.titulo || "Carregando nome..."}</div>
+          <div>
+            <div class="track-category">${t.cat}</div>
+            <div class="track-title">${t.titulo || "Carregando nome..."}</div>
+          </div>
         </div>
       `).join("");
+    }
+
+    function atualizarTituloHeroico() {
+      const titulo = document.getElementById("nome-musica-destaque");
+      if (!playlistAtual.length) {
+        titulo.textContent = "MUSICA";
+        return;
+      }
+      const atual = playlistAtual[indiceAtual];
+      titulo.textContent = atual?.titulo || "CARREGANDO...";
     }
 
     function atualizarStatus() {
@@ -955,6 +1284,7 @@
 
       player.loadVideoById(musica.id);
       atualizarStatus();
+      atualizarTituloHeroico();
       renderizarPlaylist(playlistAtual);
       destacarAtual();
     }
@@ -992,7 +1322,7 @@
 
       const somaPesos = Object.values(pesos).reduce((a, b) => a + b, 0);
       if (somaPesos === 0) {
-        alert("Preencha pelo menos uma categoria com valor maior que 0.");
+        alert("Escolha um mood ou preencha pelo menos uma categoria com valor maior que 0.");
         return;
       }
 
@@ -1003,6 +1333,7 @@
 
       renderizarPlaylist(playlistAtual);
       atualizarStatus();
+      atualizarTituloHeroico();
 
       if (!playlistAtual.length) {
         alert("Não foi possível montar a playlist com os dados informados.");
@@ -1015,6 +1346,7 @@
 
     criarInputsCategorias();
     atualizarStatus();
+    atualizarTituloHeroico();
   </script>
 </body>
 </html>
