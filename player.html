@@ -572,7 +572,754 @@
       <button class="compact-btn" onclick="toggleAdvanced(true)">avançado</button>
       <button class="compact-btn" onclick="voltarHome()">back</button>
     </div>
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Black+Ops+One&family=Bungee&family=Changa+One:wght@400;700&family=Luckiest+Guy&display=swap");
 
+/* =========================================================
+   SISTEMA DE TEMAS POR MOOD
+   Funciona com: <body data-mood="party"> ... </body>
+   ========================================================= */
+
+body[data-mood] {
+  --display-font: "Bebas Neue", Arial, sans-serif;
+  --title-font: "Bungee", Arial, sans-serif;
+
+  --page-bg: linear-gradient(90deg, #02084d 0%, #87648d 100%);
+  --bottom-bg: transparent;
+
+  --top-bg: linear-gradient(135deg, #2d0e5f 0%, #601b88 100%);
+  --top-overlay: none;
+
+  --scene-label-color: #f6e9ca;
+  --scene-label-shadow: 0 3px 0 rgba(0, 0, 0, 0.32);
+
+  --frame-bg: linear-gradient(135deg, #e30e6e 0%, #d00f5d 100%);
+  --frame-radius: 34px;
+  --frame-border: 0;
+  --frame-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --frame-outline:
+    linear-gradient(90deg, #000 50%, transparent 50%) 0 0 / 28px 10px repeat-x,
+    linear-gradient(90deg, #000 50%, transparent 50%) 0 100% / 28px 10px repeat-x,
+    linear-gradient(0deg, #000 50%, transparent 50%) 0 0 / 10px 28px repeat-y,
+    linear-gradient(0deg, #000 50%, transparent 50%) 100% 0 / 10px 28px repeat-y;
+  --frame-outline-opacity: 1;
+
+  --player-inner-bg: #140313;
+  --player-inner-border: 0;
+  --player-inner-radius: 18px;
+
+  --queue-bg: #000000;
+  --queue-border: 1px solid rgba(255, 255, 255, 0.08);
+  --queue-radius: 30px;
+  --queue-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  --queue-title-color: #f6e9ca;
+  --queue-title-shadow: none;
+
+  --track-bg: rgba(255, 255, 255, 0.06);
+  --track-border: 1px solid rgba(255, 255, 255, 0.08);
+  --track-active-bg: rgba(227, 14, 110, 0.32);
+  --track-active-border: rgba(255, 255, 255, 0.25);
+  --track-number-bg: #ffffff;
+  --track-number-color: #26053d;
+
+  --info-bg: transparent;
+  --info-border: 0;
+  --info-radius: 0;
+  --info-shadow: none;
+
+  --title-color: #ffffff;
+  --title-shadow:
+    -3px -3px 0 #c31663,
+     3px -3px 0 #c31663,
+    -3px  3px 0 #c31663,
+     3px  3px 0 #c31663,
+     0 8px 20px rgba(0,0,0,.35);
+  --title-spacing: .02em;
+
+  --pill-bg: rgba(255,255,255,.12);
+  --pill-border: 1px solid rgba(255,255,255,.12);
+  --pill-color: #ffffff;
+  --pill-strong: #ffe7f2;
+  --pill-shadow: none;
+
+  --arrow-bg: #ffffff;
+  --arrow-color: #111111;
+  --arrow-border: 0;
+  --arrow-shadow: 0 18px 40px rgba(0,0,0,.35);
+
+  --square-bg: #0f0222;
+  --square-color: #ffffff;
+  --square-border: 0;
+}
+
+body[data-mood] .section-player {
+  background: var(--page-bg);
+}
+
+body[data-mood] .scene-top {
+  background: var(--top-bg);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+body[data-mood] .scene-top::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--top-overlay);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body[data-mood] .scene-top > * {
+  position: relative;
+  z-index: 1;
+}
+
+body[data-mood] .scene-label {
+  color: var(--scene-label-color);
+  font-family: var(--display-font);
+  letter-spacing: .08em;
+  text-shadow: var(--scene-label-shadow);
+}
+
+body[data-mood] .player-frame {
+  background: var(--frame-bg);
+  border-radius: var(--frame-radius);
+  border: var(--frame-border);
+  box-shadow: var(--frame-shadow);
+}
+
+body[data-mood] .player-frame::before {
+  background: var(--frame-outline);
+  opacity: var(--frame-outline-opacity);
+  border-radius: calc(var(--frame-radius) + 6px);
+}
+
+body[data-mood] #player {
+  background: var(--player-inner-bg);
+  border: var(--player-inner-border);
+  border-radius: var(--player-inner-radius);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.04);
+}
+
+body[data-mood] .scene-bottom {
+  background: var(--bottom-bg);
+}
+
+body[data-mood] .queue-card {
+  background: var(--queue-bg);
+  border: var(--queue-border);
+  border-radius: var(--queue-radius);
+  box-shadow: var(--queue-shadow);
+}
+
+body[data-mood] .queue-card h3 {
+  color: var(--queue-title-color);
+  text-shadow: var(--queue-title-shadow);
+  font-family: var(--display-font);
+  font-style: normal;
+  letter-spacing: .06em;
+}
+
+body[data-mood] .track-item {
+  background: var(--track-bg);
+  border: var(--track-border);
+}
+
+body[data-mood] .track-item.active {
+  background: var(--track-active-bg);
+  border-color: var(--track-active-border);
+}
+
+body[data-mood] .track-number {
+  background: var(--track-number-bg);
+  color: var(--track-number-color);
+}
+
+body[data-mood] .info-wrap {
+  background: var(--info-bg);
+  border: var(--info-border);
+  border-radius: var(--info-radius);
+  box-shadow: var(--info-shadow);
+  padding: 20px 18px;
+}
+
+body[data-mood] #nome-musica-destaque {
+  color: var(--title-color);
+  text-shadow: var(--title-shadow);
+  font-family: var(--title-font);
+  letter-spacing: var(--title-spacing);
+}
+
+body[data-mood] .status-pill {
+  background: var(--pill-bg);
+  border: var(--pill-border);
+  color: var(--pill-color);
+  box-shadow: var(--pill-shadow);
+}
+
+body[data-mood] .status-pill strong {
+  color: var(--pill-strong);
+}
+
+body[data-mood] .arrow-btn {
+  background: var(--arrow-bg);
+  color: var(--arrow-color);
+  border: var(--arrow-border);
+  box-shadow: var(--arrow-shadow);
+}
+
+body[data-mood] .square-btn {
+  background: var(--square-bg);
+  color: var(--square-color);
+  border: var(--square-border);
+}
+
+/* =========================================================
+   PARTY
+   ========================================================= */
+
+body[data-mood="party"] {
+  --display-font: "Anton", Arial, sans-serif;
+  --title-font: "Bungee", Arial, sans-serif;
+
+  --page-bg:
+    linear-gradient(180deg, #2db5db 0%, #219dc7 58%, #25a4cf 100%);
+
+  --bottom-bg:
+    linear-gradient(180deg, rgba(2, 12, 66, 0) 0%, rgba(2, 12, 66, 0) 2%, #28a7cf 2%, #28a7cf 100%);
+
+  --top-bg:
+    radial-gradient(circle at 11% 14%, rgba(255,206,77,.98) 0 7px, rgba(255,206,77,0) 8px),
+    radial-gradient(circle at 89% 10%, rgba(255,206,77,.98) 0 7px, rgba(255,206,77,0) 8px),
+    radial-gradient(circle at 85% 27%, rgba(255,206,77,.95) 0 8px, rgba(255,206,77,0) 9px),
+    radial-gradient(circle at 91% 37%, rgba(255,206,77,.95) 0 6px, rgba(255,206,77,0) 7px),
+    radial-gradient(circle at 86% 48%, rgba(255,206,77,.95) 0 7px, rgba(255,206,77,0) 8px),
+    radial-gradient(circle at 14% 23%, rgba(255,255,255,.25) 0 70px, rgba(255,255,255,0) 71px),
+    linear-gradient(135deg, #6be3f1 0%, #55d4ea 30%, #48d0ff 55%, #8ee9ff 100%);
+  --top-overlay:
+    repeating-radial-gradient(circle at 10% 18%, rgba(255,255,255,.07) 0 1px, rgba(255,255,255,0) 1px 14px),
+    radial-gradient(circle at 35% 78%, rgba(255,255,255,.10) 0 140px, rgba(255,255,255,0) 141px);
+
+  --scene-label-color: #201b5f;
+  --scene-label-shadow: 0 2px 0 rgba(255,255,255,.26);
+
+  --frame-bg: linear-gradient(90deg, #4f53ff 0%, #ea43d0 100%);
+  --frame-radius: 38px;
+  --frame-shadow:
+    12px 12px 0 rgba(67, 130, 255, 0.65),
+    0 22px 44px rgba(0,0,0,.28);
+  --frame-outline: none;
+  --frame-outline-opacity: 0;
+
+  --player-inner-bg: rgba(59, 28, 117, 0.94);
+  --player-inner-border: 0;
+  --player-inner-radius: 30px;
+
+  --queue-bg: #05104f;
+  --queue-border: 0;
+  --queue-radius: 0;
+  --queue-title-color: #6d4c3b;
+  --queue-title-shadow: none;
+
+  --info-bg: linear-gradient(180deg, rgba(2,10,42,.92) 0%, rgba(2,10,42,.92) 100%);
+  --info-radius: 0;
+
+  --title-color: #9ab08c;
+  --title-shadow:
+    -4px -4px 0 #1a1a1a,
+     4px -4px 0 #1a1a1a,
+    -4px  4px 0 #1a1a1a,
+     4px  4px 0 #1a1a1a,
+     0 0 18px rgba(255,255,255,.08);
+  --title-spacing: .03em;
+
+  --pill-bg: rgba(255,255,255,.08);
+  --pill-border: 1px solid rgba(255,255,255,.08);
+  --pill-strong: #ffd8ec;
+
+  --arrow-bg: #f4ecf2;
+  --arrow-color: #6f1590;
+  --arrow-border: 7px solid #000;
+  --arrow-shadow: 8px 8px 0 rgba(0,0,0,.22);
+
+  --square-bg: #0a0936;
+  --square-color: #fff8ff;
+  --square-border: 3px solid rgba(255,255,255,.15);
+}
+
+body[data-mood="party"] .queue-card {
+  min-height: 280px;
+}
+
+body[data-mood="party"] .track-number {
+  background: #f6d79d;
+  color: #231650;
+}
+
+body[data-mood="party"] #nome-musica-destaque {
+  font-size: clamp(28px, 4.2vw, 60px);
+}
+
+/* =========================================================
+   SOZINHO
+   ========================================================= */
+
+body[data-mood="noite_sozinho"] {
+  --display-font: "Changa One", Arial, sans-serif;
+  --title-font: "Changa One", Arial, sans-serif;
+
+  --page-bg: linear-gradient(90deg, #050c4e 0%, #6d547f 100%);
+  --bottom-bg: linear-gradient(90deg, #050c4e 0%, #7c5e85 100%);
+
+  --top-bg:
+    linear-gradient(180deg, rgba(4,10,28,.88) 0%, rgba(6,18,52,.72) 100%),
+    linear-gradient(180deg, #0e1634 0%, #09101f 100%);
+  --top-overlay:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(85,120,255,.16) 0 2px,
+      rgba(15,15,30,0) 2px 22px
+    ),
+    linear-gradient(90deg, rgba(255,0,153,.08) 0%, rgba(0,170,255,.08) 100%);
+
+  --scene-label-color: #d8c8a0;
+  --scene-label-shadow: 0 2px 0 rgba(0,0,0,.4);
+
+  --frame-bg: #d01361;
+  --frame-radius: 34px;
+  --frame-border: 0;
+  --frame-shadow: 0 18px 40px rgba(0,0,0,.38);
+  --frame-outline:
+    linear-gradient(90deg, #000 50%, transparent 50%) 0 0 / 30px 9px repeat-x,
+    linear-gradient(90deg, #000 50%, transparent 50%) 0 100% / 30px 9px repeat-x,
+    linear-gradient(0deg, #000 50%, transparent 50%) 0 0 / 9px 30px repeat-y,
+    linear-gradient(0deg, #000 50%, transparent 50%) 100% 0 / 9px 30px repeat-y;
+  --frame-outline-opacity: 1;
+
+  --player-inner-bg: rgba(214, 20, 100, 0.98);
+  --player-inner-radius: 28px;
+
+  --queue-bg: #020202;
+  --queue-border: 0;
+  --queue-radius: 26px;
+  --queue-title-color: #d4c495;
+
+  --info-bg: transparent;
+  --info-radius: 0;
+
+  --title-color: #fff1cc;
+  --title-shadow:
+    -4px -4px 0 #d31863,
+     4px -4px 0 #d31863,
+    -4px  4px 0 #d31863,
+     4px  4px 0 #d31863,
+     0 0 0 #ffffff;
+  --title-spacing: .02em;
+
+  --pill-bg: rgba(255,255,255,.08);
+  --pill-border: 1px solid rgba(255,255,255,.07);
+  --pill-strong: #ffe9a7;
+
+  --arrow-bg: #ffffff;
+  --arrow-color: #101010;
+  --arrow-border: 6px solid #000;
+  --arrow-shadow: none;
+
+  --square-bg: #151128;
+  --square-color: #fff3fb;
+  --square-border: 2px solid rgba(255,255,255,.12);
+}
+
+body[data-mood="noite_sozinho"] .info-wrap {
+  text-align: center;
+}
+
+body[data-mood="noite_sozinho"] .queue-card {
+  min-height: 230px;
+}
+
+/* =========================================================
+   FOCO
+   interpretado: limpo, calmo, recorte mais editorial
+   ========================================================= */
+
+body[data-mood="foco"] {
+  --display-font: "Anton", Arial, sans-serif;
+  --title-font: "Bebas Neue", Arial, sans-serif;
+
+  --page-bg: linear-gradient(180deg, #dce4f2 0%, #cfd8ea 100%);
+  --bottom-bg: linear-gradient(180deg, #dce4f2 0%, #dce4f2 100%);
+
+  --top-bg:
+    linear-gradient(135deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,0) 45%),
+    linear-gradient(135deg, #f2f5fa 0%, #dfe7f4 40%, #c9d6ea 100%);
+  --top-overlay:
+    radial-gradient(circle at 16% 18%, rgba(255,255,255,.55) 0 85px, rgba(255,255,255,0) 86px),
+    linear-gradient(90deg, rgba(84,121,180,.08) 0%, rgba(255,0,0,.05) 100%);
+
+  --scene-label-color: #3d4f76;
+  --scene-label-shadow: none;
+
+  --frame-bg: linear-gradient(180deg, #dfe6f4 0%, #ced9f0 100%);
+  --frame-radius: 26px;
+  --frame-border: 5px solid rgba(115,139,183,.42);
+  --frame-shadow: 10px 10px 0 rgba(129, 152, 201, .25), 0 14px 36px rgba(0,0,0,.15);
+  --frame-outline: none;
+  --frame-outline-opacity: 0;
+
+  --player-inner-bg: #d8e1f1;
+  --player-inner-border: 0;
+  --player-inner-radius: 18px;
+
+  --queue-bg: #f21212;
+  --queue-border: 0;
+  --queue-radius: 0;
+  --queue-title-color: #fff7f7;
+  --queue-title-shadow: 0 2px 0 rgba(0,0,0,.12);
+
+  --info-bg: transparent;
+  --title-color: #ff1616;
+  --title-shadow:
+    -3px -3px 0 #e8eef8,
+     3px -3px 0 #e8eef8,
+    -3px  3px 0 #e8eef8,
+     3px  3px 0 #e8eef8,
+     6px 6px 0 rgba(84,121,180,.28);
+
+  --pill-bg: rgba(255,255,255,.55);
+  --pill-border: 1px solid rgba(83,104,147,.16);
+  --pill-color: #24324d;
+  --pill-strong: #3b4d76;
+
+  --arrow-bg: #f3f7ff;
+  --arrow-color: #24457e;
+  --arrow-border: 3px solid rgba(84,121,180,.25);
+  --arrow-shadow: 0 10px 24px rgba(71,89,132,.15);
+
+  --square-bg: #8ea5cf;
+  --square-color: #ffffff;
+  --square-border: 0;
+}
+
+body[data-mood="foco"] .queue-card h3 {
+  font-style: italic;
+}
+
+body[data-mood="foco"] #nome-musica-destaque {
+  font-size: clamp(34px, 5vw, 72px);
+}
+
+/* =========================================================
+   SHONEM / SHONEN
+   ========================================================= */
+
+body[data-mood="modo_shonem"] {
+  --display-font: "Anton", Arial, sans-serif;
+  --title-font: "Anton", Arial, sans-serif;
+
+  --page-bg: linear-gradient(180deg, #dfdfdf 0%, #f2f2f2 100%);
+  --bottom-bg: linear-gradient(90deg, #0d0d26 0%, #7c5273 100%);
+
+  --top-bg:
+    radial-gradient(circle at 76% 10%, rgba(255,90,90,.32) 0 110px, rgba(255,90,90,0) 111px),
+    linear-gradient(180deg, #ffd7d7 0%, #f5bdbd 60%, #c87575 100%);
+  --top-overlay:
+    linear-gradient(135deg, rgba(255,255,255,.16) 0%, rgba(255,255,255,0) 36%),
+    radial-gradient(circle at 80% 22%, rgba(255,0,0,.16) 0 90px, rgba(255,0,0,0) 91px);
+
+  --scene-label-color: #ffffff;
+  --scene-label-shadow: 0 3px 0 rgba(0,0,0,.34);
+
+  --frame-bg: linear-gradient(90deg, #8456ff 0%, #7adcf3 100%);
+  --frame-radius: 22px;
+  --frame-border: 0;
+  --frame-shadow: 0 18px 36px rgba(0,0,0,.16);
+  --frame-outline:
+    linear-gradient(90deg, #000 50%, transparent 50%) 0 0 / 34px 18px repeat-x,
+    linear-gradient(90deg, #000 50%, transparent 50%) 0 100% / 34px 18px repeat-x,
+    linear-gradient(0deg, #000 50%, transparent 50%) 0 0 / 18px 34px repeat-y,
+    linear-gradient(0deg, #000 50%, transparent 50%) 100% 0 / 18px 34px repeat-y;
+  --frame-outline-opacity: 1;
+
+  --player-inner-bg: linear-gradient(90deg, #865cff 0%, #78ddf0 100%);
+  --player-inner-radius: 14px;
+
+  --queue-bg: rgba(12, 12, 25, 0.9);
+  --queue-border: 0;
+  --queue-radius: 20px;
+  --queue-title-color: #f4f4f4;
+
+  --title-color: #ffffff;
+  --title-shadow:
+    -4px -4px 0 #8f8f8f,
+     4px -4px 0 #8f8f8f,
+    -4px  4px 0 #8f8f8f,
+     4px  4px 0 #8f8f8f,
+     0 8px 0 rgba(0,0,0,.04);
+  --title-spacing: 0;
+
+  --pill-bg: rgba(255,255,255,.78);
+  --pill-border: 1px solid rgba(0,0,0,.08);
+  --pill-color: #2a2a2a;
+  --pill-strong: #5e5e5e;
+
+  --arrow-bg: #ffffff;
+  --arrow-color: #000000;
+  --arrow-border: 6px solid #000;
+  --arrow-shadow: 0 8px 0 rgba(0,0,0,.1);
+
+  --square-bg: #12122e;
+  --square-color: #ffffff;
+  --square-border: 0;
+}
+
+body[data-mood="modo_shonem"] .info-wrap {
+  text-align: center;
+}
+
+body[data-mood="modo_shonem"] .queue-card {
+  opacity: .96;
+}
+
+/* =========================================================
+   NEON
+   ========================================================= */
+
+body[data-mood="noite_neon"] {
+  --display-font: "Anton", Arial, sans-serif;
+  --title-font: "Black Ops One", Arial, sans-serif;
+
+  --page-bg:
+    linear-gradient(90deg, #2147ff 0%, #ff4ad7 100%);
+  --bottom-bg:
+    linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 6%, #c86ddb 6%, #c86ddb 100%);
+
+  --top-bg:
+    radial-gradient(circle at 16% 12%, rgba(255,255,255,.08) 0 140px, rgba(255,255,255,0) 141px),
+    linear-gradient(135deg, #6f30ff 0%, #2d55ff 42%, #ff45d6 100%);
+  --top-overlay:
+    linear-gradient(135deg, rgba(255,255,255,.12) 0%, rgba(255,255,255,0) 42%);
+
+  --scene-label-color: #ffffff;
+  --scene-label-shadow: 0 0 16px rgba(255,255,255,.22);
+
+  --frame-bg: #40217e;
+  --frame-radius: 40px;
+  --frame-shadow:
+    10px 10px 0 rgba(20, 101, 255, 0.58),
+    0 22px 40px rgba(0,0,0,.28);
+  --frame-outline: none;
+  --frame-outline-opacity: 0;
+
+  --player-inner-bg: #43207f;
+  --player-inner-radius: 30px;
+
+  --queue-bg: linear-gradient(180deg, rgba(116, 48, 186, .56) 0%, rgba(149, 66, 208, .56) 100%);
+  --queue-border: 0;
+  --queue-radius: 0;
+  --queue-title-color: #f5f5f5;
+
+  --title-color: #f7b3e6;
+  --title-shadow:
+    -4px -4px 0 #1e3cff,
+     4px -4px 0 #1e3cff,
+    -4px  4px 0 #1e3cff,
+     4px  4px 0 #1e3cff,
+     0 0 20px rgba(0,255,255,.18);
+
+  --pill-bg: rgba(255,255,255,.14);
+  --pill-border: 1px solid rgba(255,255,255,.14);
+  --pill-color: #fffaff;
+  --pill-strong: #ffffff;
+
+  --arrow-bg: #68dbe2;
+  --arrow-color: #101010;
+  --arrow-border: 5px solid #111;
+  --arrow-shadow:
+    -6px -6px 0 #ff10b5,
+     0 0 0 rgba(0,0,0,0);
+
+  --square-bg: #5b2ac4;
+  --square-color: #ffffff;
+  --square-border: 2px solid rgba(255,255,255,.16);
+}
+
+body[data-mood="noite_neon"] .arrow-btn {
+  clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%, 14% 50%);
+}
+
+body[data-mood="noite_neon"] .queue-card {
+  backdrop-filter: blur(3px);
+}
+
+/* =========================================================
+   FDT
+   ========================================================= */
+
+body[data-mood="faculdade_fm"] {
+  --display-font: "Anton", Arial, sans-serif;
+  --title-font: "Anton", Arial, sans-serif;
+
+  --page-bg: linear-gradient(180deg, #d8dee9 0%, #d5dce7 100%);
+  --bottom-bg: linear-gradient(180deg, #d8dee9 0%, #d8dee9 100%);
+
+  --top-bg:
+    linear-gradient(180deg, rgba(115,165,235,.18) 0 34%, rgba(255,255,255,0) 34%),
+    linear-gradient(180deg, #85bbef 0%, #7fb9ee 30%, #d7d1c1 30%, #d7d1c1 48%, #1a3d72 48%, #0f366b 100%);
+  --top-overlay:
+    radial-gradient(circle at 22% 60%, rgba(255,255,255,.22) 0 150px, rgba(255,255,255,0) 151px),
+    linear-gradient(0deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 30%);
+
+  --scene-label-color: #0f315d;
+  --scene-label-shadow: none;
+
+  --frame-bg: #bcc7e7;
+  --frame-radius: 0;
+  --frame-border: 0;
+  --frame-shadow: none;
+  --frame-outline: none;
+  --frame-outline-opacity: 0;
+
+  --player-inner-bg: #aebbe0;
+  --player-inner-radius: 0;
+
+  --queue-bg: #ff1414;
+  --queue-border: 0;
+  --queue-radius: 0;
+  --queue-title-color: #ffffff;
+  --queue-title-shadow: 0 3px 0 rgba(0,0,0,.1);
+
+  --info-bg: transparent;
+  --title-color: #ff1010;
+  --title-shadow:
+    -3px -3px 0 #79a3dd,
+     3px -3px 0 #79a3dd,
+    -3px  3px 0 #79a3dd,
+     3px  3px 0 #79a3dd,
+     0 8px 16px rgba(0,0,0,.05);
+
+  --pill-bg: rgba(255,255,255,.6);
+  --pill-border: 1px solid rgba(12,35,68,.08);
+  --pill-color: #11294d;
+  --pill-strong: #163d6a;
+
+  --arrow-bg: #ffffff;
+  --arrow-color: #0f315d;
+  --arrow-border: 4px solid rgba(10,30,58,.2);
+  --arrow-shadow: 0 10px 22px rgba(11,26,45,.08);
+
+  --square-bg: #1d3e73;
+  --square-color: #ffffff;
+  --square-border: 0;
+}
+
+body[data-mood="faculdade_fm"] .queue-card h3 {
+  font-style: italic;
+}
+
+/* =========================================================
+   CAMINHADA / CORRIDA
+   ========================================================= */
+
+body[data-mood="caminhada"] {
+  --display-font: "Anton", Arial, sans-serif;
+  --title-font: "Black Ops One", Arial, sans-serif;
+
+  --page-bg:
+    linear-gradient(135deg, #06243b 0%, #0d4f78 35%, #ff7a00 100%);
+  --bottom-bg:
+    linear-gradient(90deg, #091a2e 0%, #0c5a82 50%, #f87916 100%);
+
+  --top-bg:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.10) 0 140px, rgba(255,255,255,0) 141px),
+    linear-gradient(135deg, #06172b 0%, #0a4570 48%, #ff7a00 100%);
+  --top-overlay:
+    repeating-linear-gradient(
+      115deg,
+      rgba(255,255,255,.04) 0 18px,
+      rgba(255,255,255,0) 18px 42px
+    );
+
+  --scene-label-color: #ffffff;
+  --scene-label-shadow: 0 0 18px rgba(255,255,255,.18);
+
+  --frame-bg: linear-gradient(135deg, #0b122a 0%, #116c9b 48%, #ff7d0a 100%);
+  --frame-radius: 34px;
+  --frame-shadow:
+    0 16px 0 rgba(0,0,0,.15),
+    0 26px 46px rgba(0,0,0,.25);
+  --frame-outline: none;
+  --frame-outline-opacity: 0;
+
+  --player-inner-bg: rgba(4,18,38,.88);
+  --player-inner-radius: 24px;
+
+  --queue-bg: rgba(1,7,18,.92);
+  --queue-border: 1px solid rgba(255,255,255,.08);
+  --queue-radius: 22px;
+  --queue-title-color: #ffd59b;
+
+  --title-color: #ffffff;
+  --title-shadow:
+    -4px -4px 0 #0c6ba2,
+     4px -4px 0 #0c6ba2,
+    -4px  4px 0 #ff7a00,
+     4px  4px 0 #ff7a00,
+     0 0 18px rgba(255,255,255,.12);
+
+  --pill-bg: rgba(255,255,255,.12);
+  --pill-border: 1px solid rgba(255,255,255,.12);
+  --pill-strong: #fff3da;
+
+  --arrow-bg: #ffffff;
+  --arrow-color: #101010;
+  --arrow-border: 4px solid rgba(0,0,0,.22);
+  --arrow-shadow: 0 12px 24px rgba(0,0,0,.22);
+
+  --square-bg: #f87916;
+  --square-color: #ffffff;
+  --square-border: 0;
+}
+
+/* =========================================================
+   AJUSTES EXTRAS DE ACABAMENTO
+   ========================================================= */
+
+body[data-mood] .queue-card,
+body[data-mood] .info-wrap,
+body[data-mood] .player-frame,
+body[data-mood] .arrow-btn,
+body[data-mood] .square-btn,
+body[data-mood] .status-pill {
+  transition:
+    background .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .2s ease;
+}
+
+body[data-mood] .arrow-btn:hover,
+body[data-mood] .square-btn:hover {
+  transform: translateY(-2px) scale(1.015);
+}
+
+body[data-mood] .track-category {
+  font-family: var(--display-font);
+  letter-spacing: .08em;
+}
+
+body[data-mood] .track-title {
+  line-height: 1.35;
+}
+
+body[data-mood] #tocando-agora,
+body[data-mood] #proxima-faixa,
+body[data-mood] #total-gerado {
+  font-weight: 900;
+}
     <div class="scene-top">
       <div class="scene-label">RITMO</div>
 
