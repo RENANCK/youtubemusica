@@ -1416,7 +1416,24 @@ const categorias = [
     function voltarHome() {
       window.location.href = './index.html';
     }
+<script>
+function aplicarTemaMood(moodKey) {
+  document.body.setAttribute("data-mood", moodKey || "padrao");
 
+  const nomes = {
+    party: "PARTY",
+    noite_sozinho: "SOZINHO",
+    foco: "FOCO",
+    modo_shonem: "SHONEN",
+    noite_neon: "NEON",
+    faculdade_fm: "FDT",
+    caminhada: "CORRIDA"
+  };
+
+  const label = document.querySelector(".scene-label");
+  if (label) label.textContent = nomes[moodKey] || "RITMO";
+}
+</script>
     window.addEventListener('DOMContentLoaded', () => {
       const totalSalvo = localStorage.getItem('totalMusicasSelecionado');
       if (totalSalvo) {
@@ -1428,10 +1445,11 @@ const categorias = [
       const moodKey = localStorage.getItem('moodSelecionado');
 
       if (moodKey && typeof moodsPredefinidos !== 'undefined' && moodsPredefinidos[moodKey]) {
-        moodAtual = moodKey;
-        aplicarPesosNosInputs(moodsPredefinidos[moodKey].pesos);
-        gerarEPlayar();
-      }
+  moodAtual = moodKey;
+  aplicarTemaMood(moodKey);
+  aplicarPesosNosInputs(moodsPredefinidos[moodKey].pesos);
+  gerarEPlayar();
+}
 
       if (abrirAvancado) {
         toggleAdvanced(true);
