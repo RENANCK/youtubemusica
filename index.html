@@ -1,1 +1,184 @@
-<!DOCTYPE html><html lang='pt-BR'><head><meta charset='UTF-8'/><meta name='viewport' content='width=device-width, initial-scale=1.0'/><title>MAKE YOU PLAYLIST</title><style>:root{--bg:#0c0320;--paper:#e2a35f;--violet:#401978;--pink:#e30e6e;--pink-2:#ff2a8a;--cream:#f6e9ca;--deep:#06010f;--white:#f8f6ff;--cyan:#37dbe8;--shadow:0 18px 40px rgba(0,0,0,.35);--border:rgba(255,255,255,.18)}*{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}a{text-decoration:none;color:inherit}button,input,textarea,select{font:inherit} body{overflow-x:hidden}.hero{min-height:100vh;position:relative;background:linear-gradient(to bottom, rgba(226,163,95,.95) 0 22%, rgba(64,25,120,.88) 22% 56%, rgba(64,25,120,.20) 56% 100%), url('./assets/1000490664.jpg') center bottom/cover no-repeat}.top{display:flex;justify-content:space-between;gap:20px;padding:24px 5vw 10px;color:#111;text-transform:uppercase;font-weight:900;font-style:italic}.brand h1{margin:0;font-size:clamp(40px,7vw,86px);line-height:.95;color:#2f66b7;letter-spacing:.03em}.meta{text-align:right;font-size:clamp(20px,2.8vw,42px);line-height:1.1}.meta small{display:block;margin-top:6px;font-size:clamp(14px,1.6vw,24px)}.hero-grid{position:relative;z-index:2;padding:4vh 5vw 0;display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:24px 44px;max-width:960px}.mood-btn{appearance:none;border:0;min-height:82px;border-radius:18px;background:rgba(245,245,250,.95);color:#3e1084;font-weight:1000;font-size:clamp(22px,2.6vw,44px);text-transform:uppercase;letter-spacing:.08em;cursor:pointer;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease, background .18s ease;text-shadow:-2px 0 #14d4ff, 2px 0 #ff248b;padding:14px}.mood-btn.small{font-size:clamp(18px,2vw,30px);letter-spacing:.04em}.mood-btn:hover{transform:translateY(-3px) scale(1.01);background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.45)}.controls{position:absolute;left:5vw;bottom:9vh;z-index:2;display:flex;flex-direction:column;align-items:flex-start;gap:14px}.mini-card{background:rgba(250,250,255,.92);color:#3f1485;border-radius:18px;padding:14px 18px;box-shadow:var(--shadow);min-width:180px}.mini-card label{display:block;font-size:13px;font-weight:900;text-transform:uppercase;margin-bottom:8px;letter-spacing:.08em}.mini-card input{width:100%;height:42px;border:2px solid rgba(63,20,133,.18);border-radius:12px;padding:0 12px;font-size:20px;font-weight:900;color:#27103f;background:#fff;outline:none}.ghost-btn{appearance:none;border:0;background:rgba(250,250,255,.92);color:#411986;border-radius:18px;padding:16px 18px;font-weight:1000;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(16px,1.6vw,24px);box-shadow:var(--shadow);cursor:pointer}.footer-note{position:absolute;right:5vw;bottom:6vh;z-index:2;max-width:420px;background:rgba(5,3,15,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:18px;padding:12px 16px;color:#fff5fb;font-size:14px;line-height:1.45}.sub-actions{display:flex;gap:12px;flex-wrap:wrap}@media (max-width:980px){.top{flex-direction:column;align-items:flex-start}.meta{text-align:left}.hero-grid{grid-template-columns:repeat(2,minmax(150px,1fr));max-width:680px}.footer-note{position:relative;right:auto;bottom:auto;margin:20px 5vw 24px}.controls{position:relative;left:auto;bottom:auto;padding:18px 5vw 0}}@media (max-width:640px){.hero-grid{grid-template-columns:1fr 1fr;gap:16px}.mood-btn{min-height:72px;font-size:24px}}</style></head><body><section class='hero'><div class='top'><div class='brand'><h1>MAKE YOU PLAYLIST</h1></div><div class='meta'><div>• BY: RENANCK</div><small>soundon.global/bio/renanck</small></div></div><div class='hero-grid' id='moods-home'></div><div class='controls'><div class='mini-card'><label for='total_musicas_home'>Quantidade de músicas</label><input id='total_musicas_home' type='number' min='1' value='18'/></div><div class='sub-actions'><button class='ghost-btn' onclick='abrirAvancado()'>ABRIR OPÇÕES AVANÇADAS</button><button class='ghost-btn' onclick="window.location.href='./admin.html'">EDITAR CATEGORIAS E MOODS</button></div></div><div class='footer-note'>Escolha um mood para ir para a segunda página com a playlist pronta. Para adicionar músicas, categorias ou mexer nos moods, entre em <strong>EDITAR CATEGORIAS E MOODS</strong>.</div></section><script src='./playlist-data.js'></script><script>const moodContainer=document.getElementById('moods-home');function salvarTotal(){const total=document.getElementById('total_musicas_home').value||'18';localStorage.setItem('totalMusicasSelecionado',total);}function irParaPlayer(moodKey){salvarTotal();localStorage.setItem('moodSelecionado',moodKey);localStorage.removeItem('abrirAvancado');window.location.href='./player.html';}function abrirAvancado(){salvarTotal();localStorage.removeItem('moodSelecionado');localStorage.setItem('abrirAvancado','1');window.location.href='./player.html';}function renderMoods(){const data=loadPlaylistData();const moods=Object.entries(data.moodsPredefinidos||{});moodContainer.innerHTML=moods.map(([key,mood])=>`<button class="mood-btn ${String(mood.nome||'').length>12?'small':''}" onclick="irParaPlayer('${key}')">${mood.nome}</button>`).join('');const totalSalvo=localStorage.getItem('totalMusicasSelecionado');if(totalSalvo) document.getElementById('total_musicas_home').value=totalSalvo;}renderMoods();</script></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAKE YOU PLAYLIST</title>
+  <style>
+    :root{--bg:#0c0320;--paper:#e2a35f;--violet:#401978;--pink:#e30e6e;--pink-2:#ff2a8a;--cream:#f6e9ca;--deep:#06010f;--white:#f8f6ff;--cyan:#37dbe8;--shadow:0 18px 40px rgba(0,0,0,.35);--border:rgba(255,255,255,.18)}
+    *{box-sizing:border-box}html,body{margin:0;padding:0;background:var(--bg);color:var(--white);font-family:Arial,Helvetica,sans-serif}body{overflow-x:hidden}button,input{font:inherit}
+    .hero{min-height:100vh;position:relative;background:linear-gradient(to bottom, rgba(226,163,95,.95) 0 22%, rgba(64,25,120,.88) 22% 56%, rgba(64,25,120,.20) 56% 100%), url('./assets/1000490664.jpg') center bottom/cover no-repeat}
+    .top{display:flex;justify-content:space-between;gap:20px;padding:24px 5vw 10px;color:#111;text-transform:uppercase;font-weight:900;font-style:italic}
+    .brand h1{margin:0;font-size:clamp(40px,7vw,86px);line-height:.95;color:#2f66b7;letter-spacing:.03em}
+    .meta{text-align:right;font-size:clamp(20px,2.8vw,42px);line-height:1.1}.meta small{display:block;margin-top:6px;font-size:clamp(14px,1.6vw,24px)}
+    .layout{position:relative;z-index:2;padding:3vh 5vw 4vh;display:grid;grid-template-columns:minmax(320px, 920px) 1fr;gap:24px;align-items:start}
+    .main-panel{display:flex;flex-direction:column;gap:18px}
+    .moods-grid,.extras-grid,.advanced-grid{display:grid;grid-template-columns:repeat(3,minmax(180px,1fr));gap:22px 28px}
+    .mood-btn{appearance:none;border:0;min-height:82px;border-radius:18px;background:rgba(245,245,250,.95);color:#3e1084;font-weight:1000;font-size:clamp(22px,2.6vw,44px);text-transform:uppercase;letter-spacing:.08em;cursor:pointer;box-shadow:var(--shadow);transition:transform .18s ease, box-shadow .18s ease, background .18s ease, outline-color .18s ease;text-shadow:-2px 0 #14d4ff,2px 0 #ff248b;padding:14px;outline:3px solid transparent}
+    .mood-btn.small{font-size:clamp(18px,2vw,30px);letter-spacing:.04em}.mood-btn:hover{transform:translateY(-3px) scale(1.01);background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.45)}.mood-btn.active{outline-color:#37dbe8;background:#fff}
+    .side-stack{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
+    .card{background:rgba(250,250,255,.92);color:#3f1485;border-radius:18px;padding:14px 18px;box-shadow:var(--shadow);min-width:220px}
+    .card label{display:block;font-size:13px;font-weight:900;text-transform:uppercase;margin-bottom:8px;letter-spacing:.08em}
+    .card input{width:100%;height:44px;border:2px solid rgba(63,20,133,.18);border-radius:12px;padding:0 12px;font-size:20px;font-weight:900;color:#27103f;background:#fff;outline:none}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .ghost-btn{appearance:none;border:0;background:rgba(250,250,255,.92);color:#411986;border-radius:18px;padding:16px 18px;font-weight:1000;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(16px,1.6vw,24px);box-shadow:var(--shadow);cursor:pointer}
+    .ghost-btn.primary{background:#fff0fa}.ghost-btn.active{background:#fff;color:#2f0e63}
+    .footer-note{max-width:420px;background:rgba(5,3,15,.55);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(4px);border-radius:18px;padding:12px 16px;color:#fff5fb;font-size:14px;line-height:1.45}
+    .extras-wrap,.advanced-wrap{display:none;animation:fade .2s ease}.extras-wrap.open,.advanced-wrap.open{display:block}
+    .advanced-box{margin-top:6px;background:rgba(5,3,15,.55);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:16px}
+    .advanced-grid .input-group{background:rgba(250,250,255,.9);border-radius:14px;padding:12px;color:#32125d;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:60px}
+    .advanced-grid label{font-size:13px;font-weight:1000;line-height:1.2}
+    .advanced-grid input{width:82px;height:40px;border:1px solid rgba(63,20,133,.15);border-radius:10px;padding:0 10px;text-align:center;font-weight:900;font-size:16px;color:#27103f}
+    .hint{margin-top:10px;color:#f3def2;font-size:13px;line-height:1.45}
+    @keyframes fade{from{opacity:.4;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+    @media (max-width:1050px){.layout{grid-template-columns:1fr}.side-stack{flex-direction:row;flex-wrap:wrap}}
+    @media (max-width:760px){.top{flex-direction:column;align-items:flex-start}.meta{text-align:left}.moods-grid,.extras-grid,.advanced-grid{grid-template-columns:1fr 1fr;gap:16px}}
+    @media (max-width:560px){.moods-grid,.extras-grid,.advanced-grid{grid-template-columns:1fr}.actions{width:100%}.ghost-btn{width:100%}}
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="top">
+      <div class="brand"><h1>MAKE YOU PLAYLIST</h1></div>
+      <div class="meta"><div>• BY: RENANCK</div><small>soundon.global/bio/renanck</small></div>
+    </div>
+    <div class="layout">
+      <div class="main-panel">
+        <div class="moods-grid" id="moods-main"></div>
+        <div class="actions">
+          <button class="ghost-btn" id="outros-btn" type="button">OUTROS</button>
+          <button class="ghost-btn" id="advanced-btn" type="button">ABRIR OPÇÕES AVANÇADAS</button>
+          <button class="ghost-btn primary" id="generate-btn" type="button">GERAR PLAYLIST</button>
+        </div>
+        <div class="extras-wrap" id="extras-wrap"><div class="extras-grid" id="moods-extra"></div></div>
+        <div class="advanced-wrap" id="advanced-wrap">
+          <div class="advanced-box">
+            <div class="advanced-grid" id="categorias-grid"></div>
+            <div class="hint">Use esta área só quando quiser montar o mix manualmente. Se escolher um mood, ele preenche as porcentagens automaticamente.</div>
+          </div>
+        </div>
+      </div>
+      <div class="side-stack">
+        <div class="card">
+          <label for="total_musicas_home">Quantidade de músicas</label>
+          <input id="total_musicas_home" type="number" min="1" value="18" />
+        </div>
+        <div class="footer-note">Agora você escolhe o mood na primeira página e clica em <strong>GERAR PLAYLIST</strong>. A edição de categorias e moods fica protegida por senha e só aparece como botão pequeno na segunda página.</div>
+      </div>
+    </div>
+  </section>
+  <script src="./playlist-data.js"></script>
+  <script>
+    const PRIMARY_MOOD_KEYS = ['party','noite_sozinho','foco','modo_shonem','noite_neon','faculdade_fm','caminhada'];
+    let selectedMoodKey = localStorage.getItem('moodSelecionado') || '';
+    function currentData(){ return loadPlaylistData(); }
+    function renderAdvancedInputs(data){
+      const grid = document.getElementById('categorias-grid');
+      grid.innerHTML = data.categorias.map(cat => `
+        <div class="input-group">
+          <label for="perc_${cat.key}">${cat.nome}</label>
+          <input type="number" id="perc_${cat.key}" min="0" value="0" />
+        </div>
+      `).join('');
+    }
+    function setWeights(weights = {}){
+      const data = currentData();
+      data.categorias.forEach(cat => {
+        const input = document.getElementById(`perc_${cat.key}`);
+        if (input) input.value = Number(weights[cat.key] || 0);
+      });
+    }
+    function getWeights(){
+      const data = currentData();
+      const weights = {};
+      data.categorias.forEach(cat => {
+        const input = document.getElementById(`perc_${cat.key}`);
+        weights[cat.key] = Number(input ? input.value : 0);
+      });
+      return weights;
+    }
+    function highlightSelected(){
+      document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.key === selectedMoodKey));
+    }
+    function selectMood(key){
+      const data = currentData();
+      if (!data.moodsPredefinidos[key]) return;
+      selectedMoodKey = key;
+      localStorage.setItem('moodSelecionado', key);
+      localStorage.removeItem('playlistCustomPesosTemp');
+      setWeights(data.moodsPredefinidos[key].pesos || {});
+      highlightSelected();
+    }
+    function createMoodButton(key, mood){
+      const text = String(mood.nome || key);
+      return `<button class="mood-btn ${text.length > 12 ? 'small' : ''}" data-key="${key}" type="button">${text}</button>`;
+    }
+    function renderMoods(){
+      const data = currentData();
+      const entries = Object.entries(data.moodsPredefinidos || {});
+      const mainEntries = [];
+      const extraEntries = [];
+      const used = new Set();
+      PRIMARY_MOOD_KEYS.forEach(key => { if (data.moodsPredefinidos[key]) { mainEntries.push([key, data.moodsPredefinidos[key]]); used.add(key); } });
+      entries.forEach(([key, mood]) => { if (!used.has(key)) extraEntries.push([key, mood]); });
+      document.getElementById('moods-main').innerHTML = mainEntries.map(([key, mood]) => createMoodButton(key, mood)).join('');
+      document.getElementById('moods-extra').innerHTML = extraEntries.length ? extraEntries.map(([key, mood]) => createMoodButton(key, mood)).join('') : `<div class="footer-note">Nenhum mood adicional por enquanto.</div>`;
+      document.querySelectorAll('.mood-btn[data-key]').forEach(btn => btn.addEventListener('click', () => selectMood(btn.dataset.key)));
+      document.getElementById('outros-btn').style.display = extraEntries.length ? 'inline-block' : 'none';
+      highlightSelected();
+    }
+    function generatePlaylist(){
+      const total = Number(document.getElementById('total_musicas_home').value || 18);
+      if (!total || total < 1) return alert('Escolha uma quantidade válida de músicas.');
+      localStorage.setItem('totalMusicasSelecionado', String(total));
+      const advancedOpen = document.getElementById('advanced-wrap').classList.contains('open');
+      const weights = getWeights();
+      const weightSum = Object.values(weights).reduce((acc, value) => acc + Number(value || 0), 0);
+      if (advancedOpen && weightSum > 0) {
+        localStorage.removeItem('moodSelecionado');
+        localStorage.setItem('playlistCustomPesosTemp', JSON.stringify(weights));
+        localStorage.setItem('abrirAvancado', '1');
+      } else {
+        if (!selectedMoodKey) return alert('Escolha um mood ou preencha as porcentagens nas opções avançadas.');
+        localStorage.setItem('moodSelecionado', selectedMoodKey);
+        localStorage.removeItem('playlistCustomPesosTemp');
+        localStorage.removeItem('abrirAvancado');
+      }
+      window.location.href = './player.html';
+    }
+    const extrasWrap = document.getElementById('extras-wrap');
+    document.getElementById('outros-btn').addEventListener('click', () => {
+      extrasWrap.classList.toggle('open');
+      document.getElementById('outros-btn').classList.toggle('active', extrasWrap.classList.contains('open'));
+    });
+    const advancedWrap = document.getElementById('advanced-wrap');
+    document.getElementById('advanced-btn').addEventListener('click', () => {
+      advancedWrap.classList.toggle('open');
+      document.getElementById('advanced-btn').classList.toggle('active', advancedWrap.classList.contains('open'));
+      if (advancedWrap.classList.contains('open') && selectedMoodKey) {
+        const data = currentData();
+        const mood = data.moodsPredefinidos[selectedMoodKey];
+        if (mood) setWeights(mood.pesos || {});
+      }
+    });
+    document.getElementById('generate-btn').addEventListener('click', generatePlaylist);
+    renderAdvancedInputs(currentData());
+    renderMoods();
+    const totalSalvo = localStorage.getItem('totalMusicasSelecionado');
+    if (totalSalvo) document.getElementById('total_musicas_home').value = totalSalvo;
+    const customWeightsRaw = localStorage.getItem('playlistCustomPesosTemp');
+    if (customWeightsRaw) {
+      try {
+        setWeights(JSON.parse(customWeightsRaw));
+        advancedWrap.classList.add('open');
+        document.getElementById('advanced-btn').classList.add('active');
+      } catch(e){}
+    } else if (selectedMoodKey) {
+      const data = currentData();
+      if (data.moodsPredefinidos[selectedMoodKey]) setWeights(data.moodsPredefinidos[selectedMoodKey].pesos || {});
+      else { selectedMoodKey = ''; localStorage.removeItem('moodSelecionado'); }
+    }
+    highlightSelected();
+  </script>
+</body>
+</html>
