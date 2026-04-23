@@ -616,6 +616,15 @@
       localStorage.setItem('abrirAvancado', '1');
       window.location.href = './player.html';
     }
+
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const totalSalvo = localStorage.getItem('totalMusicasSelecionado');
+      if (totalSalvo) {
+        const input = document.getElementById('total_musicas_home');
+        if (input) input.value = totalSalvo;
+      }
+    });
   </script>
 </body>
 </html>
