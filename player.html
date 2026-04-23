@@ -564,9 +564,15 @@
 </head>
 <body>
   <section class="section section-player" id="player-section">
-    .compact-btn {
-  display: none;
-}
+    <div class="player-top-controls">
+      <div class="mini-card qty-mini">
+        <label for="total_musicas">Quantidade de músicas</label>
+        <input id="total_musicas" type="number" min="1" value="18" />
+      </div>
+      <button class="compact-btn" onclick="toggleAdvanced(true)">OPÇÕES AVANÇADAS</button>
+      <button class="compact-btn" onclick="voltarHome()">VOLTAR</button>
+    </div>
+
     <div class="scene-top">
       <div class="scene-label">RITMO</div>
 
