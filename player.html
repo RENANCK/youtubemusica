@@ -651,7 +651,9 @@ const categorias = [
   { key: "poop_brasil", nome: "POOP BRASIL" },
   { key: "now", nome: "NOW" },
   { key: "trap", nome: "TRAP" },
-  { key: "bombap", nome: "BOMBAP" }
+  { key: "bombap", nome: "BOMBAP" },
+  { key: "eletronica", nome: "ELETRONICA" },
+  { key: "1-minute", nome: "1 MINUTO" }
 ];
 
     const moodsPredefinidos = {
@@ -661,7 +663,7 @@ const categorias = [
       chirriro: 0, copacabana: 1, dazed_and_confused: 2, anos_2020: 0, indie: 6, pop_rock: 5,
       rock: 2, bossa_nova: 3, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 8,
       poop_america_europa: 4, poop_africa_asia: 2, nostalgia: 2, latina: 1, reggea: 0,
-      psicodelica: 2, poop_brasil: 0, now: 12, trap: 25, bombap: 15
+      psicodelica: 6, now: 12, trap: 25, bombap: 10, poop_brasil: 4, eletronica: 8, 1-minute: 0
     }
   },
   faculdade_fm: {
@@ -670,7 +672,7 @@ const categorias = [
       chirriro: 0, copacabana: 1, dazed_and_confused: 3, anos_2020: 0, indie: 5, pop_rock: 4,
       rock: 5, bossa_nova: 4, nova_mpb: 12, as_veias_abertas_da_america_latina: 6, invicta: 5,
       poop_america_europa: 3, poop_africa_asia: 2, nostalgia: 8, latina: 1, reggea: 10,
-      psicodelica: 4, poop_brasil: 0, now: 8, trap: 5, bombap: 12
+      psicodelica: 4, now: 8, trap: 5, bombap: 12, poop_brasil: 8, eletronica: 4, 1-minute: 0
     }
   },
   noite_sozinho: {
@@ -679,7 +681,7 @@ const categorias = [
       chirriro: 4, copacabana: 2, dazed_and_confused: 5, anos_2020: 0, indie: 6, pop_rock: 12,
       rock: 2, bossa_nova: 5, nova_mpb: 8, as_veias_abertas_da_america_latina: 1, invicta: 12,
       poop_america_europa: 2, poop_africa_asia: 1, nostalgia: 1, latina: 0, reggea: 7,
-      psicodelica: 2, poop_brasil: 0, now: 3, trap: 8, bombap: 20
+      psicodelica: 2, poop_brasil: 5, now: 3, trap: 8, bombap: 20, eletronica: 1, 1-minute: 2
     }
   },
   modo_shonem: {
@@ -688,7 +690,7 @@ const categorias = [
       chirriro: 27, copacabana: 0, dazed_and_confused: 10, anos_2020: 0, indie: 3, pop_rock: 2,
       rock: 7, bossa_nova: 2, nova_mpb: 0, as_veias_abertas_da_america_latina: 1, invicta: 0,
       poop_america_europa: 0, poop_africa_asia: 10, nostalgia: 1, latina: 0, reggea: 0,
-      psicodelica: 6, poop_brasil: 0, now: 2, trap: 20, bombap: 10
+      psicodelica: 6, poop_brasil: 1, now: 2, trap: 20, bombap: 10, eletronica: 20, 1-minute: 5
     }
   },
   noite_neon: {
@@ -697,7 +699,7 @@ const categorias = [
       chirriro: 8, copacabana: 0, dazed_and_confused: 6, anos_2020: 0, indie: 3, pop_rock: 10,
       rock: 1, bossa_nova: 6, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 10,
       poop_america_europa: 5, poop_africa_asia: 1, nostalgia: 0, latina: 1, reggea: 0,
-      psicodelica: 20, poop_brasil: 0, now: 0, trap: 8, bombap: 10
+      psicodelica: 20, poop_brasil: 1, now: 0, trap: 8, bombap: 10, eletronica: 4, 1-minute: 2
     }
   },
   caminhada: {
@@ -706,16 +708,16 @@ const categorias = [
       chirriro: 7, copacabana: 4, dazed_and_confused: 2, anos_2020: 0, indie: 8, pop_rock: 12,
       rock: 2, bossa_nova: 1, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 1,
       poop_america_europa: 3, poop_africa_asia: 2, nostalgia: 4, latina: 0, reggea: 6,
-      psicodelica: 1, poop_brasil: 0, now: 14, trap: 10, bombap: 12
+      psicodelica: 1, poop_brasil: 3, now: 14, trap: 10, bombap: 12, eletronica: 12, 1-minute: 4
     }
   },
   foco: {
     nome: "FOCO",
     pesos: {
-      chirriro: 18, copacabana: 4, dazed_and_confused: 2, anos_2020: 0, indie: 3, pop_rock: 1,
-      rock: 1, bossa_nova: 16, nova_mpb: 15, as_veias_abertas_da_america_latina: 0, invicta: 5,
+      chirriro: 18, copacabana: 4, dazed_and_confused: 2, anos_2020: 1, indie: 3, pop_rock: 1,
+      rock: 1, bossa_nova: 12, nova_mpb: 15, as_veias_abertas_da_america_latina: 0, invicta: 5,
       poop_america_europa: 2, poop_africa_asia: 1, nostalgia: 1, latina: 5, reggea: 12,
-      psicodelica: 4, poop_brasil: 0, now: 0, trap: 0, bombap: 10
+      psicodelica: 4, poop_brasil: 8, now: 0, trap: 0, bombap: 10, eletronica: 1, 1-minute: 35
     }
   }
 };
@@ -918,36 +920,15 @@ const categorias = [
     "LYhcqIQZ5-Y", "mym4sKoAnKs"
   ],
   reggea: [
-    "JmHXXf3p9lI", "Df_gGM1h9No", "0Pl9Puuc2uk", "vV1_mDWUpxs", "RKFO3kYY_gk",
-    "zP8iVx2K7-o", "5fQuNus24aU", "YMetJh6FW-o", "YxPDdX-GUAc", "BRuHGchMrD8",
-    "u2FepiQ99aA", "l2iOq1Jwi20", "O2xYf5XYBlY", "p1PQJ1m5f5Q", "0i-Q1tCLUCQ",
-    "DwW0U77H0Gw", "JD_ZgdJYqGo", "YvdaeJ-tQUw", "75wzR1s4GE4", "3K1r4ymgez0",
-    "5jEu8W45sGI", "pJ4FMFPIf40", "6Ujj5QyMKug", "zy9Tm6AV99s", "zBqW6yKz8WA",
-    "MUNNRAdizz0", "WjGiUVrQEB0", "2U91ELKMNlE", "e2ad7O8-5Xg", "JDcMI2D2Uac",
-    "7kyg6F-E4fg", "uEV4RqqnlSE", "Az11r3EKmbg", "cWyL-_Tnos4", "RYKGRA1hq3U",
-    "s7-B-JXmhOs", "S95E-tAdyZk", "d6uhcxL49R4", "x2Te9ah9Go0", "LI5o3Bngfvs",
-    "VgQWuyMgLhc", "lVTYBwK6bO4", "z9IOohpDAV4", "k7pr4VTk5cQ", "VejcFVJ3-_Q",
-    "QCLwUr3OTGs", "LXooRGy7IYQ", "9OEeWGXiX6E", "rUaGN2iPU5Q", "C0vycj4Wvk0",
-    "e3W3TDUzeNc", "gIvdtYdPT_8", "jIp5haORar8", "qO3JmH34La8", "Nvw9Skg2sN0",
-    "hpOWZVu7sKY", "r_KN7WJCH5A", "XXKf9aqBRD0", "qlqFzcdj3yo", "Y3CCljHhLZg",
-    "N-g_urXjnsU", "tL7vzf3X5Ts", "6BaCNYU2YR0", "i1Nm-MJ313w", "etlCmhhn-VI",
-    "buhS2nx89K8", "sTMRBJS0ofQ", "yjzeCt30DH4", "hxzCrS519BU", "UNNOHk60ojk",
-    "8g23lUx94fY", "KdG1L4kK1j4", "h8xA8Oqx2FI", "akpfMSn9mMw", "V1oor7kC8lU",
-    "9GhWFIgaqL0", "XTmz9ikVCHw", "m9EN6CkMOs8", "JQlKMX2LLHg", "mMMnW26o82I",
-    "-XES9-nyk9I", "6J5qxzHC2TU", "JkXnLik65jA", "wjHE1xWN-cA", "bJEQLj23QEE",
-    "6jQv9tvl0Gg", "2NAlWaC1v44", "vHN-2Dm9dhk", "n4y2GZj_9so", "kkGDWRIe8rs",
-    "hFRUKbhtovo", "hCCe-AYLQ-Q", "JEtQcIGQ6VA", "EZ6gDZ-Pdig", "xGpk-k-TK4s",
-    "d79LDHnZz00", "nqxZMimq3Xk", "Jcj4Ra9pMQ0", "icjEC-7c16Y", "BB-95awQO-g",
-    "ecL9nUPEZGI", "9BuwCQwJRiQ", "VmMqf5SdehM", "tRmtL8yxcSA", "w-rgE0VDPLM",
-    "1ti2YCFgCoI", "69RdQFDuYPI", "HNBCVM4KbUM", "mZ6VezKMoRY", "UZfaIx57UqU",
-    "EsyUa63NM1E", "iD__IJWqwY8", "vPTxVQDk11U", "cPjhBow3dLw", "lBNGn_XU7Rw",
-    "5H5A2b9t5iY", "zsnq3RfwvHM", "ZoEuBx3HLeM", "cjQ4xdgsn3s", "UFH1_y5DQp4",
-    "45nfMq25z_I", "7wLw2lloLlw", "7sNVqZm-HsA", "rcLQu5yg5LE", "bBHPq3UQFsw",
-    "2EGXgmoYtgA", "NPl2N9eQOn4", "NzRXBbdpYRg", "K7Mfhu64jvE", "D94Gd1NJqwk",
-    "lxhqCcrnTv4", "lV2plyhSRBU", "zFITOmA3SgI", "hGGYn-sDGNE", "-3ssKgmz4m0",
-    "1xIV4F0WTE0", "msJeZ-Adksw", "0PfevkndCPU", "jM99OIDhojY", "vB_xczvxAqc",
-    "qeO5EBBCPm0", "aoH4kc_gsGo", "lF0VS5MjRD0", "s4ocoNaZwDs", "zSIxvdYxYRY",
-    "xnv9_IqY3g4", "oebyFdmMB6U", "WJ-TvdlfBnI", "FpaOjNsWzEI", "rs6Y4kZ8qtw"
+    "JmHXXf3p9lI", "YMetJh6FW-o", "l2iOq1Jwi20", "0Pl9Puuc2uk", "0i-Q1tCLUCQ",
+      "DwW0U77H0Gw", "JD_ZgdJYqGo", "YvdaeJ-tQUw", "75wzR1s4GE4", "5jEu8W45sGI",
+      "6Ujj5QyMKug", "zy9Tm6AV99s", "zBqW6yKz8WA", "MUNNRAdizz0", "WjGiUVrQEB0",
+      "e2ad7O8-5Xg", "7kyg6F-E4fg", "uEV4RqqnlSE", "Az11r3EKmbg", "RYKGRA1hq3U",
+      "s7-B-JXmhOs", "S95E-tAdyZk", "d6uhcxL49R4", "LI5o3Bngfvs", "k7pr4VTk5cQ",
+      "QCLwUr3OTGs", "C0vycj4Wvk0", "gIvdtYdPT_8", "qO3JmH34La8", "hpOWZVu7sKY",
+      "r_KN7WJCH5A", "XXKf9aqBRD0", "Y3CCljHhLZg", "EsyUa63NM1E", "XTmz9ikVCHw",
+      "6BaCNYU2YR0", "nGGxZe3I2DE", "8g23lUx94fY", "swFuq8hCe7o", "V1oor7kC8lU",
+      "sTMRBJS0ofQ", "VmMqf5SdehM", "J34fJWYwALU"
   ],
   psicodelica: [
     "jSqrXAWGbrI", "HtUH9z_Oey8", "2YllipGl2Is", "bxYhJpILIQE", "wQ3bJN1zLKw",
@@ -966,7 +947,69 @@ const categorias = [
   bombap: [
     "S95E-tAdyZk", "d6uhcxL49R4", "e8yxF-0qk8o", "Sq7pVppXesU", "5NC_fVUD478", "W1eYLGpmkvg", "onCw9XRm46Y", "7k7RZuG9Q3s", "POayBrcauBE", "ELdwY0MSWio", "Cz7SNDO9Vfs", "5XxW6cwXLMc", "8idPpp1x0ZE", "KWQjHgU7vOI", "x0aLJ-G1fvc", "60srTLdH83s", "bMyN7AiJLOc", "abWs5rY-vEI", "GX-x-PEKmmQ", "WWzut3UH2yE", "jaFbIHJ2rZ8", "Vu51vXkBGNI", "TdqZBLK9dyQ", "08xviUgh1Yw", "xb3m_V3wXo0", "3cwrB_ZQHU8", "3rnx0mL-j1E", "esciBxyjNio", "uuCfQyde4Ww", "qnfzZvyMmqM", "Y9y5nkYXB_Y", "soXz8LSWu8w", "UQCi8GAwpzQ", "WLuicF-20RA", "fAtgK00G52g", "cy31ZUhhfUw", "xfFsu5_EByY", "Hyc68xAqVPM", "WdVszU5ah2s", "AeX9vS7u1Ks", "B9o-0Inz04s", "a_wVSSR7svQ", "tMh882zY_FE", "8Yjv8Qrmjm4", "L7OJm7sP2Uw", "D7oyLPYukkU", "Pxq0pP5raa4", "5ylZdbHg93A", "uk-tO-s5G04", "UFPperhXtUo", "WjBlLkqOF3M", "wz_mdL5entY", "IDhFa-Q5vlU", "QzRo0xUgwOM", "ORq_gTCYNzk", "EM4Q5qb5sQg", "_p3cb31S3qk", "f4bbCzSBaDg", "9T2LD3DRX1w", "bwrCYUU1Jjk", "3ZYhsIB5LQE", "ImiTCZokBOE", "MVeoG6Au4zE", "UuaiMZu0_0U", "PN8NVwkkkBw", "J-BAHrl2twQ", "R1WAEflvGvo", "8Q8ob15QoGk", "CLqS0jF1gTU", "5fQuNus24aU", "P6-4prI2XTY", "UYktaYkqnXU", "-y2ZvXqTWWs", "nk6e6RW042s", "sOCNQ2COT_w"
   ],
-  poop_brasil: []
+  poop_brasil: [ 
+    "qEE00t8qSos", "QvUztpzMW9k", "GLaziGAdtw4", "aHoJ1BQsNLc", "tfDqPvVAn_o",
+  "CVRay3gdTv4", "eAm9h7RAeQw", "F7Uq5sT-Ids", "orn1YppDaw4", "Y8JFq5eGeO8",
+  "1UIRSdi1COU", "Moce6dVp_yM", "WVSVCz_mhUw", "IRlsrq3Ug5U", "2ebdws1JArQ",
+  "N-g_urXjnsU", "tL7vzf3X5Ts", "rUaGN2iPU5Q", "jfrvhiKTpyo", "3q4kWpdGPVo",
+  "trxGvTDR8NY", "J7ock0XOqV0", "dexb5pl_LX4", "YMQ4YFz7iL0", "juM8luwwMoo",
+  "heelpMJcwfA", "lhvNgPjBP4Y", "VuWZBzWRonI", "LoRp7S83B2Q", "VgMAnVjLK_I",
+  "GX-x-PEKmmQ", "WWzut3UH2yE", "Vu51vXkBGNI", "TdqZBLK9dyQ", "dbcOTQtJcZU",
+  "HPrALHMZgkk", "PkPpph9-nNw", "PXDUR9nLf_s", "EHHT1yyGquQ", "9mXBTKKXCQU",
+  "rjOdIaK1Hcg", "UHrAiiDpxUI", "qQKcaquUHxo", "2zoRomLIZE4", "PvB5MzlBJcY",
+  "vqaKVx_xs_4", "sfPoskIppqQ", "GgAUwHCaMn4", "kFCpvLBptD0", "uezc3dkyhoo",
+  "vDQfpixwaWI", "xb3m_V3wXo0", "kMnbwB9Zb6Q", "6ygPpCUaf3M", "jn9orFiLM4E",
+  "Q-ToY3ujtcA", "3cwrB_ZQHU8", "Xzjo2yfSw1U", "8LuwBPJPhCU", "SbMxLmXLuzE",
+  "ey3Cv1ACDNU", "T7A3HWdkeEk", "xlcrf1iPHCI", "o_9Iuiv-8Yg", "Gxmd1LkO42w",
+  "WqptAw6Wvx4", "HBxHH6LZHKo", "RpxI9E4fZvE", "NpbLpOt0V2k", "NTfsBcSrdwo",
+  "CBr4_xRUSCs", "eWOrpNqQeP0", "HaF5HhZsiqg", "1p68aYr8MNo", "VL__vt1do_8",
+  "jnQJLawLHz0", "e0XfKvjUxs8", "LzZfETWRARo", "EqirsUERhVg", "naDZ04JI_a4",
+  "pvT9oNZ7Yuc", "hz5JWVIj7c8", "VyA-cM7kcqQ", "_9q2ZQgr8kE", "AN5dR1zpJ1s",
+  "f3OwDxtL6Mw", "NjjSaRwjwOE", "BE36503wodE", "yTTz7mXxpjU", "d1j6NoMThLY",
+  "Co0w8hGrEGU", "51Yd70p-usA", "z6aA64Rr4jI", "YyHae5CWkJY", "3WGpvM3BfCY",
+  "7OUcBbqwxLU", "8OOwKtFUMPo", "n8xU3pnD7FA", "YJvADHSILD8", "33Xvy06QFRs",
+  "gI9YgvtM858", "LmxTWmaJPHE", "KjWHbzKlgbk", "YsRN49kSpL8", "bzyOi24YiOM",
+  "RYOmTWOK2nQ", "2ubQfWcQLs8", "KCW1VxnEyDg", "MTPYqzFSIp0", "EIlQbeFW3VI",
+  "B0XqPn9Vvbg", "fumkLGq6WYk", "Dk5i7lEj-VQ", "zl9j_8EUw7k", "CTVGrg_gGgE",
+  "NE0NnTFohDU", "T2iLjMEW2jI", "rhfK4cvgSjQ", "X2SpCAJcgXg", "YpD5OBUU1F4",
+  "W1o9NVco7FU", "aRG2owdrwZo", "ok7YuYJK7Ww", "5tVIhbjc4xw", "cMQoeEvxkis",
+  "5a8nCfO6hgc", "LMDbZA9obvk", "VejcFVJ3-_Q", "Ltr_AbCC8iw", "o5xyXiCGObE",
+  "7HW01Hszuis", "gXoJBE8gnqs", "pnxATAR4pgU", "tvapqahmdTI", "Z4JFtumLq1E",
+  "0zXY7kXvPQw", "Bg5JNEyA0QE", "P5BkqQ-xh64", "pev_w5d3NuY", "RWasIxVg3zk",
+  "D_u1EFBf0yw", "1qPvZygFbf4", "zqqGr-MofYM", "I2TXDkpP0rA", "CxNX626sGvI",
+  "uszrkYbA75A", "ELq6LSDtIEU", "pq7weSygdIA", "6IBJCmhvayA", "D6F8WaPEtaU",
+  "8VKOr_ovhLc", "EloF_eEwMgM", "5K44XTp7co0", "X4toDFaAzJM", "2e4CIMjIRiI",
+  "DPKVen1T90o", "sOCNQ2COT_w", "MyrjSf3Xr3w", "As_LlvlWA-U", "u66kDDxRgvo",
+  "Csft64TgQEo", "kjoicOCVwZ4", "bMyN7AiJLOc", "OhEZCMHd44E", "DsdLig4NWlM",
+  "GeeGnJE-EWQ", "SJ0LR757ssk", "PS4fPnbyjrc", "2tNO4q0g6oo", "aOY8TjiBRk4",
+  "A8_IRvFMP3M", "Ip8LGaU5_7U", "hIhoVPUy8So", "o4_CIj-XkBw", "GLRcaM7iUIM",
+  "_wjRbrqa808", "pOeMHNUZDKg", "fkxQFjPv1vk" 
+  ],
+  1-minute: [
+      "YORojOlf6sI", "LQbxWMyeJbM", "M_Ky-qScLYs", "2KqVGqHbFmo", "4JZ-o3iAJv4",
+  "Pswx6OQp1Ks", "fiY2g030JKk", "5TNApAMcoAs", "KpcfHX0zAsc", "E3xczh8OK-Y",
+  "16N4OjhjZAE", "cg5ipNWiL_0", "NvNZWF_-Q1w", "v3VOyhwapSc", "NINfEB8W_Sw",
+  "FDoS9LIksGk", "5_tHxsMR178", "EBILREieM0A", "0UCTRrBJh4w", "K1AHDlP4qRA",
+  "n5794Zmk1t8", "0Db4Rbf39Qc", "mRZfRpf4ypU", "qPsYRy9HHsc", "JdgIv2kwmBU",
+  "Dx-UaU7Z44o", "D0a4vuKQR5w", "PJ4XqEqMM1A", "nIztjKTFXRc", "4HyrIpvMqOA",
+  "TYEklrml28A", "dUSCmdM-gz4", "8WKOz0zUy5I", "o1iUR3GG4DQ", "nYHx9CXHmPs",
+  "ZPVibC9q1oc", "V6x9R5H88L4", "_XG3h6LywNQ", "yeCcPhEdwws", "cjsreqYXIms",
+  "jgyShFzdB_Q", "OIn7LWU5dw0", "NCOLVBtoGDY", "txUmfTt30YA", "YhX_Woa3kVA",
+  "Eu9nPPJhcn4", "f6e6W304LhA", "2rn-vMbFglI", "XhYpqI4HVYw", "vqSenrjS-ZU",
+  "3u2Lb8StY1c", "mUXf8_SIm5Y", "gsbsYMPvdec", "CTEY3LVrKh0", "Gf_ZNJWgwOM",
+  "s3nfZ_aRRV0", "D1qh2q-E7Fs", "3hoipXdhRSc", "6i96zId9cqM", "0BS9oBLrDw8",
+  "5manKiShnMk", "iX8MNSINSuA", "yAuAlDdl2qw", "EOEjzy271Mw", "kEW83Ma9f5Q",
+  "FEacDWPWfJU", "UErJgppd_vc", "9GL5biaNp2o", "4DfLUsNzYR0", "Ha2OcL_0gtM",
+  "NdauAA_e9jc", "60OCZAHSxDk", "MtVn2b17RdM", "YWa8vWynHkY"
+  ],
+  eletronica: [
+  "XpdpW0z9xnQ", "u31thuMehjM", "bEacVcAtiKU", "Vcuq7y2SixQ", "LQ-7iWrVAxU",
+  "MEg-oqI9qmw", "mFFilYO3Aug", "_3T8KznhThQ", "ux9vr4xfWj4", "szj59j0hz_4",
+  "cHHLHGNpCSA", "_ovdm2yX4MA", "UtF6Jej8yb4", "-1c6QeKRYTs", "zvZW3NBgX5k",
+  "LRPGqNeav_M", "JNJgBIKeIiQ", "oFRIda79u_E", "488paN09KiE", "GsF05B8TFWg",
+  "BX0lKSa_PTk", "ri-fIya76ac", "OWz3rQQaf_Q", "AFSLGv4AMs4", "bDbbkSgnrxE",
+  "f0dYb6nrVY4", "6esc5H6KFIA", "o27Q8fKGgfI", "I203G1sMGDg", "Iq8h3GEe22o",
+  "tWIJFhZ69_U", "94Rq2TX0wj4"
 };
 
     const nomesCategorias = Object.fromEntries(
