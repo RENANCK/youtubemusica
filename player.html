@@ -631,6 +631,7 @@
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
 const categorias = [
+  const categorias = [
   { key: "chirriro", nome: "CHIRRIRO" },
   { key: "copacabana", nome: "COPACABANA" },
   { key: "dazed_and_confused", nome: "DAZED AND CONFUSED" },
@@ -653,18 +654,18 @@ const categorias = [
   { key: "trap", nome: "TRAP" },
   { key: "bombap", nome: "BOMBAP" },
   { key: "eletronica", nome: "ELETRONICA" },
-  { key: "1-minute", nome: "1 MINUTO" }
-  { key: "lofi", nome: "lofi" }
+  { key: "1-minute", nome: "1 MINUTO" },
+  { key: "lofi", nome: "LOFI" },
+  { key: "montagem", nome: "MONTAGEM ANIME" }
 ];
-
     const moodsPredefinidos = {
   party: {
     nome: "PARTY",
     pesos: {
-      chirriro: 0, copacabana: 1, dazed_and_confused: 2, anos_2020: 0, indie: 6, pop_rock: 5,
-      rock: 2, bossa_nova: 3, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 8,
-      poop_america_europa: 4, poop_africa_asia: 2, nostalgia: 2, latina: 1, reggea: 0,
-      psicodelica: 6, now: 12, trap: 25, bombap: 10, poop_brasil: 4, eletronica: 8, "1-minute": 0, lofi: 3
+      chirriro: 1, copacabana: 1, dazed_and_confused: 2, anos_2020: 0, indie: 6, pop_rock: 8,
+      rock: 6, bossa_nova: 3, nova_mpb: 5, as_veias_abertas_da_america_latina: 1, invicta: 15,
+      poop_america_europa: 4, poop_africa_asia: 2, nostalgia: 2, latina: 1, reggea: 3,
+      psicodelica: 6, now: 12, trap: 20, bombap: 8, poop_brasil: 4, eletronica: 15, "1-minute": 0, lofi: 3, montagem:3
     }
   },
   faculdade_fm: {
@@ -673,7 +674,7 @@ const categorias = [
       chirriro: 0, copacabana: 1, dazed_and_confused: 3, anos_2020: 0, indie: 5, pop_rock: 4,
       rock: 5, bossa_nova: 4, nova_mpb: 12, as_veias_abertas_da_america_latina: 6, invicta: 5,
       poop_america_europa: 3, poop_africa_asia: 2, nostalgia: 8, latina: 1, reggea: 10,
-      psicodelica: 4, now: 8, trap: 5, bombap: 12, poop_brasil: 8, eletronica: 4, "1-minute": 0, lofi: 1
+      psicodelica: 4, now: 8, trap: 5, bombap: 12, poop_brasil: 8, eletronica: 4, "1-minute": 0, lofi: 3
     }
   },
   noite_sozinho: {
@@ -682,26 +683,26 @@ const categorias = [
       chirriro: 4, copacabana: 2, dazed_and_confused: 5, anos_2020: 0, indie: 6, pop_rock: 12,
       rock: 2, bossa_nova: 5, nova_mpb: 8, as_veias_abertas_da_america_latina: 1, invicta: 12,
       poop_america_europa: 2, poop_africa_asia: 1, nostalgia: 1, latina: 0, reggea: 7,
-      psicodelica: 2, poop_brasil: 5, now: 3, trap: 8, bombap: 20, eletronica: 1, "1-minute": 2, lofi: 15
+      psicodelica: 2, poop_brasil: 7, now: 3, trap: 8, bombap: 20, eletronica: 1, "1-minute": 2, lofi: 15, montagem: 1
     }
   },
   modo_shonem: {
     nome: "SHONEM",
     pesos: {
-      chirriro: 27, copacabana: 0, dazed_and_confused: 10, anos_2020: 0, indie: 3, pop_rock: 2,
-      rock: 7, bossa_nova: 2, nova_mpb: 0, as_veias_abertas_da_america_latina: 0, invicta: 2,
-      poop_america_europa: 0, poop_africa_asia: 5, nostalgia: 1, latina: 0, reggea: 0,
-      psicodelica: 6, poop_brasil: 1, now: 2, trap: 10, bombap: 10, eletronica: 20, "1-minute": 5, lofi: 20
+      chirriro: 27, copacabana: 0, dazed_and_confused: 5, anos_2020: 0, indie: 1, pop_rock: 2,
+      rock: 2, bossa_nova: 2, nova_mpb: 0, as_veias_abertas_da_america_latina: 0, invicta: 2,
+      poop_america_europa: 0, poop_africa_asia: 5, nostalgia: 5, latina: 0, reggea: 0,
+      psicodelica: 6, poop_brasil: 1, now: 2, trap: 10, bombap: 10, eletronica: 20, "1-minute": 5, lofi: 20, montagem: 30
     }
   },
   noite_neon: {
-    nome: "NEON",
-    pesos: {
-      chirriro: 8, copacabana: 0, dazed_and_confused: 6, anos_2020: 0, indie: 3, pop_rock: 10,
-      rock: 1, bossa_nova: 6, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 10,
-      poop_america_europa: 5, poop_africa_asia: 1, nostalgia: 0, latina: 1, reggea: 0,
-      psicodelica: 20, poop_brasil: 1, now: 0, trap: 8, bombap: 10, eletronica: 4, "1-minute": 2, lo-fi:18
-    }
+  nome: "NEON",
+  pesos: {
+    chirriro: 8, copacabana: 0, dazed_and_confused: 6, anos_2020: 0, indie: 3, pop_rock: 10,
+    rock: 1, bossa_nova: 6, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 10,
+    poop_america_europa: 5, poop_africa_asia: 1, nostalgia: 0, latina: 1, reggea: 0,
+    psicodelica: 20, poop_brasil: 1, now: 0, trap: 8, bombap: 10, eletronica: 4, "1-minute": 2, lofi: 18, montagem: 3
+  }
   },
   caminhada: {
     nome: "CAMINHADA",
@@ -709,7 +710,7 @@ const categorias = [
       chirriro: 7, copacabana: 4, dazed_and_confused: 2, anos_2020: 0, indie: 8, pop_rock: 12,
       rock: 5, bossa_nova: 1, nova_mpb: 10, as_veias_abertas_da_america_latina: 1, invicta: 1,
       poop_america_europa: 3, poop_africa_asia: 2, nostalgia: 4, latina: 0, reggea: 6,
-      psicodelica: 1, poop_brasil: 3, now: 14, trap: 10, bombap: 12, eletronica: 12, "1-minute": 4, lofi: 2
+      psicodelica: 1, poop_brasil: 3, now: 14, trap: 10, bombap: 12, eletronica: 12, "1-minute": 4, lofi: 2, montagem: 8
     }
   },
   foco: {
@@ -724,6 +725,32 @@ const categorias = [
 };
 
     const bancoDeMusicas = {
+      
+      montagem: [
+      "qScvVYfbLWE", "acJw1qxzwVk", "GwL8h6P4NHg", "lpWSOL7Wi0g", "Ytv8CPZHdjI",
+  "mZF-pQl-0ac", "BWQEnmsuAuk", "a3dYBj-hOZc", "rgWUbd0iZEY", "m0gdDqXL-B8",
+  "AO7S9nEneYU", "kM-j2N0FWyA", "fSELQO_kFtI", "o8uCfmSnEMs", "m_An2wxCQK0",
+  "WrmIcuEaxJk", "kE4qheUazzM", "LrMxBCo08B0", "uTdCWYTw_ao", "rSDpqmYEKnw",
+  "qyYyGQkoutM", "e60rVWorShA", "fIX8JLWgXL0", "59YPeuOxQeA", "ymaq2whcwG8",
+  "ZNC69wMRkrM", "ylIWqfTJuAU", "o281gc1D7zQ", "xUr1E-Txemw", "21kMxC41hD4",
+  "an5Y7TC0PPs", "buyxAyIxgO4", "FhWqIg0mNIY", "E5FN6N4fnNw", "-uErDfxBM-M",
+  "KC511WcIePU", "_PTwg0oDBYc", "u6g7B-qDj68", "grESFuAwJbY", "x4eGtjO_yog",
+  "1tJqUEDgadQ", "HYZU5nSfSGI", "RLwKG4CDbZo", "8JShzGVg5DM", "aipZB9Sh8Wg",
+  "Q1WTKGI_fyg", "oqHBB2VqPs4", "wyUMVRWK6zA", "XYssR0zw9Q8", "O3wPOqqEHt0",
+  "sFkSstzgDdc", "yWEqJyBzMGY", "Z9yT8cnbI-M", "yLV89y9OfgM", "2wLVuuc3oZg",
+  "D1FfoZ59npk", "bow9bkbPFTc", "v-PuqUzZphw", "R3G69CAh4RU", "hSSZQufJy9w",
+  "d6ZbffLah8w", "Qk03QbNQOw8", "MHSV-Gesjkg", "eXSM6XeNFps", "9QV5mlIT55U",
+  "-xe77aErpRo", "gleCksbbxXw", "9vJfnQephLQ", "NvT80dxeXmY", "gqyjF4m-DSU"
+    ],     
+  lofi: [
+      "6-7Nh0QtUUA", "zJdewYL-5gk", "yqM3LdbimfE", "I-RgNNaF8rw", "aTUcg2q-dDA",
+  "QOUm6XR7r6I", "uV6rGb-sfP8", "5VkqPqr45U4", "Db-bwV1DrXg", "TiBOnygAJlQ",
+  "rl-faaw6Ih8", "fx37QpyY-jc", "pcd8uj931_w", "1Uldn-JtA7I", "oG375eeQppY",
+  "6kxeXHjUk-s", "wgJA-8G1q9s", "m9YW0S-_R7w", "NsjFJcYQMII", "4IrbwR1GWVg",
+  "2bqXgmLsVbc", "4LUGDuPnsrU", "JUgw9OHmmUc", "RqsFgfvAtYA", "--lbZqhhCbA",
+  "7Rc-RQzr0BE", "heKCHITgGqc", "4spX4guHZdU", "M5fTTwn5jBs", "z1dZiYiC8Rk",
+  "VtY5dhL_OUU"
+  ],    
   chirriro: [
     "hhRG7-yacQM", "CaL-HmcEgLE", "WpH-cVtaU78", "ptlrZ4ZL5ng", "TzIZPZN5K60",
     "dtZVQGa9eDw", "X-Fv6aKUCCQ", "-yU1BfguC-4", "tBa2Z28oPRU", "XxHzjOi_mMM",
