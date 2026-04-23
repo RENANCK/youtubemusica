@@ -631,7 +631,6 @@
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
 const categorias = [
-  const categorias = [
   { key: "chirriro", nome: "CHIRRIRO" },
   { key: "copacabana", nome: "COPACABANA" },
   { key: "dazed_and_confused", nome: "DAZED AND CONFUSED" },
@@ -1038,6 +1037,7 @@ const categorias = [
   "BX0lKSa_PTk", "ri-fIya76ac", "OWz3rQQaf_Q", "AFSLGv4AMs4", "bDbbkSgnrxE",
   "f0dYb6nrVY4", "6esc5H6KFIA", "o27Q8fKGgfI", "I203G1sMGDg", "Iq8h3GEe22o",
   "tWIJFhZ69_U", "94Rq2TX0wj4"
+  ]
 };
 
     const nomesCategorias = Object.fromEntries(
@@ -1058,7 +1058,7 @@ const categorias = [
       grid.innerHTML = categorias.map(categoria => `
         <div class="input-group">
           <label for="perc_${categoria.key}">${categoria.nome}</label>
-          <input type="number" id="perc_${categoria.key}" min="0" value="0" />
+          <input type="number" id="perc_${categoria.key}" min="0" value="" placeholder="0" />
         </div>
       `).join("");
     }
@@ -1075,7 +1075,10 @@ const categorias = [
     function aplicarPesosNosInputs(pesos) {
       categorias.forEach(categoria => {
         const input = document.getElementById(`perc_${categoria.key}`);
-        if (input) input.value = pesos[categoria.key] ?? 0;
+        if (input) {
+          const valor = Number(pesos[categoria.key] ?? 0);
+          input.value = valor === 0 ? "" : valor;
+        }
       });
     }
 
@@ -1119,6 +1122,8 @@ const categorias = [
       }
     }
 
+    window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+
     function embaralhar(lista) {
       const copia = [...lista];
       for (let i = copia.length - 1; i > 0; i--) {
@@ -1142,7 +1147,7 @@ const categorias = [
     function limparCampos() {
       categorias.forEach(categoria => {
         const input = document.getElementById(`perc_${categoria.key}`);
-        if (input) input.value = 0;
+        if (input) input.value = "";
       });
       moodAtual = "";
       document.querySelectorAll(".mood-btn").forEach(el => el.classList.remove("active"));
