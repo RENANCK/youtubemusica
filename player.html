@@ -31,6 +31,7 @@ body {
   color: var(--white);
   font-family: Arial, Helvetica, sans-serif;
   scroll-behavior: smooth;
+  min-height: 100%;
 }
 
 body { overflow-x: hidden; }
@@ -42,17 +43,23 @@ body { overflow-x: hidden; }
   overflow: hidden;
 }
 
-.section-player { background: linear-gradient(90deg, #02084d 0%, #87648d 100%); }
+.section-player {
+  background: linear-gradient(90deg, #02084d 0%, #87648d 100%);
+  max-width: 1440px;
+  margin: 0 auto;
+}
 
 .scene-top {
-  min-height: 56vh;
+  min-height: 52vh;
   background: url("./assets/1000473514.jpg") center center / cover no-repeat;
   position: relative;
-  padding: 26px 4vw 34px;
+  padding: clamp(16px, 2vw, 28px) clamp(14px, 3vw, 42px) clamp(18px, 3vw, 30px);
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
   isolation: isolate;
+  gap: 18px;
+  flex-wrap: wrap;
 }
 
 .scene-label {
@@ -70,9 +77,9 @@ body { overflow-x: hidden; }
 
 .player-frame {
   position: relative;
-  width: min(86vw, 720px);
+  width: min(88vw, 780px);
   aspect-ratio: 1.55 / 1;
-  margin: 46px 0 0 4vw;
+  margin: clamp(42px, 5vw, 56px) 0 0 clamp(2px, 2vw, 20px);
   background: linear-gradient(135deg, var(--pink), #d00f5d);
   border-radius: 34px;
   box-shadow: var(--shadow);
@@ -105,8 +112,8 @@ body { overflow-x: hidden; }
 
 .player-actions {
   position: absolute;
-  right: 4vw;
-  bottom: 24px;
+  right: clamp(16px, 3vw, 40px);
+  bottom: clamp(16px, 2vw, 28px);
   display: flex;
   gap: 12px;
   align-items: center;
@@ -144,11 +151,11 @@ body { overflow-x: hidden; }
 }
 
 .scene-bottom {
-  padding: 26px 5vw 60px;
+  padding: clamp(20px, 2.8vw, 30px) clamp(14px, 4vw, 56px) clamp(40px, 6vw, 72px);
   min-height: 44vh;
   display: grid;
-  grid-template-columns: minmax(240px, 320px) 1fr;
-  gap: 28px;
+  grid-template-columns: minmax(250px, 360px) 1fr;
+  gap: clamp(18px, 2.4vw, 30px);
   align-items: start;
 }
 
@@ -159,6 +166,8 @@ body { overflow-x: hidden; }
   min-height: 360px;
   padding: 18px 16px;
   box-shadow: var(--shadow);
+  max-height: 68vh;
+  overflow: hidden;
 }
 
 .queue-card h3 {
@@ -174,7 +183,7 @@ body { overflow-x: hidden; }
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 560px;
+  max-height: min(58vh, 620px);
   overflow: auto;
   padding-right: 4px;
 }
@@ -420,6 +429,43 @@ body { overflow-x: hidden; }
 
 .compact-btn:hover { transform: translateY(-2px); }
 
+.mini-card {
+  background: rgba(255, 255, 255, 0.92);
+  color: #240d4d;
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: var(--shadow);
+  min-width: 190px;
+}
+
+.mini-card label {
+  display: block;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.mini-card input {
+  width: 100%;
+  height: 38px;
+  border: 1px solid rgba(67, 24, 138, 0.18);
+  border-radius: 10px;
+  text-align: center;
+  font-weight: 900;
+  font-size: 18px;
+}
+
+.ghost-btn {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
 .home-wrap { padding: 0; min-height: 100vh; }
 
 .home-footer-note {
@@ -594,24 +640,66 @@ body[data-mood="caminhada"] .arrow-btn, body[data-mood="caminhada"] .square-btn 
 
 @media (max-width: 980px) {
   .scene-bottom { grid-template-columns: 1fr; }
-  .queue-card { order: 2; min-height: 260px; }
+  .queue-card { order: 2; min-height: 260px; max-height: none; }
   .info-wrap { order: 1; }
-  .player-actions { position: static; padding: 16px 4vw 0; }
-  .scene-top { padding-bottom: 18px; }
-  .player-frame { width: min(92vw, 720px); margin-left: 0; }
+  .player-actions { position: static; padding: 10px 0 0; width: 100%; justify-content: center; }
+  .scene-top { padding-bottom: 18px; align-items: center; justify-content: center; }
+  .player-frame { width: min(92vw, 740px); margin-left: 0; margin-top: 58px; }
 }
 
 @media (max-width: 900px) {
-  .player-top-controls { position: relative; left: auto; top: auto; padding: 18px 4vw 0; }
-  .scene-top { padding-top: 8px; }
+  .player-top-controls { position: relative; left: auto; top: auto; padding: 16px 16px 0; }
+  .scene-top { padding-top: 10px; }
   .home-footer-note { position: relative; right: auto; bottom: auto; margin: 20px 5vw 24px; }
 }
 
 @media (max-width: 640px) {
   .advanced-grid { grid-template-columns: 1fr; }
-  .player-frame { aspect-ratio: 1 / 0.78; }
-  .arrow-btn { min-width: 150px; min-height: 62px; font-size: 18px; }
-  .scene-label { left: 20px; }
+  .player-frame {
+    width: 100%;
+    max-width: 96vw;
+    aspect-ratio: 16 / 10;
+    border-radius: 20px;
+    margin-top: 64px;
+  }
+  .player-frame::before { inset: -6px; border-radius: 24px; }
+  .arrow-btn {
+    min-width: 132px;
+    min-height: 56px;
+    font-size: 16px;
+    padding: 0 20px 0 14px;
+  }
+  .square-btn {
+    min-width: 90px;
+    padding: 12px 14px;
+    font-size: 13px;
+  }
+  .scene-label { left: 16px; top: 10px; }
+  .player-top-controls {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mini-card,
+  .qty-mini,
+  .compact-btn { width: 100%; min-width: 0; }
+  #nome-musica-destaque { font-size: clamp(26px, 9.2vw, 44px); }
+  .status-pill { width: 100%; text-align: center; }
+}
+
+body.android .scene-top {
+  min-height: auto;
+  padding-top: 14px;
+}
+
+body.android .player-frame {
+  margin-top: 62px;
+}
+
+body.android .arrow-btn,
+body.android .square-btn,
+body.android .compact-btn {
+  min-height: 48px;
 }
 </style>
 
@@ -684,6 +772,11 @@ body[data-mood="caminhada"] .arrow-btn, body[data-mood="caminhada"] .square-btn 
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
+const isAndroid = /Android/i.test(navigator.userAgent);
+if (isAndroid) {
+  document.body.classList.add('android');
+}
+
 const categorias = [
   { key: "rock", nome: "ROCK" },
   { key: "indie", nome: "INDIE" },

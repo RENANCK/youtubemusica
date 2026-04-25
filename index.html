@@ -7,33 +7,30 @@
 
   <style>
     :root {
-      --bg-site: #242424;
-      --cinza-topo: #aaa9a7;
-      --azul-titulo: #3470b8;
-      --azul-claro: #eaf0ff;
-      --roxo-1: #d997ee;
-      --roxo-2: #bd9bf4;
-      --roxo-3: #e3a2ec;
-      --ciano-glitch: #00d9ff;
+      --bg-site: #161224;
+      --cinza-topo: #1f1f31;
+      --azul-titulo: #63d8ff;
+      --azul-claro: #f2f5ff;
+      --roxo-1: #6d46ff;
+      --roxo-2: #e63ed8;
+      --roxo-3: #1dc8ff;
+      --ciano-glitch: #00e4ff;
       --rosa-glitch: #ff0b86;
-      --verde: #c8ffd9;
+      --verde: #ccffe0;
       --azul-bg: #8eb9ff;
-      --preto: #1a1a1a;
+      --preto: #151515;
       --branco: #fff;
-      --sombra: 0 18px 35px rgba(0,0,0,.25);
+      --sombra: 0 16px 35px rgba(0, 0, 0, .28);
       --foto-home: url("./assets/1000490664.jpg");
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html,
-    body {
+    html, body {
       margin: 0;
       padding: 0;
       min-height: 100%;
-      background: var(--bg-site);
+      background: radial-gradient(circle at top, #2a2149, var(--bg-site) 55%);
       font-family: Impact, Haettenschweiler, "Arial Black", sans-serif;
       color: var(--preto);
       overflow-x: hidden;
@@ -42,322 +39,226 @@
     body {
       display: flex;
       justify-content: center;
+      padding: clamp(0px, 1.2vw, 18px);
     }
 
     .home-page {
-      width: min(100%, 682px);
-      min-height: 100vh;
+      width: min(100%, 1140px);
+      min-height: calc(100dvh - 2rem);
       background: var(--azul-claro);
       position: relative;
       overflow: hidden;
-      border-left: 2px solid #111;
-      border-right: 2px solid #111;
-      box-shadow: 0 0 35px rgba(0,0,0,.55);
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, .22);
+      box-shadow: 0 0 42px rgba(0, 0, 0, .5);
+      display: grid;
+      grid-template-rows: auto auto 1fr;
     }
 
     .topo {
-      background: var(--cinza-topo);
+      background:
+        linear-gradient(120deg, rgba(255, 255, 255, .05), rgba(255, 255, 255, .16)),
+        var(--cinza-topo);
       text-align: center;
-      padding: 18px 18px 8px;
+      padding: clamp(14px, 2vw, 22px) clamp(14px, 3vw, 32px) 12px;
       text-transform: uppercase;
-      letter-spacing: 4px;
-      font-family: "Arial Black", Impact, sans-serif;
-      color: transparent;
-      -webkit-text-stroke: 1px #151515;
-      font-size: clamp(15px, 2.4vw, 22px);
-      line-height: 1.28;
+      letter-spacing: 3px;
+      color: #9cb0ce;
+      font-size: clamp(13px, 1.2vw, 18px);
+      line-height: 1.35;
     }
 
     .titulo-principal {
-      margin: 4px 0 0;
-      font-size: clamp(38px, 7vw, 58px);
-      line-height: .9;
+      margin: 8px 0 0;
+      font-size: clamp(34px, 6vw, 66px);
+      line-height: .92;
       color: var(--azul-titulo);
-      -webkit-text-stroke: 0;
       letter-spacing: 1px;
-      font-family: "Arial Black", Impact, sans-serif;
+      text-shadow: 0 0 24px rgba(99, 216, 255, .42);
     }
 
     .moods-area {
-      background: var(--azul-claro);
-      padding: 35px 48px 17px;
-      min-height: 288px;
+      background: linear-gradient(180deg, #f8f9ff, #eff3ff);
+      padding: clamp(18px, 2.2vw, 28px) clamp(18px, 3.4vw, 42px);
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px 38px;
-      align-items: center;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 16px;
+      border-bottom: 1px solid #d5ddff;
     }
 
     .mood-btn {
-      border: none;
-      min-height: 56px;
-      border-radius: 8px;
-      padding: 8px 12px;
+      border: 0;
+      min-height: clamp(52px, 5.6vw, 66px);
+      border-radius: 14px;
+      padding: 8px 14px;
       background: linear-gradient(135deg, var(--roxo-1), var(--roxo-2));
-      color: #09003a;
+      color: #f6f8ff;
       font-family: Impact, "Arial Black", sans-serif;
-      font-size: clamp(22px, 4vw, 34px);
+      font-size: clamp(20px, 2.2vw, 29px);
       text-transform: uppercase;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
       cursor: pointer;
-      position: relative;
-      box-shadow: 0 8px 0 rgba(126,84,185,.25);
-      transition: .18s ease;
-      text-shadow:
-        -3px 0 var(--ciano-glitch),
-         3px 0 var(--rosa-glitch),
-         0 2px #000;
+      box-shadow: 0 10px 0 rgba(37, 22, 77, .3);
+      transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+      text-shadow: -2px 0 rgba(0, 0, 0, .45), 1px 1px rgba(0, 0, 0, .3);
     }
 
-    .mood-btn:nth-child(1),
-    .mood-btn:nth-child(3),
-    .mood-btn:nth-child(5) {
-      background: linear-gradient(135deg, #e6a0ee, #d790ec);
-    }
-
-    .mood-btn:nth-child(2),
-    .mood-btn:nth-child(6),
-    .mood-btn:nth-child(7) {
-      background: linear-gradient(135deg, #c8a2f5, #b994f0);
-    }
-
+    .mood-btn:nth-child(2n) { background: linear-gradient(135deg, #5f78ff, #5de1ff); }
+    .mood-btn:nth-child(3n) { background: linear-gradient(135deg, #9a4dff, #ff56b6); }
     .mood-btn:hover {
-      transform: translateY(-4px) scale(1.03);
-      box-shadow: 0 12px 0 rgba(126,84,185,.25), 0 16px 25px rgba(0,0,0,.2);
-      filter: brightness(1.06);
+      transform: translateY(-3px);
+      box-shadow: 0 13px 0 rgba(37, 22, 77, .3), 0 16px 22px rgba(12, 6, 26, .2);
+      filter: saturate(1.1);
     }
-
-    .mood-btn:active {
-      transform: translateY(2px) scale(.99);
-      box-shadow: 0 3px 0 rgba(126,84,185,.35);
-    }
-
-    .mood-btn.pequeno {
-      font-size: clamp(18px, 3.3vw, 28px);
-    }
-
-    .mood-btn.largo {
-      grid-column: 1 / 2;
-    }
+    .mood-btn:active { transform: translateY(2px); box-shadow: 0 4px 0 rgba(37, 22, 77, .35); }
 
     .foto-area {
-      min-height: 300px;
-      background: linear-gradient(90deg, var(--verde) 0%, #c7ffe1 22%, var(--azul-bg) 78%, #8db8ff 100%);
+      display: grid;
+      grid-template-columns: minmax(210px, 300px) 1fr;
+      gap: clamp(18px, 2.2vw, 32px);
+      align-items: end;
+      padding: clamp(16px, 2.2vw, 30px);
+      min-height: 280px;
+      background:
+        linear-gradient(145deg, var(--verde) 2%, #d7ebff 42%, #b9b9ff 100%);
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      padding-top: 0;
     }
 
     .foto-card {
-      width: min(68%, 464px);
-      height: 222px;
+      grid-column: 2;
+      width: 100%;
+      max-width: 760px;
+      justify-self: end;
+      min-height: 210px;
+      aspect-ratio: 16 / 7.2;
       background-image: var(--foto-home);
       background-position: center;
       background-size: cover;
       background-repeat: no-repeat;
+      border-radius: 20px;
       box-shadow: var(--sombra);
-      position: relative;
-      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, .5);
     }
 
-    .rodape-colorido {
-      height: 20px;
+    .painel-home {
+      grid-column: 1;
+      display: grid;
+      gap: 12px;
+      align-self: stretch;
       width: 100%;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      background: linear-gradient(90deg, #002cff, #8338ec, #ff3edb);
-      z-index: 5;
+      max-width: 240px;
     }
 
+    .quantidade-box,
     .advanced-box {
-      position: absolute;
-      left: 35px;
-      bottom: 56px;
-      width: 150px;
-      min-height: 66px;
-      border: none;
-      border-radius: 8px;
-      background: rgba(255,255,255,.75);
-      color: #150097;
-      font-family: Impact, "Arial Black", sans-serif;
-      font-size: 15px;
-      line-height: 1.05;
-      text-align: left;
-      padding: 10px 12px;
-      cursor: pointer;
-      z-index: 8;
-      box-shadow: 0 8px 20px rgba(0,0,0,.18);
-      text-shadow:
-        -1px 0 var(--ciano-glitch),
-         1px 0 var(--rosa-glitch);
-      text-transform: uppercase;
-      transition: .18s ease;
-    }
-
-    .advanced-box:hover {
-      transform: translateY(-3px);
-      background: rgba(255,255,255,.92);
+      position: static;
+      width: 100%;
+      border-radius: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .14);
     }
 
     .quantidade-box {
-      position: absolute;
-      left: 35px;
-      bottom: 128px;
-      width: 150px;
-      background: rgba(255,255,255,.78);
-      border-radius: 8px;
-      padding: 8px 10px;
-      z-index: 8;
-      box-shadow: 0 8px 20px rgba(0,0,0,.14);
+      background: rgba(255, 255, 255, .88);
+      padding: 10px 12px;
     }
 
     .quantidade-box label {
       display: block;
-      font-family: Impact, "Arial Black", sans-serif;
       font-size: 12px;
       text-transform: uppercase;
-      color: #150097;
-      margin-bottom: 5px;
-      text-shadow:
-        -1px 0 var(--ciano-glitch),
-         1px 0 var(--rosa-glitch);
+      color: #2a1f7f;
+      margin-bottom: 6px;
+      letter-spacing: .06em;
     }
 
     .quantidade-box input {
       width: 100%;
-      height: 30px;
-      border: none;
-      border-radius: 5px;
+      height: 38px;
+      border: 1px solid #d6d8ff;
+      border-radius: 10px;
       outline: none;
       text-align: center;
       font-family: "Arial Black", Arial, sans-serif;
-      color: #150097;
-      font-size: 17px;
-      background: rgba(255,255,255,.9);
+      color: #1d2165;
+      font-size: 18px;
+      background: #fff;
     }
+
+    .advanced-box {
+      border: none;
+      min-height: 64px;
+      background: linear-gradient(135deg, #28235d, #342782);
+      color: #fff;
+      font-size: 14px;
+      line-height: 1.1;
+      text-align: left;
+      padding: 12px 14px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      transition: .16s ease;
+    }
+
+    .advanced-box:hover { transform: translateY(-2px); filter: brightness(1.08); }
 
     .assinatura {
       position: absolute;
-      right: 80px;
-      bottom: 38px;
+      right: clamp(16px, 2.4vw, 26px);
+      bottom: 34px;
       z-index: 8;
-      color: #eaffdd;
-      font-family: Impact, "Arial Black", sans-serif;
-      font-size: 29px;
-      letter-spacing: 5px;
-      line-height: 1.25;
+      color: #f3fffa;
+      font-size: clamp(20px, 2.6vw, 30px);
+      letter-spacing: 3px;
+      line-height: 1.2;
       text-transform: uppercase;
-      text-shadow:
-        2px 0 #6eff9d,
-        -2px 0 #ffffff,
-        0 0 12px rgba(255,255,255,.8);
+      text-shadow: 0 0 10px rgba(255, 255, 255, .65), 2px 0 #6eff9d;
     }
 
     .assinatura::before {
       content: "• BY:";
       display: block;
-      font-size: 23px;
-      letter-spacing: 4px;
+      font-size: clamp(14px, 1.6vw, 18px);
+      letter-spacing: 2px;
+      margin-bottom: 2px;
     }
 
-    @media (max-width: 720px) {
-      body {
-        display: block;
-      }
+    .rodape-colorido {
+      height: 16px;
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(90deg, #0057ff, #8338ec, #ff3edb);
+      z-index: 5;
+    }
 
-      .home-page {
-        width: 100%;
-        border: none;
-        min-height: 100dvh;
-      }
-
-      .topo {
-        padding: 18px 12px 10px;
-        letter-spacing: 2px;
-      }
-
-      .titulo-principal {
-        font-size: clamp(33px, 10vw, 54px);
-      }
-
-      .moods-area {
-        padding: 28px 18px 20px;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 18px 18px;
-        min-height: auto;
-      }
-
-      .mood-btn {
-        min-height: 58px;
-        font-size: clamp(21px, 7vw, 32px);
-      }
-
-      .mood-btn.pequeno {
-        font-size: clamp(17px, 5.8vw, 26px);
-      }
-
+    @media (max-width: 900px) {
+      body { display: block; padding: 0; }
+      .home-page { width: 100%; border-radius: 0; min-height: 100dvh; }
       .foto-area {
-        min-height: 360px;
-        padding-top: 0;
+        grid-template-columns: 1fr;
+        align-items: start;
+        padding-bottom: 66px;
       }
-
-      .foto-card {
-        width: 88%;
-        height: 210px;
+      .foto-card { grid-column: 1; justify-self: center; }
+      .painel-home {
+        grid-column: 1;
+        max-width: 420px;
+        grid-template-columns: repeat(2, minmax(130px, 1fr));
       }
-
-      .quantidade-box {
-        left: 18px;
-        bottom: 112px;
-        width: 142px;
-      }
-
-      .advanced-box {
-        left: 18px;
-        bottom: 42px;
-        width: 142px;
-      }
-
-      .assinatura {
-        right: 18px;
-        bottom: 42px;
-        font-size: 22px;
-        letter-spacing: 3px;
-      }
-
-      .assinatura::before {
-        font-size: 18px;
-      }
+      .assinatura { bottom: 26px; }
     }
 
-    @media (max-width: 420px) {
-      .moods-area {
-        gap: 14px;
-      }
-
-      .mood-btn {
-        border-radius: 7px;
-        min-height: 52px;
-        letter-spacing: 1px;
-      }
-
-      .foto-card {
-        width: 94%;
-        height: 185px;
-      }
-
-      .assinatura {
-        font-size: 18px;
-        right: 12px;
-      }
-
-      .assinatura::before {
-        font-size: 15px;
-      }
+    @media (max-width: 600px) {
+      .moods-area { grid-template-columns: repeat(2, minmax(120px, 1fr)); gap: 12px; }
+      .mood-btn { min-height: 56px; font-size: clamp(18px, 6vw, 25px); }
+      .foto-card { min-height: 180px; border-radius: 16px; aspect-ratio: 16 / 9; }
+      .painel-home { grid-template-columns: 1fr; max-width: 100%; }
+      .assinatura { position: static; margin-top: 6px; text-align: right; justify-self: end; }
     }
+
+    body.android .home-page { border-color: rgba(255, 255, 255, .28); }
+    body.android .mood-btn { box-shadow: 0 8px 0 rgba(37, 22, 77, .33); }
   </style>
 </head>
 
@@ -385,17 +286,18 @@
 
     <section class="foto-area">
       <div class="foto-card"></div>
+      <div class="painel-home">
+        <div class="quantidade-box">
+          <label for="total_musicas_home">Quantidade</label>
+          <input id="total_musicas_home" type="number" min="1" value="18" />
+        </div>
 
-      <div class="quantidade-box">
-        <label for="total_musicas_home">Quantidade</label>
-        <input id="total_musicas_home" type="number" min="1" value="18" />
+        <button class="advanced-box" onclick="abrirAvancado()">
+          ABRIR<br>
+          OPÇÕES<br>
+          AVANÇADAS
+        </button>
       </div>
-
-      <button class="advanced-box" onclick="abrirAvancado()">
-        ABRIR<br>
-        OPÇÕES<br>
-        AVANÇADAS
-      </button>
 
       <div class="assinatura">RENANCK</div>
       <div class="rodape-colorido"></div>
@@ -403,6 +305,11 @@
   </main>
 
   <script>
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    if (isAndroid) {
+      document.body.classList.add('android');
+    }
+
     function salvarTotal() {
       const total = document.getElementById('total_musicas_home').value || '18';
       localStorage.setItem('totalMusicasSelecionado', total);
