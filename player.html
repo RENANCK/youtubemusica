@@ -354,6 +354,19 @@ body { overflow-x: hidden; }
   background: #fff;
 }
 
+.group-pill {
+  grid-column: 1 / -1;
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #43188a;
+  color: #fff;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
 .advanced-actions {
   display: flex;
   gap: 12px;
@@ -672,91 +685,103 @@ body[data-mood="caminhada"] .arrow-btn, body[data-mood="caminhada"] .square-btn 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
 const categorias = [
-  { key: "poop_asia_e_africa", nome: "POOP ASIA E AFRICA" },
-  { key: "dazed_and_confused", nome: "DAZED AND CONFUSED" },
-  { key: "anos_2020", nome: "2020,S" },
-  { key: "indie", nome: "INDIE" },
-  { key: "pop_rock", nome: "POP ROCK" },
   { key: "rock", nome: "ROCK" },
-  { key: "bossa_nova", nome: "BOSSA NOVA" },
+  { key: "indie", nome: "INDIE" },
+  { key: "reggea", nome: "REGGAE" },
+  { key: "eletronica", nome: "ELETRÔNICA" },
   { key: "nova_mpb", nome: "NOVA MPB" },
-  { key: "invicta", nome: "INVICTA" },
-  { key: "poop_america_europa", nome: "POOP AMERICA EUROPA" },
-  { key: "nostalgia", nome: "NOSTALGIA" },
   { key: "latina", nome: "LATINA" },
-  { key: "reggea", nome: "REGGEA" },
-  { key: "psicodelica", nome: "PSICODELICA" },
-  { key: "poop_brasil", nome: "POOP BRASIL" },
-  { key: "now", nome: "NOW" },
   { key: "trap", nome: "TRAP" },
+  { key: "bossa_nova", nome: "MPB" },
+  { key: "now", nome: "NOW" },
   { key: "bombap", nome: "BOMBAP" },
-  { key: "eletronica", nome: "ELETRONICA" },
+  { key: "pop_rock", nome: "POP ROCK" },
+  { key: "psicodelica", nome: "PSICODÉLICO" },
+  { key: "nostalgia", nome: "NOSTALGIA" },
+  { key: "lofi", nome: "LO-FI" },
+  { key: "invicta", nome: "INVICTA" },
+  { key: "anos_2020", nome: "2020,S" },
   { key: "erotic", nome: "EROTIC" },
-  { key: "veludo_neon", nome: "VELUDO NEON" },
-  { key: "brasilidade", nome: "BRASILIDADE" },
+  { key: "brasilidade", nome: "BRASILIDADES" },
   { key: "1-minute", nome: "1 MINUTO" },
-  { key: "lofi", nome: "LOFI" },
-  { key: "montagem", nome: "MONTAGEM ANIME" }
+  { key: "montagem", nome: "MONTAGEM ANIME" },
+  { key: "dazed_and_confused", nome: "DAZED AND CONFUSED" },
+  { key: "veludo_neon", nome: "POP NEON" }
+];
+
+const gruposCategorias = [
+  {
+    titulo: "CATEGORIAS",
+    categorias: ["rock", "indie", "reggea", "eletronica", "nova_mpb", "latina", "trap", "bossa_nova"]
+  },
+  {
+    titulo: "COMPLEMENTARE",
+    categorias: ["now", "bombap", "pop_rock", "psicodelica", "nostalgia", "lofi"]
+  },
+  {
+    titulo: "TEMÁTICOS",
+    categorias: ["invicta", "anos_2020", "erotic", "brasilidade", "1-minute", "montagem", "dazed_and_confused", "veludo_neon"]
+  }
 ];
     const moodsPredefinidos = {
   party: {
     nome: "PARTY",
     pesos: {
-      poop_asia_e_africa: 2, dazed_and_confused: 2, anos_2020: 0, indie: 6, pop_rock: 8,
+      poop_asia_e_africa: 0, dazed_and_confused: 2, anos_2020: 0, indie: 6, pop_rock: 8,
       rock: 6, bossa_nova: 4, nova_mpb: 5, invicta: 15,
-      poop_america_europa: 4, nostalgia: 10, latina: 2, reggea: 3,
-      psicodelica: 9, now: 15, trap: 25, bombap: 14, poop_brasil: 4, eletronica: 15, "1-minute": 0, lofi: 3, montagem:3
+      poop_america_europa: 0, nostalgia: 10, latina: 2, reggea: 3,
+      psicodelica: 9, now: 15, trap: 25, bombap: 14, poop_brasil: 2, eletronica: 15, "1-minute": 0, lofi: 3, montagem:3
     }
   },
   faculdade_fm: {
     nome: "FDT",
     pesos: {
-      poop_asia_e_africa: 2, dazed_and_confused: 3, anos_2020: 0, indie: 5, pop_rock: 4,
+      poop_asia_e_africa: 0, dazed_and_confused: 3, anos_2020: 0, indie: 5, pop_rock: 4,
       rock: 5, bossa_nova: 12, nova_mpb: 12, invicta: 5,
-      poop_america_europa: 3, nostalgia: 8, latina: 7, reggea: 10,
-      psicodelica: 4, now: 8, trap: 5, bombap: 12, poop_brasil: 8, eletronica: 4, "1-minute": 0, lofi: 3
+      poop_america_europa: 0, nostalgia: 8, latina: 7, reggea: 10,
+      psicodelica: 4, now: 8, trap: 5, bombap: 12, poop_brasil: 2, eletronica: 4, "1-minute": 0, lofi: 3
     }
   },
   noite_sozinho: {
     nome: "SOZINHO",
     pesos: {
-      poop_asia_e_africa: 3, dazed_and_confused: 5, anos_2020: 0, indie: 6, pop_rock: 12,
+      poop_asia_e_africa: 0, dazed_and_confused: 5, anos_2020: 0, indie: 6, pop_rock: 12,
       rock: 2, bossa_nova: 7, nova_mpb: 8, invicta: 12,
-      poop_america_europa: 2, nostalgia: 1, latina: 1, reggea: 7,
-      psicodelica: 2, poop_brasil: 7, now: 3, trap: 8, bombap: 20, eletronica: 1, "1-minute": 2, lofi: 15, montagem: 1
+      poop_america_europa: 0, nostalgia: 1, latina: 1, reggea: 7,
+      psicodelica: 2, poop_brasil: 2, now: 3, trap: 8, bombap: 20, eletronica: 1, "1-minute": 2, lofi: 15, montagem: 1
     }
   },
   modo_shonem: {
     nome: "SHONEM",
     pesos: {
-      poop_asia_e_africa: 32, dazed_and_confused: 5, anos_2020: 0, indie: 1, pop_rock: 2,
+      poop_asia_e_africa: 0, dazed_and_confused: 5, anos_2020: 0, indie: 1, pop_rock: 2,
       rock: 2, bossa_nova: 2, nova_mpb: 0, invicta: 2,
       poop_america_europa: 0, nostalgia: 5, latina: 0, reggea: 0,
-      psicodelica: 6, poop_brasil: 1, now: 2, trap: 10, bombap: 10, eletronica: 20, "1-minute": 5, lofi: 20, montagem: 30
+      psicodelica: 6, poop_brasil: 2, now: 2, trap: 10, bombap: 10, eletronica: 20, "1-minute": 5, lofi: 20, montagem: 30
     }
   },
   noite_neon: {
   nome: "NEON",
   pesos: {
-    poop_asia_e_africa: 9, dazed_and_confused: 6, anos_2020: 0, indie: 3, pop_rock: 10,
+    poop_asia_e_africa: 0, dazed_and_confused: 6, anos_2020: 0, indie: 3, pop_rock: 10,
     rock: 1, bossa_nova: 6, nova_mpb: 10, invicta: 10,
-    poop_america_europa: 5, nostalgia: 0, latina: 2, reggea: 0,
-    psicodelica: 20, poop_brasil: 1, now: 0, trap: 8, bombap: 10, eletronica: 4, "1-minute": 2, lofi: 18, montagem: 3
+    poop_america_europa: 0, nostalgia: 0, latina: 2, reggea: 0,
+    psicodelica: 20, poop_brasil: 2, now: 0, trap: 8, bombap: 10, eletronica: 4, "1-minute": 2, lofi: 18, montagem: 3
   }
   },
   caminhada: {
     nome: "CAMINHADA",
     pesos: {
-      poop_asia_e_africa: 9, dazed_and_confused: 2, anos_2020: 0, indie: 8, pop_rock: 12,
+      poop_asia_e_africa: 0, dazed_and_confused: 2, anos_2020: 0, indie: 8, pop_rock: 12,
       rock: 5, bossa_nova: 5, nova_mpb: 10, invicta: 1,
-      poop_america_europa: 3, nostalgia: 4, latina: 1, reggea: 6,
-      psicodelica: 1, poop_brasil: 3, now: 14, trap: 10, bombap: 12, eletronica: 12, "1-minute": 4, lofi: 2, montagem: 8
+      poop_america_europa: 0, nostalgia: 4, latina: 1, reggea: 6,
+      psicodelica: 1, poop_brasil: 2, now: 14, trap: 10, bombap: 12, eletronica: 12, "1-minute": 4, lofi: 2, montagem: 8
     }
   },
   brisa: {
   nome: "BRISA",
   pesos: {
-    poop_asia_e_africa: 4,
+    poop_asia_e_africa: 0,
     dazed_and_confused: 6,
     anos_2020: 1,
     indie: 8,
@@ -765,12 +790,12 @@ const categorias = [
     bossa_nova: 28,
     nova_mpb: 16,
     invicta: 4,
-    poop_america_europa: 3,
+    poop_america_europa: 0,
     nostalgia: 6,
     latina: 7,
     reggea: 14,
     psicodelica: 3,
-    poop_brasil: 10,
+    poop_brasil: 2,
     now: 1,
     trap: 0,
     bombap: 2,
@@ -783,10 +808,10 @@ const categorias = [
       foco: {
     nome: "FOCO",
     pesos: {
-      poop_asia_e_africa: 19, dazed_and_confused: 2, anos_2020: 1, indie: 3, pop_rock: 1,
+      poop_asia_e_africa: 0, dazed_and_confused: 2, anos_2020: 1, indie: 3, pop_rock: 1,
       rock: 0, bossa_nova: 16, nova_mpb: 15, invicta: 5,
-      poop_america_europa: 2, nostalgia: 1, latina: 5, reggea: 12,
-      psicodelica: 4, poop_brasil: 8, now: 0, trap: 0, bombap: 10, eletronica: 1, "1-minute": 35, lofi: 22
+      poop_america_europa: 0, nostalgia: 1, latina: 5, reggea: 12,
+      psicodelica: 4, poop_brasil: 2, now: 0, trap: 0, bombap: 10, eletronica: 1, "1-minute": 35, lofi: 22
     }
   }
 };
@@ -1192,13 +1217,24 @@ delete bancoDeMusicas.as_veias_abertas_da_america_latina;
 
     function criarInputsCategorias() {
       const grid = document.getElementById("categorias-grid");
+      const categoriasPorKey = Object.fromEntries(categorias.map(categoria => [categoria.key, categoria]));
 
-      grid.innerHTML = categorias.map(categoria => `
-        <div class="input-group">
-          <label for="perc_${categoria.key}">${categoria.nome}</label>
-          <input type="number" id="perc_${categoria.key}" min="0" value="" placeholder="0" />
-        </div>
-      `).join("");
+      const html = gruposCategorias.map(grupo => {
+        const itens = grupo.categorias
+          .map(key => categoriasPorKey[key])
+          .filter(Boolean)
+          .map(categoria => `
+            <div class="input-group">
+              <label for="perc_${categoria.key}">${categoria.nome}</label>
+              <input type="number" id="perc_${categoria.key}" min="0" value="" placeholder="0" />
+            </div>
+          `)
+          .join("");
+
+        return `<div class="group-pill">${grupo.titulo}</div>${itens}`;
+      }).join("");
+
+      grid.innerHTML = html;
     }
 
     function toggleAdvanced(force) {
