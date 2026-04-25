@@ -689,17 +689,96 @@ body[data-mood="caminhada"] .arrow-btn, body[data-mood="caminhada"] .square-btn 
 
 body.android .scene-top {
   min-height: auto;
-  padding-top: 14px;
+  padding-top: 12px;
+  align-items: center;
+  justify-content: center;
 }
 
 body.android .player-frame {
-  margin-top: 62px;
+  width: min(98vw, 1120px);
+  aspect-ratio: 16 / 9;
+  margin-top: 58px;
+  border-radius: 28px;
+  padding: 14px;
+}
+
+body.android .player-frame::before {
+  inset: -8px;
+  border-radius: 34px;
+}
+
+body.android #player {
+  border-radius: 18px;
+}
+
+body.android .player-actions {
+  position: static;
+  width: 100%;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 0 2px;
 }
 
 body.android .arrow-btn,
 body.android .square-btn,
 body.android .compact-btn {
-  min-height: 48px;
+  min-height: 54px;
+}
+
+@media (max-width: 760px) {
+  body.android .player-frame {
+    width: 99vw;
+    max-width: none;
+    aspect-ratio: 16 / 10;
+    margin-top: 52px;
+    border-radius: 18px;
+    padding: 10px;
+  }
+
+  body.android .player-frame::before {
+    inset: -6px;
+    border-radius: 22px;
+  }
+
+  body.android #player {
+    border-radius: 12px;
+  }
+
+  body.android .arrow-btn {
+    min-width: 200px;
+    min-height: 62px;
+    font-size: 20px;
+  }
+
+  body.android .square-btn {
+    min-width: 154px;
+    min-height: 62px;
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  body.android .scene-top {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+
+  body.android .player-frame {
+    width: 100vw;
+    margin-top: 48px;
+    aspect-ratio: 4 / 3;
+    border-radius: 14px;
+    padding: 8px;
+  }
+
+  body.android .player-frame::before {
+    inset: -4px;
+    border-radius: 18px;
+  }
+
+  body.android #player {
+    border-radius: 10px;
+  }
 }
 </style>
 
