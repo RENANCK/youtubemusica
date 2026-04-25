@@ -706,7 +706,8 @@ const categorias = [
   { key: "1-minute", nome: "1 MINUTO" },
   { key: "montagem", nome: "MONTAGEM ANIME" },
   { key: "dazed_and_confused", nome: "DAZED AND CONFUSED" },
-  { key: "veludo_neon", nome: "POP NEON" }
+  { key: "veludo_neon", nome: "POP NEON" },
+  { key: "quarta_dimensao", nome: "4°DIMENSÃO" }
 ];
 
 const gruposCategorias = [
@@ -720,100 +721,129 @@ const gruposCategorias = [
   },
   {
     titulo: "TEMÁTICOS",
-    categorias: ["invicta", "anos_2020", "erotic", "brasilidade", "1-minute", "montagem", "dazed_and_confused", "veludo_neon"]
+    categorias: ["invicta", "anos_2020", "erotic", "brasilidade", "1-minute", "montagem", "dazed_and_confused", "veludo_neon", "quarta_dimensao"]
   }
 ];
     const moodsPredefinidos = {
   party: {
     nome: "PARTY",
     pesos: {
-      poop_asia_e_africa: 0, dazed_and_confused: 2, anos_2020: 0, indie: 6, pop_rock: 8,
-      rock: 6, bossa_nova: 4, nova_mpb: 5, invicta: 15,
-      poop_america_europa: 0, nostalgia: 10, latina: 2, reggea: 3,
-      psicodelica: 9, now: 15, trap: 25, bombap: 14, poop_brasil: 2, eletronica: 15, "1-minute": 0, lofi: 3, montagem:3
+      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 1, indie: 18, pop_rock: 24,
+      rock: 18, bossa_nova: 12, nova_mpb: 15, invicta: 45,
+      poop_america_europa: 1, nostalgia: 30, latina: 6, reggea: 9,
+      psicodelica: 27, now: 45, trap: 75, bombap: 42, poop_brasil: 6, eletronica: 45, "1-minute": 1, lofi: 9, montagem:9
     }
   },
   faculdade_fm: {
     nome: "FDT",
     pesos: {
-      poop_asia_e_africa: 0, dazed_and_confused: 3, anos_2020: 0, indie: 5, pop_rock: 4,
-      rock: 5, bossa_nova: 12, nova_mpb: 12, invicta: 5,
-      poop_america_europa: 0, nostalgia: 8, latina: 7, reggea: 10,
-      psicodelica: 4, now: 8, trap: 5, bombap: 12, poop_brasil: 2, eletronica: 4, "1-minute": 0, lofi: 3
+      poop_asia_e_africa: 1, dazed_and_confused: 9, anos_2020: 1, indie: 15, pop_rock: 12,
+      rock: 15, bossa_nova: 36, nova_mpb: 36, invicta: 15,
+      poop_america_europa: 1, nostalgia: 24, latina: 21, reggea: 30,
+      psicodelica: 12, now: 24, trap: 15, bombap: 36, poop_brasil: 6, eletronica: 12, "1-minute": 1, lofi: 9
     }
   },
   noite_sozinho: {
     nome: "SOZINHO",
     pesos: {
-      poop_asia_e_africa: 0, dazed_and_confused: 5, anos_2020: 0, indie: 6, pop_rock: 12,
-      rock: 2, bossa_nova: 7, nova_mpb: 8, invicta: 12,
-      poop_america_europa: 0, nostalgia: 1, latina: 1, reggea: 7,
-      psicodelica: 2, poop_brasil: 2, now: 3, trap: 8, bombap: 20, eletronica: 1, "1-minute": 2, lofi: 15, montagem: 1
+      poop_asia_e_africa: 1, dazed_and_confused: 15, anos_2020: 1, indie: 18, pop_rock: 36,
+      rock: 6, bossa_nova: 21, nova_mpb: 24, invicta: 36,
+      poop_america_europa: 1, nostalgia: 3, latina: 3, reggea: 21,
+      psicodelica: 6, poop_brasil: 6, now: 9, trap: 24, bombap: 60, eletronica: 3, "1-minute": 6, lofi: 45, montagem: 3
     }
   },
   modo_shonem: {
     nome: "SHONEM",
     pesos: {
-      poop_asia_e_africa: 0, dazed_and_confused: 5, anos_2020: 0, indie: 1, pop_rock: 2,
-      rock: 2, bossa_nova: 2, nova_mpb: 0, invicta: 2,
-      poop_america_europa: 0, nostalgia: 5, latina: 0, reggea: 0,
-      psicodelica: 6, poop_brasil: 2, now: 2, trap: 10, bombap: 10, eletronica: 20, "1-minute": 5, lofi: 20, montagem: 30
+      poop_asia_e_africa: 1, dazed_and_confused: 15, anos_2020: 1, indie: 3, pop_rock: 6,
+      rock: 6, bossa_nova: 6, nova_mpb: 1, invicta: 6,
+      poop_america_europa: 1, nostalgia: 15, latina: 1, reggea: 1,
+      psicodelica: 18, poop_brasil: 6, now: 6, trap: 30, bombap: 30, eletronica: 60, "1-minute": 15, lofi: 60, montagem: 90
     }
   },
   noite_neon: {
   nome: "NEON",
   pesos: {
-    poop_asia_e_africa: 0, dazed_and_confused: 6, anos_2020: 0, indie: 3, pop_rock: 10,
-    rock: 1, bossa_nova: 6, nova_mpb: 10, invicta: 10,
-    poop_america_europa: 0, nostalgia: 0, latina: 2, reggea: 0,
-    psicodelica: 20, poop_brasil: 2, now: 0, trap: 8, bombap: 10, eletronica: 4, "1-minute": 2, lofi: 18, montagem: 3
+    poop_asia_e_africa: 1, dazed_and_confused: 18, anos_2020: 1, indie: 9, pop_rock: 30,
+    rock: 3, bossa_nova: 18, nova_mpb: 30, invicta: 30,
+    poop_america_europa: 1, nostalgia: 1, latina: 6, reggea: 1,
+    psicodelica: 60, poop_brasil: 6, now: 1, trap: 24, bombap: 30, eletronica: 12, "1-minute": 6, lofi: 54, montagem: 9
   }
   },
   caminhada: {
     nome: "CAMINHADA",
     pesos: {
-      poop_asia_e_africa: 0, dazed_and_confused: 2, anos_2020: 0, indie: 8, pop_rock: 12,
-      rock: 5, bossa_nova: 5, nova_mpb: 10, invicta: 1,
-      poop_america_europa: 0, nostalgia: 4, latina: 1, reggea: 6,
-      psicodelica: 1, poop_brasil: 2, now: 14, trap: 10, bombap: 12, eletronica: 12, "1-minute": 4, lofi: 2, montagem: 8
+      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 1, indie: 24, pop_rock: 36,
+      rock: 15, bossa_nova: 15, nova_mpb: 30, invicta: 3,
+      poop_america_europa: 1, nostalgia: 12, latina: 3, reggea: 18,
+      psicodelica: 3, poop_brasil: 6, now: 42, trap: 30, bombap: 36, eletronica: 36, "1-minute": 12, lofi: 6, montagem: 24
     }
   },
   brisa: {
   nome: "BRISA",
   pesos: {
-    poop_asia_e_africa: 0,
-    dazed_and_confused: 6,
-    anos_2020: 1,
-    indie: 8,
-    pop_rock: 4,
-    rock: 1,
-    bossa_nova: 28,
-    nova_mpb: 16,
-    invicta: 4,
-    poop_america_europa: 0,
-    nostalgia: 6,
-    latina: 7,
-    reggea: 14,
-    psicodelica: 3,
-    poop_brasil: 2,
-    now: 1,
-    trap: 0,
-    bombap: 2,
-    eletronica: 1,
-    "1-minute": 0,
-    lofi: 16,
-    montagem: 0
+    poop_asia_e_africa: 1,
+    dazed_and_confused: 18,
+    anos_2020: 3,
+    indie: 24,
+    pop_rock: 12,
+    rock: 3,
+    bossa_nova: 84,
+    nova_mpb: 48,
+    invicta: 12,
+    poop_america_europa: 1,
+    nostalgia: 18,
+    latina: 21,
+    reggea: 42,
+    psicodelica: 9,
+    poop_brasil: 6,
+    now: 3,
+    trap: 1,
+    bombap: 6,
+    eletronica: 3,
+    "1-minute": 1,
+    lofi: 48,
+    montagem: 1
   }
 },
       foco: {
     nome: "FOCO",
     pesos: {
-      poop_asia_e_africa: 0, dazed_and_confused: 2, anos_2020: 1, indie: 3, pop_rock: 1,
-      rock: 0, bossa_nova: 16, nova_mpb: 15, invicta: 5,
-      poop_america_europa: 0, nostalgia: 1, latina: 5, reggea: 12,
-      psicodelica: 4, poop_brasil: 2, now: 0, trap: 0, bombap: 10, eletronica: 1, "1-minute": 35, lofi: 22
+      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 3, indie: 9, pop_rock: 3,
+      rock: 1, bossa_nova: 48, nova_mpb: 45, invicta: 15,
+      poop_america_europa: 1, nostalgia: 3, latina: 15, reggea: 36,
+      psicodelica: 12, poop_brasil: 6, now: 1, trap: 1, bombap: 30, eletronica: 3, "1-minute": 105, lofi: 66
+    }
+  },
+  bad_trip: {
+    nome: "BAD TRIP",
+    pesos: {
+      rock: 10,
+      indie: 3,
+      bossa_nova: 4,
+      reggea: 10,
+      eletronica: 25,
+      nova_mpb: 5,
+      latina: 5,
+      trap: 20,
+      now: 1,
+      bombap: 2,
+      pop_rock: 15,
+      psicodelica: 25,
+      nostalgia: 1,
+      lofi: 8,
+      invicta: 2,
+      anos_2020: 2,
+      erotic: 5,
+      brasilidade: 1,
+      "1-minute": 1,
+      montagem: 7,
+      dazed_and_confused: 8,
+      veludo_neon: 2,
+      quarta_dimensao: 25
     }
   }
+
 };
 
     const bancoDeMusicas = {
@@ -1196,6 +1226,16 @@ bancoDeMusicas.bossa_nova = [
 bancoDeMusicas.latina = [
   ...(bancoDeMusicas.latina || []),
   ...(bancoDeMusicas.as_veias_abertas_da_america_latina || [])
+];
+bancoDeMusicas.quarta_dimensao = [
+  "VlGKxecGNxs", "MURua52_YPg", "ce7_AirkbVI", "ryV2LN003YI", "v0aLu2DZeSg",
+  "M_pExEgoRhE", "hNlRYHdI8mQ", "d6R7c2joNFc", "H3mgu_9Ji50", "oZ-lTp1ZaZQ",
+  "SELr51QybZ8", "5Z56MZFMp0k", "wTpHbuDW21A", "TN2MXd8UC5g", "_J9NpHKrKMw",
+  "omwXLXeTR4w", "hCcwCv3G1FQ", "FmrXYkfv2eU", "8OOwKtFUMPo", "33Xvy06QFRs",
+  "wjNln9mXuTI", "16KSivdIGjQ", "GPvg0vM658o", "G1--F4N-Gvs", "2dKMNZIK45M",
+  "PkakXTo26Sg", "CasyhjY1Y5E", "uA15vH3dkFc", "ZXlMcGaNAlo", "tWrRpQi483k",
+  "KbTeUjUyXYY", "uEnDy7gfsjE", "lGzH6FhzQ-8", "7fPqYUFnqYQ", "4Q_wNO8ojOk",
+  "6lYgPmP7fsk"
 ];
 
 delete bancoDeMusicas.chirriro;
@@ -1603,7 +1643,8 @@ delete bancoDeMusicas.as_veias_abertas_da_america_latina;
         noite_neon: "NEON",
         faculdade_fm: "FDT",
         caminhada: "CORRIDA",
-        brisa: "BRISA"
+        brisa: "BRISA",
+        bad_trip: "BAD TRIP"
       };
 
       const label = document.querySelector(".scene-label");
