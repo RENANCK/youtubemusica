@@ -81,12 +81,13 @@
       border: 2px solid rgba(255, 255, 255, 0.2);
       overflow: hidden;
       position: relative;
-      background-image:
-        linear-gradient(to top, rgba(5, 2, 10, 0.35), rgba(5, 2, 10, 0.1)),
-        url("https://images.unsplash.com/photo-1604871000636-074fa5117945?auto=format&fit=crop&w=1200&q=80");
-      background-size: cover;
-      background-position: center;
       box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 28px rgba(255, 46, 166, 0.34);
+      background: #000;
+    }
+
+    #player {
+      width: 100%;
+      height: 100%;
     }
 
     .proxima-btn {
@@ -104,6 +105,7 @@
       text-shadow: 0 0 10px rgba(255, 46, 166, 0.95);
       box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 15px rgba(255, 46, 166, 0.65), inset 0 0 10px rgba(255, 46, 166, 0.25);
       transform: rotate(-4deg);
+      cursor: pointer;
     }
 
     .main-title {
@@ -191,13 +193,14 @@
       background: linear-gradient(120deg, rgba(79, 22, 146, 0.9), rgba(50, 28, 90, 0.9));
       box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.45);
       transition: transform 0.16s ease, background 0.16s ease, color 0.16s ease;
+      cursor: pointer;
     }
 
-    .song-item:hover {
+    .song-item:hover,
+    .song-item.active {
       background: linear-gradient(120deg, var(--neon-pink), var(--neon-orange));
       color: #0f0617;
       transform: translateY(-2px);
-      cursor: pointer;
     }
 
     .logo-box {
@@ -223,6 +226,26 @@
       color: #d9d7ff;
       text-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
       font-size: 1.2em;
+    }
+
+    .top-links {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 5;
+      display: flex;
+      gap: 8px;
+    }
+
+    .top-links button {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      background: rgba(5, 5, 12, 0.75);
+      color: #fff;
+      border-radius: 999px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.75rem;
     }
 
     @keyframes wiggle {
@@ -261,32 +284,118 @@
 </head>
 <body>
   <main class="container" aria-label="Layout Badtrip psicodélico">
+    <div class="top-links">
+      <button type="button" onclick="window.location.href='./index.html'">← Home</button>
+      <button type="button" onclick="window.location.href='./player.html'">Player padrão</button>
+    </div>
+
     <section class="top-art" aria-label="Arte principal do álbum">
-      <button class="proxima-btn" type="button" aria-label="Próxima música">PRÓXIMA</button>
+      <div id="player" aria-label="Player de vídeo"></div>
+      <button id="proxima-btn" class="proxima-btn" type="button" aria-label="Próxima música">PRÓXIMA</button>
     </section>
 
     <h1 class="main-title" aria-label="Nome da música em destaque">
-      <span class="nome-da">NOME DA</span>
-      <span class="musica">MÚSICA</span>
+      <span class="nome-da">BAD TRIP</span>
+      <span id="musica-atual" class="musica">CARREGANDO...</span>
     </h1>
 
     <div class="neon-arrow" aria-hidden="true"></div>
 
     <section class="playlist-box" aria-label="Lista de próximas músicas">
       <h2 class="playlist-title">Pilha de músicas</h2>
-      <ul class="songs-grid">
-        <li class="song-item">Into the Void</li>
-        <li class="song-item">Mang Hing</li>
-        <li class="song-item">Cosmic Spiral</li>
-        <li class="song-item">The Bengal</li>
-        <li class="song-item">Mind Bender</li>
-        <li class="song-item">10: Space</li>
-      </ul>
+      <ul id="songs-grid" class="songs-grid"></ul>
     </section>
 
     <footer class="logo-box" aria-label="Marca">
       badtrip <span class="sparkle" aria-hidden="true">✦</span>
     </footer>
   </main>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    const BAD_TRIP_TRACKS = [
+      { title: 'Into the Void', videoId: 'mJag19WoAe0' },
+      { title: 'Mang Hing', videoId: 'C4NImtoS1WM' },
+      { title: 'Cosmic Spiral', videoId: 'ytiqx4Qrias' },
+      { title: 'The Bengal', videoId: 'S-rB0pHI9fU' },
+      { title: 'Mind Bender', videoId: 'm4BuziKGMy4' },
+      { title: 'Space Tunnel', videoId: 'acxfOgPWUls' },
+      { title: 'Trip to Nowhere', videoId: 'rLzfo59AdEc' },
+      { title: '10: Space', videoId: 'ggG9ySCChYw' },
+      { title: 'Waves and Echoes', videoId: 'bShFqyt6Ad8' },
+      { title: 'Night Distortion', videoId: '9BznFjbcBVs' }
+    ];
+
+    const totalSalvo = Number.parseInt(localStorage.getItem('totalMusicasSelecionado') || '', 10);
+    const playlist = Number.isFinite(totalSalvo) && totalSalvo > 0
+      ? BAD_TRIP_TRACKS.slice(0, Math.min(totalSalvo, BAD_TRIP_TRACKS.length))
+      : BAD_TRIP_TRACKS;
+
+    let player;
+    let indiceAtual = 0;
+
+    function renderPlaylist() {
+      const grid = document.getElementById('songs-grid');
+      grid.innerHTML = '';
+
+      playlist.forEach((track, index) => {
+        const li = document.createElement('li');
+        li.className = `song-item ${index === indiceAtual ? 'active' : ''}`;
+        li.textContent = track.title;
+        li.addEventListener('click', () => tocarIndice(index));
+        grid.appendChild(li);
+      });
+    }
+
+    function atualizarTitulo() {
+      const el = document.getElementById('musica-atual');
+      el.textContent = playlist[indiceAtual]?.title || 'SEM FAIXAS';
+    }
+
+    function tocarIndice(index) {
+      if (!playlist.length || index < 0 || index >= playlist.length) return;
+      indiceAtual = index;
+      atualizarTitulo();
+      renderPlaylist();
+      if (player && typeof player.loadVideoById === 'function') {
+        player.loadVideoById(playlist[indiceAtual].videoId);
+      }
+    }
+
+    function proximaMusica() {
+      if (!playlist.length) return;
+      const proximo = (indiceAtual + 1) % playlist.length;
+      tocarIndice(proximo);
+    }
+
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        videoId: playlist[indiceAtual]?.videoId,
+        playerVars: {
+          rel: 0,
+          modestbranding: 1,
+          playsinline: 1
+        },
+        events: {
+          onReady: () => {
+            atualizarTitulo();
+            renderPlaylist();
+          },
+          onStateChange: (event) => {
+            if (event.data === YT.PlayerState.ENDED) {
+              proximaMusica();
+            }
+          }
+        }
+      });
+    }
+
+    window.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
+    document.getElementById('proxima-btn').addEventListener('click', proximaMusica);
+
+    if (!playlist.length) {
+      document.getElementById('musica-atual').textContent = 'SEM FAIXAS';
+    }
+  </script>
 </body>
 </html>
