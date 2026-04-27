@@ -203,31 +203,6 @@
       transform: translateY(-2px);
     }
 
-    .logo-box {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 26px;
-      border-radius: 20px 0 0 0;
-      background: rgba(0, 0, 0, 0.92);
-      border-top: 1px solid rgba(255, 255, 255, 0.22);
-      border-left: 1px solid rgba(255, 255, 255, 0.18);
-      text-transform: uppercase;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      font-size: clamp(1.1rem, 2.6vw, 1.45rem);
-      z-index: 4;
-    }
-
-    .sparkle {
-      color: #d9d7ff;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
-      font-size: 1.2em;
-    }
-
     .top-links {
       position: absolute;
       top: 12px;
@@ -306,9 +281,6 @@
       <ul id="songs-grid" class="songs-grid"></ul>
     </section>
 
-    <footer class="logo-box" aria-label="Marca">
-      badtrip <span class="sparkle" aria-hidden="true">✦</span>
-    </footer>
   </main>
 
   <script src="https://www.youtube.com/iframe_api"></script>
@@ -326,10 +298,26 @@
       { title: 'Night Distortion', videoId: '9BznFjbcBVs' }
     ];
 
+    function embaralhar(lista) {
+      const copia = [...lista];
+      for (let i = copia.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copia[i], copia[j]] = [copia[j], copia[i]];
+      }
+      return copia;
+    }
+
+    function inteiroAleatorio(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
     const totalSalvo = Number.parseInt(localStorage.getItem('totalMusicasSelecionado') || '', 10);
-    const playlist = Number.isFinite(totalSalvo) && totalSalvo > 0
-      ? BAD_TRIP_TRACKS.slice(0, Math.min(totalSalvo, BAD_TRIP_TRACKS.length))
-      : BAD_TRIP_TRACKS;
+    const limiteMaximo = Number.isFinite(totalSalvo) && totalSalvo > 0
+      ? Math.min(totalSalvo, BAD_TRIP_TRACKS.length)
+      : BAD_TRIP_TRACKS.length;
+    const quantidadeMinima = limiteMaximo > 3 ? 4 : 1;
+    const quantidadePlaylist = inteiroAleatorio(quantidadeMinima, limiteMaximo);
+    const playlist = embaralhar(BAD_TRIP_TRACKS).slice(0, quantidadePlaylist);
 
     let player;
     let indiceAtual = 0;
