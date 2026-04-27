@@ -319,6 +319,12 @@
       salvarTotal();
       localStorage.setItem('moodSelecionado', moodKey);
       localStorage.removeItem('abrirAvancado');
+
+      if (moodKey === 'bad_trip') {
+        window.location.href = './badtrip.html';
+        return;
+      }
+
       window.location.href = './player.html';
     }
 
