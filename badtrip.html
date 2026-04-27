@@ -203,31 +203,6 @@
       transform: translateY(-2px);
     }
 
-    .logo-box {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 26px;
-      border-radius: 20px 0 0 0;
-      background: rgba(0, 0, 0, 0.92);
-      border-top: 1px solid rgba(255, 255, 255, 0.22);
-      border-left: 1px solid rgba(255, 255, 255, 0.18);
-      text-transform: uppercase;
-      font-weight: 900;
-      letter-spacing: 0.04em;
-      font-size: clamp(1.1rem, 2.6vw, 1.45rem);
-      z-index: 4;
-    }
-
-    .sparkle {
-      color: #d9d7ff;
-      text-shadow: 0 0 12px rgba(255, 255, 255, 0.95);
-      font-size: 1.2em;
-    }
-
     .top-links {
       position: absolute;
       top: 12px;
@@ -302,34 +277,67 @@
     <div class="neon-arrow" aria-hidden="true"></div>
 
     <section class="playlist-box" aria-label="Lista de próximas músicas">
-      <h2 class="playlist-title">Pilha de músicas</h2>
+      <h2 class="playlist-title">Menu caótico por peso</h2>
       <ul id="songs-grid" class="songs-grid"></ul>
     </section>
 
-    <footer class="logo-box" aria-label="Marca">
-      badtrip <span class="sparkle" aria-hidden="true">✦</span>
-    </footer>
   </main>
 
   <script src="https://www.youtube.com/iframe_api"></script>
   <script>
     const BAD_TRIP_TRACKS = [
-      { title: 'Into the Void', videoId: 'mJag19WoAe0' },
-      { title: 'Mang Hing', videoId: 'C4NImtoS1WM' },
-      { title: 'Cosmic Spiral', videoId: 'ytiqx4Qrias' },
-      { title: 'The Bengal', videoId: 'S-rB0pHI9fU' },
-      { title: 'Mind Bender', videoId: 'm4BuziKGMy4' },
-      { title: 'Space Tunnel', videoId: 'acxfOgPWUls' },
-      { title: 'Trip to Nowhere', videoId: 'rLzfo59AdEc' },
-      { title: '10: Space', videoId: 'ggG9ySCChYw' },
-      { title: 'Waves and Echoes', videoId: 'bShFqyt6Ad8' },
-      { title: 'Night Distortion', videoId: '9BznFjbcBVs' }
+      { title: 'Into the Void', videoId: 'mJag19WoAe0', peso: 15 },
+      { title: 'Mang Hing', videoId: 'C4NImtoS1WM', peso: 9 },
+      { title: 'Cosmic Spiral', videoId: 'ytiqx4Qrias', peso: 14 },
+      { title: 'The Bengal', videoId: 'S-rB0pHI9fU', peso: 8 },
+      { title: 'Mind Bender', videoId: 'm4BuziKGMy4', peso: 13 },
+      { title: 'Space Tunnel', videoId: 'acxfOgPWUls', peso: 12 },
+      { title: 'Trip to Nowhere', videoId: 'rLzfo59AdEc', peso: 7 },
+      { title: '10: Space', videoId: 'ggG9ySCChYw', peso: 11 },
+      { title: 'Waves and Echoes', videoId: 'bShFqyt6Ad8', peso: 10 },
+      { title: 'Night Distortion', videoId: '9BznFjbcBVs', peso: 16 }
     ];
 
+    function inteiroAleatorio(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function escolherComPeso(itens) {
+      const pesoTotal = itens.reduce((soma, item) => soma + Math.max(0, Number(item.peso) || 0), 0);
+      if (pesoTotal <= 0) {
+        return inteiroAleatorio(0, itens.length - 1);
+      }
+
+      let alvo = Math.random() * pesoTotal;
+      for (let i = 0; i < itens.length; i += 1) {
+        alvo -= Math.max(0, Number(itens[i].peso) || 0);
+        if (alvo <= 0) {
+          return i;
+        }
+      }
+      return itens.length - 1;
+    }
+
+    function gerarPlaylistPorPeso(base, quantidade) {
+      const disponiveis = [...base];
+      const selecionadas = [];
+
+      while (disponiveis.length && selecionadas.length < quantidade) {
+        const indice = escolherComPeso(disponiveis);
+        selecionadas.push(disponiveis[indice]);
+        disponiveis.splice(indice, 1);
+      }
+
+      return selecionadas;
+    }
+
     const totalSalvo = Number.parseInt(localStorage.getItem('totalMusicasSelecionado') || '', 10);
-    const playlist = Number.isFinite(totalSalvo) && totalSalvo > 0
-      ? BAD_TRIP_TRACKS.slice(0, Math.min(totalSalvo, BAD_TRIP_TRACKS.length))
-      : BAD_TRIP_TRACKS;
+    const limiteMaximo = Number.isFinite(totalSalvo) && totalSalvo > 0
+      ? Math.min(totalSalvo, BAD_TRIP_TRACKS.length)
+      : BAD_TRIP_TRACKS.length;
+    const quantidadeMinima = limiteMaximo > 3 ? 4 : 1;
+    const quantidadePlaylist = inteiroAleatorio(quantidadeMinima, limiteMaximo);
+    const playlist = gerarPlaylistPorPeso(BAD_TRIP_TRACKS, quantidadePlaylist);
 
     let player;
     let indiceAtual = 0;
