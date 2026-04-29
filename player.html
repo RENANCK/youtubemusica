@@ -1481,6 +1481,49 @@ delete bancoDeMusicas.as_veias_abertas_da_america_latina;
     let playlistAtual = [];
     let indiceAtual = 0;
     let iniciarQuandoPronto = false;
+
+    function normalizarPesosMood(pesosOriginais) {
+      const entries = Object.entries(pesosOriginais || {});
+      const totalOriginal = entries.reduce((acc, [, valor]) => acc + Number(valor || 0), 0);
+      if (!entries.length || totalOriginal <= 0) return { ...pesosOriginais };
+
+      const normalizados = entries.map(([key, valor]) => {
+        const proporcional = (Number(valor || 0) / totalOriginal) * 100;
+        if (proporcional > 0.15 && proporcional < 1) {
+          return [key, 1];
+        }
+        return [key, Math.round(proporcional)];
+      });
+
+      const pesosAjustados = Object.fromEntries(normalizados);
+      let soma = Object.values(pesosAjustados).reduce((acc, valor) => acc + valor, 0);
+      const diferenca = 100 - soma;
+
+      if (diferenca !== 0) {
+        const ordenados = Object.entries(pesosAjustados)
+          .sort((a, b) => b[1] - a[1]);
+
+        const alvo = ordenados[1] || ordenados[0];
+        if (alvo) {
+          const [alvoKey, alvoValor] = alvo;
+          pesosAjustados[alvoKey] = Math.max(0, alvoValor + diferenca);
+        }
+      }
+
+      soma = Object.values(pesosAjustados).reduce((acc, valor) => acc + valor, 0);
+      if (soma !== 100) {
+        const [primeiroKey] = Object.entries(pesosAjustados)
+          .sort((a, b) => b[1] - a[1])[0] || [];
+        if (primeiroKey) pesosAjustados[primeiroKey] += 100 - soma;
+      }
+
+      return pesosAjustados;
+    }
+
+    Object.values(moodsPredefinidos).forEach((mood) => {
+      mood.pesos = normalizarPesosMood(mood.pesos);
+    });
+
     let moodAtual = "";
     const cacheTitulos = {};
 
