@@ -908,26 +908,6 @@ const gruposCategorias = [
   }
 ];
     const moodsPredefinidos = {
-  party: {
-    nome: "PARTY",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 1, indie: 18, pop_rock: 24,
-      rock: 18, bossa_nova: 12, nova_mpb: 15, invicta: 45,
-      poop_america_europa: 1, nostalgia: 30, latina: 6, reggea: 9,
-      psicodelica: 20, now: 45, trap: 75, bombap: 35, poop_brasil: 6, eletronica: 45, "1-minute": 1, lofi: 9, montagem: 10,
-      erotic: 30, brasilidade: 6, veludo_neon: 30, quarta_dimensao: 20
-    }
-  },
-  faculdade_fm: {
-    nome: "FDT",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 9, anos_2020: 1, indie: 15, pop_rock: 12,
-      rock: 15, bossa_nova: 36, nova_mpb: 36, invicta: 15,
-      poop_america_europa: 1, nostalgia: 24, latina: 21, reggea: 30,
-      psicodelica: 12, now: 24, trap: 15, bombap: 36, poop_brasil: 6, eletronica: 12, "1-minute": 1, lofi: 9,
-      montagem: 1, erotic: 6, brasilidade: 8, veludo_neon: 10, quarta_dimensao: 10
-    }
-  },
   noite_sozinho: {
     nome: "SOZINHO",
     pesos: {
@@ -957,16 +937,6 @@ const gruposCategorias = [
     psicodelica: 60, poop_brasil: 6, now: 1, trap: 24, bombap: 30, eletronica: 12, "1-minute": 6, lofi: 54, montagem: 9,
     erotic: 0, brasilidade: 0, veludo_neon: 0, quarta_dimensao: 0
   }
-  },
-  caminhada: {
-    nome: "CAMINHADA",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 1, indie: 24, pop_rock: 36,
-      rock: 15, bossa_nova: 15, nova_mpb: 30, invicta: 3,
-      poop_america_europa: 1, nostalgia: 12, latina: 3, reggea: 18,
-      psicodelica: 3, poop_brasil: 6, now: 42, trap: 30, bombap: 36, eletronica: 36, "1-minute": 12, lofi: 6, montagem: 24,
-      erotic: 5, brasilidade: 20, veludo_neon: 16, quarta_dimensao: 8
-    }
   },
   brisa: {
   nome: "BRISA",
@@ -1014,24 +984,6 @@ const gruposCategorias = [
       eletronica: 2
     }
   },
-  acordar: {
-    nome: "ACORDAR",
-    pesos: {
-      rock: 1,
-      indie: 1,
-      reggea: 4,
-      eletronica: 1,
-      bombap: 3,
-      lofi: 4,
-      "1-minute": 10,
-      soundtrack: 30,
-      beatles: 8,
-      renanck: 2,
-      poop_brasil: 8,
-      quarta_dimensao: 4,
-      pop_rock: 3
-    }
-  },
   foco: {
     nome: "FOCO",
     pesos: {
@@ -1041,36 +993,7 @@ const gruposCategorias = [
       psicodelica: 12, poop_brasil: 6, now: 1, trap: 1, bombap: 30, eletronica: 3, "1-minute": 105, lofi: 66,
       montagem: 0, erotic: 0, brasilidade: 0, veludo_neon: 0, quarta_dimensao: 0
     }
-  },
-  bad_trip: {
-    nome: "BAD TRIP",
-    pesos: {
-      rock: 10,
-      indie: 3,
-      bossa_nova: 4,
-      reggea: 10,
-      eletronica: 25,
-      nova_mpb: 5,
-      latina: 5,
-      trap: 20,
-      now: 1,
-      bombap: 2,
-      pop_rock: 15,
-      psicodelica: 25,
-      nostalgia: 1,
-      lofi: 8,
-      invicta: 2,
-      anos_2020: 2,
-      erotic: 5,
-      brasilidade: 1,
-      "1-minute": 1,
-      montagem: 7,
-      dazed_and_confused: 8,
-      veludo_neon: 2,
-      quarta_dimensao: 25
-    }
   }
-
 };
 
     const bancoDeMusicas = {
@@ -3436,17 +3359,12 @@ const gruposCategorias = [
       document.body.setAttribute("data-mood", moodKey || "padrao");
 
       const nomes = {
-        party: "PARTY",
         noite_sozinho: "SOZINHO",
         foco: "FOCO",
         modo_shonem: "SHONEN",
         noite_neon: "NEON",
-        faculdade_fm: "FDT",
-        caminhada: "CORRIDA",
         brisa: "BRISA",
-        acordar: "ACORDAR",
-        sextap: "SEXTAP",
-        bad_trip: "BAD TRIP"
+        sextap: "SEXTAP"
       };
 
       const label = document.querySelector(".scene-label");
