@@ -376,6 +376,12 @@ body { overflow-x: hidden; }
   letter-spacing: 0.05em;
 }
 
+.group-pill.mini-group {
+  font-size: 10px;
+  padding: 6px 11px;
+  letter-spacing: 0.09em;
+}
+
 .advanced-actions {
   display: flex;
   gap: 12px;
@@ -816,7 +822,10 @@ const categorias = [
   { key: "poop_america_europa", nome: "POOP AMÉRICA E EUROPA" },
   { key: "beatles", nome: "BEATLES" },
   { key: "matue", nome: "MATUÊ" },
-  { key: "renanck", nome: "RENANCK" }
+  { key: "renanck", nome: "RENANCK" },
+  { key: "mini_sex", nome: "SEX" },
+  { key: "mini_night", nome: "NIGHT" },
+  { key: "mini_festa", nome: "FESTA" }
 ];
 
 const gruposCategorias = [
@@ -835,6 +844,11 @@ const gruposCategorias = [
   {
     titulo: "ARTISTAS",
     categorias: ["beatles", "matue", "renanck"]
+  },
+  {
+    titulo: "MINI CATEGORIAS",
+    mini: true,
+    categorias: ["mini_sex", "mini_night", "mini_festa"]
   }
 ];
     const moodsPredefinidos = {
@@ -845,7 +859,7 @@ const gruposCategorias = [
       rock: 18, bossa_nova: 12, nova_mpb: 15, invicta: 45,
       poop_america_europa: 1, nostalgia: 30, latina: 6, reggea: 9,
       psicodelica: 20, now: 45, trap: 75, bombap: 35, poop_brasil: 6, eletronica: 45, "1-minute": 1, lofi: 9, montagem: 10,
-      erotic: 30, brasilidade: 6, veludo_neon: 30, quarta_dimensao: 20
+      erotic: 30, brasilidade: 6, veludo_neon: 30, quarta_dimensao: 20, mini_festa: 8
     }
   },
   faculdade_fm: {
@@ -885,7 +899,7 @@ const gruposCategorias = [
     rock: 3, bossa_nova: 18, nova_mpb: 30, invicta: 30,
     poop_america_europa: 1, nostalgia: 1, latina: 6, reggea: 1,
     psicodelica: 60, poop_brasil: 6, now: 1, trap: 24, bombap: 30, eletronica: 12, "1-minute": 6, lofi: 54, montagem: 9,
-    erotic: 0, brasilidade: 0, veludo_neon: 0, quarta_dimensao: 0
+    erotic: 0, brasilidade: 0, veludo_neon: 0, quarta_dimensao: 0, mini_night: 10
   }
   },
   caminhada: {
@@ -941,7 +955,8 @@ const gruposCategorias = [
       matue: 3,
       quarta_dimensao: 12,
       bombap: 12,
-      eletronica: 2
+      eletronica: 2,
+      mini_sex: 6
     }
   },
   acordar: {
@@ -1176,6 +1191,36 @@ const gruposCategorias = [
     "QvUztpzMW9k",
     "qEE00t8qSos",
     "GLaziGAdtw4"
+  ],
+  "mini_sex": [
+    "O1OTWCd40bc",
+    "fS9m0Ac8PCU",
+    "DBYbhZreprc",
+    "BPvDlF0raWI",
+    "oD1oABXiuqQ",
+    "uQFVqltOXRg",
+    "CHKw0qW7rf8"
+  ],
+  "mini_night": [
+    "MV_3Dpw-BRY",
+    "5dNP-a-XXx0",
+    "RY66fdMt4vc",
+    "dlW1w6gCWr8",
+    "_Ci0Kgdpgsw",
+    "MQDKywDP5G8",
+    "8Ajedeud_K8",
+    "W_5unoZTpoQ",
+    "O1OTWCd40bc",
+    "cEGVwUXt3T8"
+  ],
+  "mini_festa": [
+    "O1OTWCd40bc",
+    "fS9m0Ac8PCU",
+    "DBYbhZreprc",
+    "BPvDlF0raWI",
+    "oD1oABXiuqQ",
+    "uQFVqltOXRg",
+    "CHKw0qW7rf8"
   ],
   "montagem": [
     "qScvVYfbLWE",
@@ -3001,7 +3046,8 @@ const gruposCategorias = [
           `)
           .join("");
 
-        return `<div class="group-pill">${grupo.titulo}</div>${itens}`;
+        const classesGrupo = grupo.mini ? "group-pill mini-group" : "group-pill";
+        return `<div class="${classesGrupo}">${grupo.titulo}</div>${itens}`;
       }).join("");
 
       grid.innerHTML = html;
