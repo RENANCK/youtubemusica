@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moods Player - Designer Completo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Black+Ops+One&family=Poppins:ital,wght@0,400;0,800;1,800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           RESET E VARIÁVEIS GERAIS
+        ========================================= */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            background-color: #000;
+        }
+
+        /* Painel de Controles (Apenas para testar os temas) */
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #444;
+            padding: 15px;
+            border-radius: 12px;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            color: #fff;
+            width: 250px;
+        }
+        .controls h3 { margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #aaa; }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .controls button {
+            background: #222; border: none; color: #fff; padding: 8px; border-radius: 6px;
+            cursor: pointer; font-weight: bold; font-family: 'Poppins'; transition: 0.2s;
+        }
+        .controls button:hover { background: #5ea4ff; color: #000; }
+
+        /* =========================================
+           BASE DO APLICATIVO
+        ========================================= */
+        .app-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.6s ease;
+        }
+
+        /* Camadas de Fundo (Para criar faixas e degradês) */
+        .bg-layer {
+            position: absolute;
+            left: 0;
+            width: 100vw;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* Elementos principais em posições absolutas para animação fluida */
+        .ui-element {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: 800;
+        }
+
+        /* Textos Internos base */
+        .inner-text { font-size: 2rem; opacity: 0.8; letter-spacing: 2px; text-transform: uppercase; }
+        .queue-text { font-size: 1rem; align-self: flex-start; margin-top: 15px; margin-left: 15px; }
+
+        .music-title { font-size: 3.5rem; line-height: 1.1; white-space: pre-wrap; z-index: 10; }
+        .mood-label { font-size: 3rem; z-index: 10; }
+        
+        .arrow-btn {
+            cursor: pointer;
+            z-index: 20;
+            /* Polígono base de seta que será usado na maioria dos temas */
+            clip-path: polygon(0 25%, 50% 25%, 50% 0%, 100% 50%, 50% 100%, 50% 75%, 0 75%);
+        }
+
+        /* =========================================
+           1. FOCO (Bandeira, Minimalista Dark)
+        ========================================= */
+        [data-mood="foco"] .app-container { background: #3c4438; }
+        [data-mood="foco"] .bottom-bg { bottom: 0; height: 50px; background: #fff; z-index: 5; }
+        
+        [data-mood="foco"] .player-frame { top: 8%; left: 8%; width: 45vw; height: 40vh; background: #080c27; border-radius: 15px; color: #fff; }
+        [data-mood="foco"] .queue-card { top: 48%; left: 8%; width: 25vw; height: 35vh; background: #080c27; border-radius: 15px 15px 0 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%); color: #fff; }
+        
+        [data-mood="foco"] .music-title { top: 55%; left: 38%; color: #fff; font-family: 'Poppins'; }
+        [data-mood="foco"] .arrow-btn { opacity: 0; pointer-events: none; }
+        [data-mood="foco"] .mood-label { bottom: 2px; left: 50%; transform: translateX(-50%); font-family: 'Poppins'; color: #8e32c8; font-size: 2rem; z-index: 10; -webkit-text-stroke: 1px #00e0ff; }
+
+        /* =========================================
+           2. SHONEN (Ação, Linhas Tracejadas)
+        ========================================= */
+        [data-mood="shonen"] .app-container { background: linear-gradient(to bottom, #f3baba 50%, #d4d4d4 50%); }
+        [data-mood="shonen"] .bottom-bg { bottom: 0; height: 40px; background: #45324d; z-index: 5; }
+        
+        [data-mood="shonen"] .player-frame { top: 45%; left: 20%; width: 60vw; height: 35vh; background: #5ea4ff; border: 8px dashed #000; border-radius: 15px; color: transparent; }
+        [data-mood="shonen"] .queue-card { opacity: 0; pointer-events: none; }
+        
+        [data-mood="shonen"] .music-title { bottom: 8vh; left: 10%; color: #fff; font-family: 'Black Ops One'; -webkit-text-stroke: 2px #7a7a7a; font-size: 4rem; }
+        [data-mood="shonen"] .arrow-btn { opacity: 0; pointer-events: none; }
+        [data-mood="shonen"] .mood-label { bottom: 0px; left: 20px; font-family: 'Poppins'; color: #fff; font-size: 1.5rem; z-index: 10; }
+
+        /* =========================================
+           3. NEON (Cyberpunk Purple)
+        ========================================= */
+        [data-mood="neon"] .app-container { background: linear-gradient(135deg, #2a41ff, #d73dff); }
+        [data-mood="neon"] .bottom-bg { bottom: 0; height: 80px; background: #d988e8; z-index: 5; }
+        
+        [data-mood="neon"] .player-frame { top: 10%; left: 5%; width: 55vw; height: 45vh; background: #2f175d; border-radius: 40px; box-shadow: 0 0 0 4px #1860ff; color: transparent; }
+        [data-mood="neon"] .queue-card { top: 10%; right: 5%; width: 30vw; height: 40vh; background: rgba(138, 43, 226, 0.6); border-radius: 15px; color: #fff; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+        
+        [data-mood="neon"] .music-title { bottom: 15vh; left: 10%; color: #ffb8ff; font-family: 'Anton'; text-shadow: 3px 3px 0 #12558f, -3px -3px 0 #3b1b6e; letter-spacing: 3px; }
+        [data-mood="neon"] .arrow-btn { bottom: 15vh; right: 10%; width: 15vw; height: 12vh; background: #4ae0c8; filter: drop-shadow(4px 4px 0px #ff00ff) drop-shadow(-2px -2px 0px #000) drop-shadow(2px -2px 0px #000) drop-shadow(-2px 2px 0px #000); opacity: 1; pointer-events: auto; }
+        [data-mood="neon"] .mood-label { bottom: 10px; left: 5%; font-family: 'Anton'; color: #000; font-size: 3rem; z-index: 10; }
+
+        /* =========================================
+           4. FDT (Natureza / Blocos)
+        ========================================= */
+        [data-mood="fdt"] .app-container { background: #d9e6f2; } /* Fundo simula o céu. Adicione URL da imagem depois */
+        [data-mood="fdt"] .bottom-bg { bottom: 0; height: 30vh; background: #eef2f5; z-index: 1; }
+        
+        [data-mood="fdt"] .player-frame { top: 15%; left: 20%; width: 60vw; height: 35vh; background: #9ab4db; border-radius: 0; border: none; box-shadow: none; color: transparent; }
+        [data-mood="fdt"] .queue-card { bottom: 10vh; left: 10%; width: 30vw; height: 35vh; background: #5ea4d9; border-radius: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); color: #fff; z-index: 2; }
+        
+        [data-mood="fdt"] .music-title { top: 3%; left: 50%; transform: translateX(-50%); color: #ff0000; font-family: 'Arial Black', sans-serif; font-size: 4rem; text-shadow: none; }
+        [data-mood="fdt"] .arrow-btn { opacity: 0; pointer-events: none; }
+        [data-mood="fdt"] .mood-label { bottom: 35vh; right: 15%; font-family: 'Georgia', serif; font-style: italic; color: #1e3a8a; font-size: 4.5rem; text-align: right; line-height: 1.2; font-weight: bold; }
+
+        /* =========================================
+           5. CORRIDA (Tons Terrosos)
+        ========================================= */
+        [data-mood="corrida"] .app-container { background: #967d6c; }
+        [data-mood="corrida"] .mid-bg { top: 48%; height: 20vh; background: #150a06; }
+        
+        [data-mood="corrida"] .player-frame { top: 8%; left: 8%; width: 60vw; height: 38vh; background: #150a06; border: 6px dashed #a855f7; border-radius: 40px; color: #e6ded8; }
+        [data-mood="corrida"] .queue-card { bottom: 5%; left: 5%; width: 50vw; height: 28vh; background: #150a06; border-radius: 20px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); color: #fff; }
+        
+        [data-mood="corrida"] .music-title { top: 52%; left: 15%; color: #e6ded8; font-family: 'Poppins'; -webkit-text-stroke: 1px #8c7362; }
+        [data-mood="corrida"] .arrow-btn { top: 35%; right: 10%; width: 12vw; height: 10vh; background: #000; filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.5)); opacity: 1; pointer-events: auto; }
+        [data-mood="corrida"] .arrow-btn .inner-text { font-size: 1.2rem; color: #fff; margin-left: 10px; }
+        [data-mood="corrida"] .mood-label { bottom: 8%; right: 15%; font-family: 'Poppins'; color: #fff; font-size: 2.5rem; }
+
+        /* =========================================
+           6. SEXTAP (Meio a meio)
+        ========================================= */
+        [data-mood="sextap"] .app-container { background: #5013a6; }
+        [data-mood="sextap"] .bottom-bg { bottom: 0; height: 50vh; background: #de796e; z-index: 1; }
+        
+        [data-mood="sextap"] .player-frame { top: 8%; left: 8%; width: 84vw; height: 40vh; background: #8b5cf6; border: 6px dashed #7fff7f; border-radius: 25px; color: #dcb37b; }
+        [data-mood="sextap"] .queue-card { bottom: 10%; left: 5%; width: 40vw; height: 30vh; background: #000; border-radius: 20px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); color: #fff; z-index: 2;}
+        
+        [data-mood="sextap"] .music-title { top: 52%; right: 5%; color: #fff; font-family: 'Poppins'; font-size: 5rem; text-shadow: 4px 4px 0 #000; text-align: right; z-index: 2;}
+        [data-mood="sextap"] .arrow-btn { bottom: 15%; right: 5%; width: 15vw; height: 10vh; background: #fff; filter: drop-shadow(4px 0 0 #000) drop-shadow(-4px 0 0 #000) drop-shadow(0 4px 0 #000) drop-shadow(0 -4px 0 #000); opacity: 1; pointer-events: auto; z-index: 2;}
+        [data-mood="sextap"] .arrow-btn .inner-text { font-size: 1.2rem; color: #000; font-weight: bold; }
+        [data-mood="sextap"] .mood-label { top: 20px; left: 10%; font-family: 'Poppins'; font-style: italic; color: #dcb37b; font-size: 1.5rem; }
+
+        /* =========================================
+           7. ACORDAR (Bloco Verde)
+        ========================================= */
+        [data-mood="acordar"] .app-container { background: linear-gradient(to bottom, #89d4ff 45%, #7e48e8 45%); }
+        [data-mood="acordar"] .mid-bg { top: 45vh; height: 15vh; background: #4a3454; }
+        
+        [data-mood="acordar"] .player-frame { top: 8%; left: 8%; width: 50vw; height: 35vh; background: #95df95; border: 6px dashed #000; border-radius: 0; color: #dfa795; }
+        [data-mood="acordar"] .queue-card { bottom: 10%; left: 8%; width: 35vw; height: 25vh; background: #396fa1; border-radius: 20px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); color: #dfa795; }
+        
+        [data-mood="acordar"] .music-title { top: 48%; left: 32%; color: #ff3b5c; font-family: 'Bebas Neue'; -webkit-text-stroke: 1.5px #fff; font-size: 4rem; letter-spacing: 2px; }
+        [data-mood="acordar"] .arrow-btn { top: 35%; right: 8%; width: 12vw; height: 10vh; background: #fff; filter: drop-shadow(4px 0 0 #000) drop-shadow(-4px 0 0 #000) drop-shadow(0 4px 0 #000) drop-shadow(0 -4px 0 #000); opacity: 1; pointer-events: auto; }
+        [data-mood="acordar"] .arrow-btn .inner-text { font-size: 1.2rem; color: #000; font-weight: bold; }
+        [data-mood="acordar"] .mood-label { top: 20px; left: 8%; font-family: 'Poppins'; color: #dfa795; font-size: 2rem; }
+
+        /* =========================================
+           8. SOZINHO (Retrô Pink)
+        ========================================= */
+        [data-mood="sozinho"] .app-container { background: #2f384a; }
+        [data-mood="sozinho"] .mid-bg { top: 50%; height: 50vh; background: #684f70; }
+        
+        [data-mood="sozinho"] .player-frame { top: 8%; left: 8%; width: 55vw; height: 40vh; background: #d82b5e; border: 6px dashed #000; border-radius: 25px; color: #e6ded8; z-index: 2;}
+        [data-mood="sozinho"] .queue-card { bottom: 5%; left: 8%; width: 45vw; height: 30vh; background: #000; border-radius: 15px; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); color: #dcb37b; z-index: 2;}
+        
+        [data-mood="sozinho"] .music-title { top: 55%; left: 25%; color: #fff; font-family: 'Poppins'; -webkit-text-stroke: 1.5px #d82b5e; font-style: italic; z-index: 2;}
+        [data-mood="sozinho"] .arrow-btn { top: 40%; right: 8%; width: 12vw; height: 10vh; background: #fff; filter: drop-shadow(4px 0 0 #000) drop-shadow(-4px 0 0 #000) drop-shadow(0 4px 0 #000) drop-shadow(0 -4px 0 #000); opacity: 1; pointer-events: auto; z-index: 2;}
+        [data-mood="sozinho"] .arrow-btn .inner-text { font-size: 1rem; color: #000; font-weight: bold; }
+        [data-mood="sozinho"] .mood-label { bottom: 15%; right: 15%; font-family: 'Poppins'; color: #dcb37b; font-size: 2.5rem; z-index: 2;}
+
+        /* =========================================
+           9. PARTY (Gradient + Múltiplas Bordas)
+        ========================================= */
+        [data-mood="party"] .app-container { background: linear-gradient(135deg, #9175ff, #4cc3ff); }
+        [data-mood="party"] .bottom-bg { bottom: 0; height: 18vh; background: #ff0000; z-index: 5; }
+        
+        [data-mood="party"] .player-frame { top: 8%; right: 8%; left: auto; width: 45vw; height: 40vh; background: linear-gradient(135deg, #743ce6, #1263d9); border: 5px solid #00c8b3; border-radius: 40px; box-shadow: 0 0 0 5px #6a2cc9, 0 0 0 10px #00c8b3; color: #7e46e8; }
+        [data-mood="party"] .queue-card { bottom: 0vh; left: 5%; width: 15vw; height: 18vh; background: #885df1; border-radius: 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); color: #885df1; z-index: 10; }
+        
+        [data-mood="party"] .music-title { top: 20%; left: 5%; color: #ff0000; font-family: 'Black Ops One'; font-size: 4rem; text-shadow: 3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000; width: 30vw; line-height: 1; }
+        [data-mood="party"] .arrow-btn { bottom: 22vh; right: 5%; width: 22vw; height: 12vh; background: #e6e6e6; filter: drop-shadow(5px 0 0 #ff0000) drop-shadow(-5px 0 0 #ff0000) drop-shadow(0 5px 0 #ff0000) drop-shadow(0 -5px 0 #ff0000); opacity: 1; pointer-events: auto; }
+        [data-mood="party"] .arrow-btn .inner-text { font-size: 1.2rem; color: #6a1a41; margin-left: 20px; }
+        [data-mood="party"] .mood-label { bottom: 4vh; left: 35%; font-family: 'Arial Black', sans-serif; color: #fff; font-size: 4.5rem; letter-spacing: 5px; z-index: 10; }
+
+    </style>
+</head>
+<body data-mood="foco">
+
+    <div class="controls">
+        <h3>Menu Designer</h3>
+        <div class="btn-grid">
+            <button onclick="changeMood('foco')">FOCO</button>
+            <button onclick="changeMood('shonen')">SHONEN</button>
+            <button onclick="changeMood('neon')">NEON</button>
+            <button onclick="changeMood('fdt')">FDT</button>
+            <button onclick="changeMood('corrida')">CORRIDA</button>
+            <button onclick="changeMood('sextap')">SEXTAP</button>
+            <button onclick="changeMood('acordar')">ACORDAR</button>
+            <button onclick="changeMood('sozinho')">SOZINHO</button>
+            <button onclick="changeMood('party')">PARTY</button>
+        </div>
+    </div>
+
+    <div class="app-container">
+        
+        <div class="bg-layer top-bg"></div>
+        <div class="bg-layer mid-bg"></div>
+        <div class="bg-layer bottom-bg"></div>
+
+        <div class="ui-element player-frame">
+            <span class="inner-text">MUSICA</span>
+        </div>
+
+        <div class="ui-element queue-card">
+            <span class="queue-text">FILA DE MUSICAS</span>
+        </div>
+
+        <div class="ui-element music-title" id="titulo">
+            NOME DA<br>MUSICA
+        </div>
+
+        <div class="ui-element arrow-btn">
+            <span class="inner-text">PROXIMA</span>
+        </div>
+
+        <div class="ui-element mood-label" id="label-mood">
+            FOCO
+        </div>
+
+    </div>
+
+    <script>
+        // Mapeamento dos textos exatos para cada tela baseados no design
+        const labels = {
+            'foco': 'FOCO',
+            'shonen': 'SHONEM',
+            'neon': 'NEON',
+            'fdt': 'FIM DE\nTARDE',
+            'corrida': 'CORRIDA',
+            'sextap': 'SEX TAPE',
+            'acordar': 'ACORDAR',
+            'sozinho': 'SOZINHO',
+            'party': 'NEON' // A foto 2 do Party curiosamente diz NEON embaixo.
+        };
+
+        // Função para alterar o tema e animar o layout
+        function changeMood(mood) {
+            // Atualiza o atributo no Body (que engatilha todo o CSS)
+            document.body.setAttribute('data-mood', mood);
+            
+            // Atualiza o Label do texto na tela
+            document.getElementById('label-mood').innerText = labels[mood];
+
+            // Trata o texto "NOME DA MUSICA" pois alguns temas (FDT, Foco) tem layout linear
+            const titleEl = document.getElementById('titulo');
+            if(mood === 'fdt' || mood === 'foco' || mood === 'neon') {
+                titleEl.innerHTML = "NOME DA MUSICA";
+            } else {
+                titleEl.innerHTML = "NOME DA<br>MUSICA";
+            }
+        }
+    </script>
+</body>
+</html>
