@@ -79,7 +79,7 @@ body { overflow-x: hidden; }
   position: relative;
   width: min(88vw, 780px);
   aspect-ratio: 1.55 / 1;
-  margin: clamp(74px, 7vw, 90px) 0 0 clamp(2px, 2vw, 20px);
+  margin: clamp(42px, 5vw, 56px) 0 0 clamp(2px, 2vw, 20px);
   background: linear-gradient(135deg, var(--pink), #d00f5d);
   border-radius: 34px;
   box-shadow: var(--shadow);
@@ -683,7 +683,7 @@ body.android .compact-btn {
 }
 
 /* =========================================
-   TELA DE CARREGAMENTO (LOADING OVERLAY) - CORRIGIDO FORA DE MEDIA QUERIES
+   TELA DE CARREGAMENTO (LOADING OVERLAY)
 ========================================= */
 .loading-overlay {
   position: fixed;
@@ -746,58 +746,45 @@ body.android .compact-btn {
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.12);
   margin: 0;
-  padding: 12px;
-  border-radius: 16px;
 }
 
 .loading-card .mini-card label {
-  display: block;
-  font-size: 11px;
   color: #ffd5ea;
-  margin-bottom: 6px;
-  font-weight: 900;
 }
 
 .loading-card .mini-card input {
   background: #140313;
   color: #fff;
   border: 1px solid #e30e6e;
-  width: 100%;
-  height: 38px;
-  border-radius: 10px;
-  text-align: center;
-  font-size: 18px;
-  font-weight: 900;
 }
 </style>
+
 </head>
 <body>
-
   <div class="loading-overlay" id="loadingOverlay">
     <div class="loading-card">
       <h2>Sincronizando Ritmo</h2>
       <div class="loading-spinner"></div>
       <div class="loading-status">Carregando catálogo musical...</div>
-      
       <div class="mini-card">
-        <label for="total_musicas_loading">Quantidade de músicas</label>
-        <input id="total_musicas_loading" type="number" min="1" value="18" oninput="sincronizarQuantidade(this.value)" />
+         <label for="total_musicas_loading">Qtd Músicas</label>
+         <input type="number" id="total_musicas_loading" min="1" max="100" oninput="sincronizarQuantidade(this.value)">
       </div>
     </div>
   </div>
 
   <section class="section section-player" id="player-section">
+    <div class="player-top-controls">
+      <button class="compact-btn" onclick="voltarHome()">Voltar</button>
+      <div class="mini-card qty-mini">
+        <label for="total_musicas">Qtd Músicas</label>
+        <input type="number" id="total_musicas" min="1" max="100" value="18" oninput="localStorage.setItem('totalMusicasSelecionado', this.value)">
+      </div>
+      <button class="compact-btn" onclick="toggleAdvanced(true)">Avançado</button>
+    </div>
+
     <div class="scene-top">
       <div class="scene-label">RITMO</div>
-
-      <div class="player-top-controls">
-        <button class="compact-btn" onclick="voltarHome()">Voltar</button>
-        <button class="compact-btn" onclick="toggleAdvanced(true)">Avançado</button>
-        <div class="mini-card qty-mini">
-          <label for="total_musicas">Qtd Músicas</label>
-          <input id="total_musicas" type="number" min="1" value="18" oninput="localStorage.setItem('totalMusicasSelecionado', this.value); const il = document.getElementById('total_musicas_loading'); if(il) il.value = this.value;" />
-        </div>
-      </div>
 
       <div class="player-frame">
         <div id="player"></div>
@@ -917,7 +904,6 @@ const gruposCategorias = [
     categorias: ["mini_sex", "mini_night", "mini_festa"]
   }
 ];
-
 const moodsPredefinidos = {
   fim_de_tarde: { nome: "FIM DE TARDE", pesos: { rock: 1, indie: 10, reggea: 25, nova_mpb: 25, latina: 5, bossa_nova: 15, now: 10, bombap: 18, pop_rock: 6, nostalgia: 5, lofi: 5, invicta: 20, brasilidade: 12, dazed_and_confused: 4, poop_brasil: 8, poop_asia_e_africa: 2, poop_america_europa: 7, beatles: 4, renanck: 1 } },
   party: { nome: "PARTY", pesos: { rock: 2, indie: 2, reggea: 5, eletronica: 8, nova_mpb: 11, latina: 1, trap: 15, bossa_nova: 1, now: 15, bombap: 4, pop_rock: 10, psicodelica: 11, nostalgia: 8, lofi: 1, invicta: 1, anos_2020: 2, erotic: 3, brasilidade: 2, "1-minute": 1, montagem: 4, dazed_and_confused: 7, veludo_neon: 8, quarta_dimensao: 4, poop_brasil: 2, poop_asia_e_africa: 1, poop_america_europa: 3, beatles: 1, matue: 6, renanck: 1, mini_sex: 1, mini_night: 1, mini_festa: 2 } },
@@ -954,7 +940,7 @@ async function carregarBancoDeMusicas() {
     console.log("Catálogo musical sincronizado com o Google Sheets!");
   } catch (erro) {
     console.error("Erro ao puxar as músicas da planilha:", erro);
-    alert("Opa! Erro ao carregar as músicas. Verifique sua conexão ou o link da planilha.");
+    alert("Erro ao carregar as músicas. Verifique sua conexão ou o link da planilha.");
   }
 }
 
@@ -1011,7 +997,7 @@ let moodAtual = "";
 const cacheTitulos = {};
 const FAVORITOS_KEY = "favoritos_renanck";
 
-function obtenerFavoritos() {
+function obterFavoritos() {
   try {
     const raw = localStorage.getItem(FAVORITOS_KEY);
     const parsed = JSON.parse(raw || "[]");
@@ -1026,11 +1012,11 @@ function salvarFavoritos(favoritos) {
 }
 
 function ehFavorito(idYoutube) {
-  return obtenerFavoritos().includes(idYoutube);
+  return obterFavoritos().includes(idYoutube);
 }
 
 function toggleFavorito(idYoutube) {
-  const favoritos = obtenerFavoritos();
+  const favoritos = obterFavoritos();
   const indice = favoritos.indexOf(idYoutube);
 
   if (indice >= 0) {
@@ -1046,11 +1032,11 @@ function toggleFavorito(idYoutube) {
 
 function criarInputsCategorias() {
   const grid = document.getElementById("categorias-grid");
-  const categoriesPorKey = Object.fromEntries(categorias.map(categoria => [categoria.key, categoria]));
+  const categoriasPorKey = Object.fromEntries(categorias.map(categoria => [categoria.key, categoria]));
 
   const html = gruposCategorias.map(grupo => {
     const itens = grupo.categorias
-      .map(key => categoriesPorKey[key])
+      .map(key => categoriasPorKey[key])
       .filter(Boolean)
       .map(categoria => `
         <div class="input-group">
@@ -1098,7 +1084,8 @@ function selecionarMood(moodKey, botao = null) {
   aplicarPesosNosInputs(mood.pesos);
   marcarMoodAtivo(botao || document.querySelector(`.mood-btn[data-mood="${moodKey}"]`));
   gerarEPlayar();
-  const sec = document.getElementById("player-section"); if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
+  const sec = document.getElementById("player-section"); 
+  if (sec) sec.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function onYouTubeIframeAPIReady() {
@@ -1379,7 +1366,8 @@ function onPlayerStateChange(event) {
 }
 
 async function gerarEPlayar() {
-  const totalMusicas = Number(document.getElementById("total_musicas").value);
+  const inputMusicas = document.getElementById("total_musicas");
+  const totalMusicas = inputMusicas ? Number(inputMusicas.value) : 18;
   const pesos = lerPesosDosInputs();
 
   if (!totalMusicas || totalMusicas < 1) {
@@ -1458,7 +1446,6 @@ function aplicarTemaMood(moodKey) {
   if (label) label.textContent = nomes[moodKey] || "RITMO";
 }
 
-// Vincula dinamicamente ambos os inputs em tempo real
 function sincronizarQuantidade(valor) {
   const inputPrincipal = document.getElementById('total_musicas');
   if (inputPrincipal) inputPrincipal.value = valor;
@@ -1483,10 +1470,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     aplicarPesosNosInputs(moodsPredefinidos[moodKey].pesos);
   }
 
-  // Descarrega o catálogo do Sheets em segundo plano
   await carregarBancoDeMusicas();
 
-  // Remove a tela de carregamento suavemente após o sucesso
   const overlay = document.getElementById('loadingOverlay');
   if (overlay) {
     overlay.classList.add('hidden');
