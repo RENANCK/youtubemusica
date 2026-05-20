@@ -193,7 +193,7 @@ body { overflow-x: hidden; }
 
 .track-item {
   display: grid;
-  grid-template-columns: 34px 1fr;
+  grid-template-columns: 34px 1fr auto;
   gap: 10px;
   border-radius: 18px;
   padding: 10px 12px;
@@ -518,6 +518,27 @@ body[data-mood="neon"] .player-frame { background: #2f175d; border-radius: 40px;
 body[data-mood="foco"] .section-player { background: linear-gradient(rgba(10, 20, 30, 0.8), rgba(10, 20, 30, 0.9)), url("./assets/foco.jpg") center / cover no-repeat; }
 body[data-mood="foco"] .player-frame { background: #080c27; border-radius: 15px; border: 2px solid #5eead4; }
 
+body[data-mood="equal"] .section-player { background: #000000 !important; }
+body[data-mood="equal"] .player-frame { background: #111111; border: 2px solid #ffffff; border-radius: 8px; box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); }
+body[data-mood="equal"] #nome-musica-destaque { color: #ffffff; font-family: "Inter", sans-serif; letter-spacing: 2px; }
+
+body[data-mood="favoritos"] .section-player { background: #000000 !important; }
+body[data-mood="favoritos"] .player-frame { background: #0d0005; border: 3px solid #e30e6e; border-radius: 20px; box-shadow: 0 0 20px rgba(227, 14, 110, 0.4); }
+body[data-mood="favoritos"] #nome-musica-destaque { color: #e30e6e; font-family: "Bebas Neue", sans-serif; text-shadow: 0 0 8px rgba(227, 14, 110, 0.6); }
+
+.btn-favorito {
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 0 10px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.btn-favorito:hover { transform: scale(1.2); }
+.btn-favorito.curtido { color: #e30e6e; }
+
 @media (max-width: 980px) {
   .scene-bottom { grid-template-columns: 1fr; }
   .queue-card { order: 2; min-height: 260px; max-height: none; }
@@ -800,7 +821,9 @@ const gruposCategorias = [
   party: { nome: "PARTY", pesos: { rock: 2, indie: 2, reggea: 5, eletronica: 8, nova_mpb: 11, latina: 1, trap: 15, bossa_nova: 1, now: 15, bombap: 4, pop_rock: 10, psicodelica: 11, nostalgia: 8, lofi: 1, invicta: 1, anos_2020: 2, erotic: 3, brasilidade: 2, "1-minute": 1, montagem: 4, dazed_and_confused: 7, veludo_neon: 8, quarta_dimensao: 4, poop_brasil: 2, poop_asia_e_africa: 1, poop_america_europa: 3, beatles: 1, matue: 6, renanck: 1, mini_sex: 1, mini_night: 1, mini_festa: 2 } },
   streets: { nome: "STREETS", pesos: { rock: 6, indie: 4, eletronica: 1, nova_mpb: 10, latina: 5, trap: 40, bossa_nova: 1, now: 5, bombap: 25, pop_rock: 10, psicodelica: 1, nostalgia: 1, "1-minute": 1, montagem: 12, dazed_and_confused: 8, poop_brasil: 1, poop_america_europa: 1, matue: 10, renanck: 1, mini_sex: 1, mini_night: 3, mini_festa: 3 } },
   neon: { nome: "NEON", pesos: { rock: 4, indie: 16, reggea: 4, eletronica: 20, nova_mpb: 4, trap: 1, bossa_nova: 1, now: 1, pop_rock: 2, psicodelica: 18, nostalgia: 1, lofi: 17, invicta: 1, anos_2020: 25, erotic: 4, brasilidade: 12, montagem: 15, dazed_and_confused: 10, veludo_neon: 15, quarta_dimensao: 20, poop_brasil: 1, poop_asia_e_africa: 4, poop_america_europa: 8, beatles: 4, matue: 6, renanck: 1, mini_sex: 3, mini_night: 3, mini_festa: 3 } },
-  foco: { nome: "FOCO", pesos: { indie: 1, reggea: 2, eletronica: 1, bossa_nova: 8, bombap: 1, lofi: 1, invicta: 1, anos_2020: 1, brasilidade: 1, "1-minute": 25, montagem: 2, dazed_and_confused: 1, veludo_neon: 1, soundtrack: 19, poop_brasil: 2, poop_asia_e_africa: 1, poop_america_europa: 1, mini_night: 2, mini_festa: 1 } }
+  foco: { nome: "FOCO", pesos: { indie: 1, reggea: 2, eletronica: 1, bossa_nova: 8, bombap: 1, lofi: 1, invicta: 1, anos_2020: 1, brasilidade: 1, "1-minute": 25, montagem: 2, dazed_and_confused: 1, veludo_neon: 1, soundtrack: 19, poop_brasil: 2, poop_asia_e_africa: 1, poop_america_europa: 1, mini_night: 2, mini_festa: 1 } },
+  equal: { nome: "EQUAL", pesos: { mini_sex: 5, "1-minute": 8, mini_night: 1, lofi: 26, erotic: 26, poop_asia_e_africa: 26, mini_festa: 1, poop_brasil: 25, latina: 25, rock: 24, poop_america_europa: 24, psicodelica: 23, matue: 5, beatles: 4, bossa_nova: 21, renanck: 2, soundtrack: 4, brasilidade: 17, pop_rock: 17, anos_2020: 16, quarta_dimensao: 16, eletronica: 15, veludo_neon: 15, dazed_and_confused: 14, nostalgia: 14, indie: 14, reggea: 12, now: 11, invicta: 11, montagem: 9, bombap: 6, nova_mpb: 5, trap: 2 } },
+  favoritos: { nome: "FAVORITOS", pesos: {} }
 };
 
     const bancoDeMusicas = {
@@ -2814,6 +2837,41 @@ const gruposCategorias = [
 
     let moodAtual = "";
     const cacheTitulos = {};
+    const FAVORITOS_KEY = "favoritos_renanck";
+
+
+    function obterFavoritos() {
+      try {
+        const raw = localStorage.getItem(FAVORITOS_KEY);
+        const parsed = JSON.parse(raw || "[]");
+        return Array.isArray(parsed) ? parsed : [];
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function salvarFavoritos(favoritos) {
+      localStorage.setItem(FAVORITOS_KEY, JSON.stringify(favoritos));
+    }
+
+    function ehFavorito(idYoutube) {
+      return obterFavoritos().includes(idYoutube);
+    }
+
+    function toggleFavorito(idYoutube) {
+      const favoritos = obterFavoritos();
+      const indice = favoritos.indexOf(idYoutube);
+
+      if (indice >= 0) {
+        favoritos.splice(indice, 1);
+      } else {
+        favoritos.push(idYoutube);
+      }
+
+      salvarFavoritos(favoritos);
+      renderizarPlaylist(playlistAtual);
+      atualizarStatus();
+    }
 
     function criarInputsCategorias() {
       const grid = document.getElementById("categorias-grid");
@@ -3063,6 +3121,7 @@ const gruposCategorias = [
             <div class="track-category">${t.cat}</div>
             <div class="track-title">${t.titulo || "Carregando nome..."}</div>
           </div>
+          <button class="btn-favorito ${ehFavorito(t.id) ? "curtido" : ""}" onclick="toggleFavorito('${t.id}')">${ehFavorito(t.id) ? "❤️" : "🤍"}</button>
         </div>
       `).join("");
     }
@@ -3160,14 +3219,34 @@ const gruposCategorias = [
       }
 
       const somaPesos = Object.values(pesos).reduce((a, b) => a + b, 0);
-      if (somaPesos === 0) {
+      if (moodAtual !== "favoritos" && somaPesos === 0) {
         alert("Escolha um mood ou preencha pelo menos uma categoria com valor maior que 0.");
         return;
       }
 
-      const vagas = calcularVagasExatas(pesos, totalMusicas);
-      const pool = montarPoolPorCategoria(vagas);
-      playlistAtual = intercalarPlaylist(pool, totalMusicas);
+      if (moodAtual === "favoritos") {
+        const favoritos = new Set(obterFavoritos());
+        const favoritasDisponiveis = [];
+
+        Object.entries(bancoDeMusicas).forEach(([catKey, ids]) => {
+          ids.forEach((id) => {
+            if (favoritos.has(id)) {
+              favoritasDisponiveis.push({
+                catKey,
+                cat: nomesCategorias[catKey] || catKey.toUpperCase(),
+                id,
+                titulo: "Carregando nome..."
+              });
+            }
+          });
+        });
+
+        playlistAtual = embaralhar(favoritasDisponiveis).slice(0, totalMusicas);
+      } else {
+        const vagas = calcularVagasExatas(pesos, totalMusicas);
+        const pool = montarPoolPorCategoria(vagas);
+        playlistAtual = intercalarPlaylist(pool, totalMusicas);
+      }
       indiceAtual = 0;
 
       renderizarPlaylist(playlistAtual);
@@ -3201,7 +3280,9 @@ const gruposCategorias = [
   party: "PARTY",
   streets: "STREETS",
   neon: "NEON",
-  foco: "FOCO"
+  foco: "FOCO",
+  equal: "EQUAL",
+  favoritos: "FAVORITOS"
 };
 
       const label = document.querySelector(".scene-label");
