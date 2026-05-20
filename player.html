@@ -680,6 +680,81 @@ body.android .compact-btn {
   body.android #player {
     border-radius: 10px;
   }
+  /* =========================================
+   TELA DE CARREGAMENTO (LOADING OVERLAY)
+========================================= */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: #0c0320;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loading-card {
+  background: linear-gradient(135deg, #26053d, #06010f);
+  padding: 32px;
+  border-radius: 28px;
+  border: 3px solid #e30e6e;
+  text-transform: uppercase;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  max-width: 420px;
+  width: 90%;
+}
+
+.loading-card h2 {
+  font-family: 'Bebas Neue', Arial, sans-serif;
+  font-size: 28px;
+  color: #fff;
+  margin: 0 0 10px 0;
+  letter-spacing: 2px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #e30e6e;
+  border-radius: 50%;
+  margin: 20px auto;
+  animation: spinLoading 1s linear infinite;
+}
+
+@keyframes spinLoading {
+  to { transform: rotate(360deg); }
+}
+
+.loading-status {
+  font-size: 13px;
+  color: #c9bdda;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+
+.loading-card .mini-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  margin: 0;
+}
+
+.loading-card .mini-card label {
+  color: #ffd5ea;
+}
+
+.loading-card .mini-card input {
+  background: #140313;
+  color: #fff;
+  border: 1px solid #e30e6e;
+}
 }
 </style>
 
@@ -1409,28 +1484,45 @@ async function carregarBancoDeMusicas() {
       if (label) label.textContent = nomes[moodKey] || "RITMO";
     }
 
-    // BLOCO CORRIGIDO: Agora usa 'async' para poder esperar pelo carregamento do Google Sheets
+    // Função que faz o input da tela de loading atualizar o input principal em tempo real
+    function sincronizarQuantidade(valor) {
+      const inputPrincipal = document.getElementById('total_musicas');
+      if (inputPrincipal) inputPrincipal.value = valor;
+      localStorage.setItem('totalMusicasSelecionado', valor);
+    }
+
+    // Gerenciador de inicialização inteligente
     window.addEventListener('DOMContentLoaded', async () => {
+      // 1. Recupera o total salvo e aplica simultaneamente nos dois inputs
+      const totalSalvo = localStorage.getItem('totalMusicasSelecionado') || '18';
       
-      // 1. CHAMADA CORRIGIDA: Sincroniza e descarrega as músicas da sua planilha antes de gerar a playlist
-      await carregarBancoDeMusicas();
-
-      // 2. Recupera as configurações salvas do localStorage
-      const totalSalvo = localStorage.getItem('totalMusicasSelecionado');
-
-      if (totalSalvo) {
-        const input = document.getElementById('total_musicas');
-        if (input) input.value = totalSalvo;
-      }
+      const inputPrincipal = document.getElementById('total_musicas');
+      if (inputPrincipal) inputPrincipal.value = totalSalvo;
+      
+      const inputLoading = document.getElementById('total_musicas_loading');
+      if (inputLoading) inputLoading.value = totalSalvo;
 
       const abrirAvancado = localStorage.getItem('abrirAvancado') === '1';
       const moodKey = localStorage.getItem('moodSelecionado');
 
-      // 3. Executa a montagem automática se um mood tiver sido escolhido na Home
+      // 2. Prepara o mood visual de fundo selecionado na Home
       if (moodKey && typeof moodsPredefinidos !== 'undefined' && moodsPredefinidos[moodKey]) {
         moodAtual = moodKey;
         aplicarTemaMood(moodKey);
         aplicarPesosNosInputs(moodsPredefinidos[moodKey].pesos);
+      }
+
+      // 3. Carrega os dados do Google Sheets de forma assíncrona em background
+      await carregarBancoDeMusicas();
+
+      // 4. Esconde a tela de carregamento com uma transição suave
+      const overlay = document.getElementById('loadingOverlay');
+      if (overlay) {
+        overlay.classList.add('hidden');
+      }
+
+      // 5. Agora com o banco pronto e a quantidade certa, gera e toca a playlist perfeitamente!
+      if (moodAtual) {
         gerarEPlayar();
       }
 
