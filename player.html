@@ -495,84 +495,22 @@ body { overflow-x: hidden; }
 /* =========================================
    TEMA BASE & TRANSIÇÕES
 ========================================= */
-body[data-mood] {
-  transition: background 0.6s ease, color 0.6s ease;
-}
+body[data-mood] { transition: background 0.6s ease, color 0.6s ease; }
 
-body[data-mood] .player-frame,
-body[data-mood] .queue-card,
-body[data-mood] .arrow-btn,
-body[data-mood] .square-btn,
-body[data-mood] .scene-top,
-body[data-mood] .player-actions,
-body[data-mood] #nome-musica-destaque,
-body[data-mood] .scene-label {
-  transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
+body[data-mood="fim_de_tarde"] .section-player { background: linear-gradient(rgba(10, 5, 20, 0.6), rgba(10, 5, 20, 0.8)), url("./assets/fim_de_tarde.jpg") center / cover no-repeat; }
+body[data-mood="fim_de_tarde"] .player-frame { background: #e07a5f; border: 4px solid #f4a261; border-radius: 20px; }
 
-body[data-mood="foco"] .section-player { background: #3c4438; }
-body[data-mood="foco"] .scene-bottom { background: linear-gradient(to top, #fff 50px, transparent 50px); }
-body[data-mood="foco"] .player-frame { background: #080c27; border-radius: 15px; }
-body[data-mood="foco"] .queue-card { background: #080c27; color: #fff; border-radius: 15px 15px 0 0; clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 85%, 0 100%); }
-body[data-mood="foco"] #nome-musica-destaque { color: #fff; font-family: 'Poppins', sans-serif; }
-body[data-mood="foco"] .player-actions { opacity: 0; pointer-events: none; }
-body[data-mood="foco"] .scene-label { color: #8e32c8; -webkit-text-stroke: 1px #00e0ff; }
+body[data-mood="party"] .section-player { background: linear-gradient(rgba(8, 8, 20, 0.45), rgba(8, 8, 20, 0.7)), url("./assets/party.jpg") center / cover no-repeat; }
+body[data-mood="party"] .player-frame { background: linear-gradient(135deg, #743ce6, #1263d9); border: 5px solid #00c8b3; border-radius: 40px; }
 
-body[data-mood="modo_shonem"] .section-player { background: linear-gradient(to bottom, #f3baba 50%, #d4d4d4 50%); }
-body[data-mood="modo_shonem"] .scene-bottom { background: linear-gradient(to top, #45324d 40px, transparent 40px); }
-body[data-mood="modo_shonem"] .player-frame { background: #5ea4ff; border: 8px dashed #000; border-radius: 15px; }
-body[data-mood="modo_shonem"] .queue-card { opacity: 0; pointer-events: none; }
-body[data-mood="modo_shonem"] #nome-musica-destaque { color: #fff; font-family: 'Black Ops One', cursive; -webkit-text-stroke: 2px #7a7a7a; }
-body[data-mood="modo_shonem"] .player-actions { opacity: 0; pointer-events: none; }
+body[data-mood="streets"] .section-player { background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url("./assets/streets.jpg") center / cover no-repeat; }
+body[data-mood="streets"] .player-frame { background: #1a1a1a; border: 6px dashed #ff4500; border-radius: 10px; }
 
-body[data-mood="noite_neon"] .section-player { background: linear-gradient(135deg, #2a41ff, #d73dff); }
-body[data-mood="noite_neon"] .scene-bottom { background: linear-gradient(to top, #d988e8 80px, transparent 80px); }
-body[data-mood="noite_neon"] .player-frame { background: #2f175d; border-radius: 40px; box-shadow: 0 0 0 4px #1860ff; }
-body[data-mood="noite_neon"] .queue-card { background: rgba(138, 43, 226, 0.6); color: #fff; }
-body[data-mood="noite_neon"] #nome-musica-destaque { color: #ffb8ff; font-family: 'Anton', sans-serif; text-shadow: 3px 3px 0 #12558f, -3px -3px 0 #3b1b6e; }
-body[data-mood="noite_neon"] .arrow-btn { background: #4ae0c8; color: #000; filter: drop-shadow(4px 4px 0px #ff00ff) drop-shadow(-2px -2px 0px #000) drop-shadow(2px -2px 0px #000) drop-shadow(-2px 2px 0px #000); }
+body[data-mood="neon"] .section-player { background: linear-gradient(rgba(20, 0, 40, 0.5), rgba(40, 0, 60, 0.8)), url("./assets/neon.jpg") center / cover no-repeat; }
+body[data-mood="neon"] .player-frame { background: #2f175d; border-radius: 40px; box-shadow: 0 0 0 4px #1860ff; }
 
-body[data-mood="faculdade_fm"] .section-player { background: #d9e6f2; }
-body[data-mood="faculdade_fm"] .scene-bottom { background: linear-gradient(to top, #eef2f5 30vh, transparent 30vh); }
-body[data-mood="faculdade_fm"] .player-frame { background: #9ab4db; border-radius: 0; box-shadow: none; }
-body[data-mood="faculdade_fm"] .queue-card { background: #5ea4d9; color: #fff; border-radius: 0; }
-body[data-mood="faculdade_fm"] #nome-musica-destaque { color: #ff0000; font-family: 'Arial Black', sans-serif; text-shadow: none; }
-body[data-mood="faculdade_fm"] .player-actions { opacity: 0; pointer-events: none; }
-
-body[data-mood="caminhada"] .section-player { background: #967d6c; }
-body[data-mood="caminhada"] .scene-top { background: linear-gradient(to bottom, transparent 48%, #150a06 48% 68%, transparent 68%); }
-body[data-mood="caminhada"] .player-frame { background: #150a06; border: 6px dashed #a855f7; border-radius: 40px; }
-body[data-mood="caminhada"] .queue-card { background: #150a06; color: #fff; }
-body[data-mood="caminhada"] #nome-musica-destaque { color: #e6ded8; -webkit-text-stroke: 1px #8c7362; }
-body[data-mood="caminhada"] .arrow-btn { background: #000; color: #fff; }
-
-body[data-mood="sextap"] .section-player { background: #5013a6; }
-body[data-mood="sextap"] .scene-bottom { background: linear-gradient(to top, #de796e 50vh, transparent 50vh); }
-body[data-mood="sextap"] .player-frame { background: #8b5cf6; border: 6px dashed #7fff7f; border-radius: 25px; }
-body[data-mood="sextap"] .queue-card { background: #000; color: #fff; }
-body[data-mood="sextap"] #nome-musica-destaque { color: #fff; text-shadow: 4px 4px 0 #000; }
-body[data-mood="sextap"] .arrow-btn { background: #fff; color: #000; filter: drop-shadow(4px 0 0 #000) drop-shadow(-4px 0 0 #000) drop-shadow(0 4px 0 #000) drop-shadow(0 -4px 0 #000); }
-
-body[data-mood="acordar"] .section-player { background: linear-gradient(to bottom, #89d4ff 45%, #7e48e8 45%); }
-body[data-mood="acordar"] .scene-top { background: linear-gradient(to bottom, transparent 45vh, #4a3454 45vh 60vh, transparent 60vh); }
-body[data-mood="acordar"] .player-frame { background: #95df95; border: 6px dashed #000; border-radius: 0; }
-body[data-mood="acordar"] .queue-card { background: #396fa1; color: #dfa795; }
-body[data-mood="acordar"] #nome-musica-destaque { color: #ff3b5c; font-family: 'Bebas Neue', sans-serif; -webkit-text-stroke: 1.5px #fff; }
-body[data-mood="acordar"] .arrow-btn { background: #fff; color: #000; filter: drop-shadow(4px 0 0 #000) drop-shadow(-4px 0 0 #000) drop-shadow(0 4px 0 #000) drop-shadow(0 -4px 0 #000); }
-
-body[data-mood="noite_sozinho"] .section-player { background: #2f384a; }
-body[data-mood="noite_sozinho"] .scene-top { background: linear-gradient(to bottom, transparent 50%, #684f70 50%); }
-body[data-mood="noite_sozinho"] .player-frame { background: #d82b5e; border: 6px dashed #000; border-radius: 25px; }
-body[data-mood="noite_sozinho"] .queue-card { background: #000; color: #dcb37b; }
-body[data-mood="noite_sozinho"] #nome-musica-destaque { color: #fff; -webkit-text-stroke: 1.5px #d82b5e; font-style: italic; }
-body[data-mood="noite_sozinho"] .arrow-btn { background: #fff; color: #000; filter: drop-shadow(4px 0 0 #000) drop-shadow(-4px 0 0 #000) drop-shadow(0 4px 0 #000) drop-shadow(0 -4px 0 #000); }
-
-body[data-mood="party"] .section-player { background: linear-gradient(rgba(8, 8, 20, 0.45), rgba(8, 8, 20, 0.45)), url("./assets/1000490664.jpg") center / cover no-repeat; }
-body[data-mood="party"] .scene-bottom { background: linear-gradient(to top, #ff0000 18vh, transparent 18vh); }
-body[data-mood="party"] .player-frame { background: linear-gradient(135deg, #743ce6, #1263d9); border: 5px solid #00c8b3; border-radius: 40px; box-shadow: 0 0 0 5px #6a2cc9, 0 0 0 10px #00c8b3; }
-body[data-mood="party"] .queue-card { background: #885df1; color: #885df1; }
-body[data-mood="party"] #nome-musica-destaque { color: #ff0000; font-family: 'Black Ops One', cursive; text-shadow: 3px 0 0 #000, -3px 0 0 #000, 0 3px 0 #000, 0 -3px 0 #000; }
-body[data-mood="party"] .arrow-btn { background: #e6e6e6; color: #6a1a41; filter: drop-shadow(5px 0 0 #ff0000) drop-shadow(-5px 0 0 #ff0000) drop-shadow(0 5px 0 #ff0000) drop-shadow(0 -5px 0 #ff0000); }
+body[data-mood="foco"] .section-player { background: linear-gradient(rgba(10, 20, 30, 0.8), rgba(10, 20, 30, 0.9)), url("./assets/foco.jpg") center / cover no-repeat; }
+body[data-mood="foco"] .player-frame { background: #080c27; border-radius: 15px; border: 2px solid #5eead4; }
 
 @media (max-width: 980px) {
   .scene-bottom { grid-template-columns: 1fr; }
@@ -852,169 +790,11 @@ const gruposCategorias = [
   }
 ];
     const moodsPredefinidos = {
-  party: {
-    nome: "PARTY",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 1, indie: 18, pop_rock: 24,
-      rock: 18, bossa_nova: 2, nova_mpb: 20, invicta: 45,
-      poop_america_europa: 5, nostalgia: 30, latina: 6, reggea: 5,
-      psicodelica: 20, now: 45, trap: 75, bombap: 35, poop_brasil: 6, eletronica: 45, "1-minute": 1, lofi: 9, montagem: 10,
-      erotic: 30, brasilidade: 6, veludo_neon: 30, quarta_dimensao: 20
-    }
-  },
-  faculdade_fm: {
-    nome: "FDT",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 9, anos_2020: 1, indie: 15, pop_rock: 12,
-      rock: 15, bossa_nova: 36, nova_mpb: 36, invicta: 15,
-      poop_america_europa: 1, nostalgia: 24, latina: 21, reggea: 30,
-      psicodelica: 12, now: 24, trap: 15, bombap: 36, poop_brasil: 6, eletronica: 12, "1-minute": 1, lofi: 9,
-      montagem: 1, erotic: 6, brasilidade: 8, veludo_neon: 10, quarta_dimensao: 10
-    }
-  },
-  noite_sozinho: {
-    nome: "SOZINHO",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 15, anos_2020: 1, indie: 18, pop_rock: 36,
-      rock: 6, bossa_nova: 21, nova_mpb: 24, invicta: 36,
-      poop_america_europa: 1, nostalgia: 3, latina: 3, reggea: 21,
-      psicodelica: 6, poop_brasil: 1, now: 9, trap: 24, bombap: 60, eletronica: 1, "1-minute": 1, lofi: 40, montagem: 3,
-      erotic: 10, brasilidade: 5, veludo_neon: 15, quarta_dimensao: 1
-    }
-  },
-  modo_shonem: {
-    nome: "SHONEM",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 15, anos_2020: 1, indie: 3, pop_rock: 6,
-      rock: 6, bossa_nova: 6, nova_mpb: 1, invicta: 6,
-      poop_america_europa: 1, nostalgia: 15, latina: 1, reggea: 1,
-      psicodelica: 18, poop_brasil: 6, now: 6, trap: 30, bombap: 30, eletronica: 60, "1-minute": 15, lofi: 40, montagem: 100,
-      erotic: 5, brasilidade: 1, veludo_neon: 1, quarta_dimensao: 1
-    }
-  },
-  noite_neon: {
-  nome: "NEON",
-  pesos: {
-    poop_asia_e_africa: 1, dazed_and_confused: 18, anos_2020: 20, indie: 9, pop_rock: 30,
-    rock: 3, bossa_nova: 18, nova_mpb: 30, invicta: 30,
-    poop_america_europa: 8, nostalgia: 0, latina: 2, reggea: 1,
-    psicodelica: 60, poop_brasil: 1, now: 1, trap: 24, bombap: 30, eletronica: 12, "1-minute": 6, lofi: 10, montagem: 9,
-    erotic: 9, brasilidade: 0, veludo_neon: 15, quarta_dimensao: 30
-  }
-  },
-  caminhada: {
-    nome: "CAMINHADA",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 1, indie: 24, pop_rock: 36,
-      rock: 15, bossa_nova: 15, nova_mpb: 30, invicta: 3,
-      poop_america_europa: 1, nostalgia: 12, latina: 3, reggea: 18,
-      psicodelica: 3, poop_brasil: 6, now: 42, trap: 30, bombap: 36, eletronica: 36, "1-minute": 12, lofi: 6, montagem: 24,
-      erotic: 5, brasilidade: 20, veludo_neon: 16, quarta_dimensao: 8
-    }
-  },
-  brisa: {
-  nome: "BRISA",
-  pesos: {
-    poop_asia_e_africa: 1,
-    dazed_and_confused: 18,
-    anos_2020: 3,
-    indie: 24,
-    pop_rock: 12,
-    rock: 3,
-    bossa_nova: 84,
-    nova_mpb: 48,
-    invicta: 12,
-    poop_america_europa: 1,
-    nostalgia: 18,
-    latina: 21,
-    reggea: 42,
-    psicodelica: 9,
-    poop_brasil: 6,
-    now: 3,
-    trap: 1,
-    bombap: 6,
-    eletronica: 3,
-    "1-minute": 1,
-    lofi: 48,
-    montagem: 1,
-    erotic: 1,
-    brasilidade: 1,
-    veludo_neon: 1,
-    quarta_dimensao: 1
-  }
-},
-      sextap: {
-    nome: "SEXTAP",
-    pesos: {
-      trap: 9,
-      erotic: 41,
-      pop_rock: 5,
-      invicta: 12,
-      veludo_neon: 14,
-      renanck: 3,
-      matue: 3,
-      quarta_dimensao: 12,
-      bombap: 12,
-      eletronica: 2
-    }
-  },
-  acordar: {
-    nome: "ACORDAR",
-    pesos: {
-      rock: 1,
-      indie: 1,
-      reggea: 4,
-      eletronica: 1,
-      bombap: 3,
-      lofi: 4,
-      "1-minute": 10,
-      soundtrack: 30,
-      beatles: 8,
-      renanck: 2,
-      poop_brasil: 8,
-      quarta_dimensao: 4,
-      pop_rock: 3
-    }
-  },
-  foco: {
-    nome: "FOCO",
-    pesos: {
-      poop_asia_e_africa: 1, dazed_and_confused: 6, anos_2020: 3, indie: 9, pop_rock: 3,
-      rock: 1, bossa_nova: 48, nova_mpb: 45, invicta: 15,
-      poop_america_europa: 1, nostalgia: 3, latina: 15, reggea: 36,
-      psicodelica: 12, poop_brasil: 6, now: 1, trap: 1, bombap: 30, eletronica: 3, "1-minute": 105, lofi: 66,
-      montagem: 0, erotic: 0, brasilidade: 0, veludo_neon: 0, quarta_dimensao: 0
-    }
-  },
-  bad_trip: {
-    nome: "BAD TRIP",
-    pesos: {
-      rock: 10,
-      indie: 3,
-      bossa_nova: 4,
-      reggea: 10,
-      eletronica: 25,
-      nova_mpb: 5,
-      latina: 5,
-      trap: 20,
-      now: 1,
-      bombap: 2,
-      pop_rock: 15,
-      psicodelica: 25,
-      nostalgia: 1,
-      lofi: 8,
-      invicta: 2,
-      anos_2020: 2,
-      erotic: 5,
-      brasilidade: 1,
-      "1-minute": 1,
-      montagem: 7,
-      dazed_and_confused: 8,
-      veludo_neon: 2,
-      quarta_dimensao: 25
-    }
-  }
-
+  fim_de_tarde: { nome: "FIM DE TARDE", pesos: { rock: 1, indie: 10, reggea: 25, nova_mpb: 25, latina: 5, bossa_nova: 15, now: 10, bombap: 18, pop_rock: 6, nostalgia: 5, lofi: 5, invicta: 20, brasilidade: 12, dazed_and_confused: 4, poop_brasil: 8, poop_asia_e_africa: 2, poop_america_europa: 7, beatles: 4, renanck: 1 } },
+  party: { nome: "PARTY", pesos: { rock: 2, indie: 2, reggea: 5, eletronica: 8, nova_mpb: 11, latina: 1, trap: 15, bossa_nova: 1, now: 15, bombap: 4, pop_rock: 10, psicodelica: 11, nostalgia: 8, lofi: 1, invicta: 1, anos_2020: 2, erotic: 3, brasilidade: 2, "1-minute": 1, montagem: 4, dazed_and_confused: 7, veludo_neon: 8, quarta_dimensao: 4, poop_brasil: 2, poop_asia_e_africa: 1, poop_america_europa: 3, beatles: 1, matue: 6, renanck: 1, mini_sex: 1, mini_night: 1, mini_festa: 2 } },
+  streets: { nome: "STREETS", pesos: { rock: 6, indie: 4, eletronica: 1, nova_mpb: 10, latina: 5, trap: 40, bossa_nova: 1, now: 5, bombap: 25, pop_rock: 10, psicodelica: 1, nostalgia: 1, "1-minute": 1, montagem: 12, dazed_and_confused: 8, poop_brasil: 1, poop_america_europa: 1, matue: 10, renanck: 1, mini_sex: 1, mini_night: 3, mini_festa: 3 } },
+  neon: { nome: "NEON", pesos: { rock: 4, indie: 16, reggea: 4, eletronica: 20, nova_mpb: 4, trap: 1, bossa_nova: 1, now: 1, pop_rock: 2, psicodelica: 18, nostalgia: 1, lofi: 17, invicta: 1, anos_2020: 25, erotic: 4, brasilidade: 12, montagem: 15, dazed_and_confused: 10, veludo_neon: 15, quarta_dimensao: 20, poop_brasil: 1, poop_asia_e_africa: 4, poop_america_europa: 8, beatles: 4, matue: 6, renanck: 1, mini_sex: 3, mini_night: 3, mini_festa: 3 } },
+  foco: { nome: "FOCO", pesos: { indie: 1, reggea: 2, eletronica: 1, bossa_nova: 8, bombap: 1, lofi: 1, invicta: 1, anos_2020: 1, brasilidade: 1, "1-minute": 25, montagem: 2, dazed_and_confused: 1, veludo_neon: 1, soundtrack: 19, poop_brasil: 2, poop_asia_e_africa: 1, poop_america_europa: 1, mini_night: 2, mini_festa: 1 } }
 };
 
     const bancoDeMusicas = {
@@ -3411,18 +3191,12 @@ const gruposCategorias = [
       document.body.setAttribute("data-mood", moodKey || "padrao");
 
       const nomes = {
-        party: "PARTY",
-        noite_sozinho: "SOZINHO",
-        foco: "FOCO",
-        modo_shonem: "SHONEN",
-        noite_neon: "NEON",
-        faculdade_fm: "FDT",
-        caminhada: "CORRIDA",
-        brisa: "BRISA",
-        acordar: "ACORDAR",
-        sextap: "SEXTAP",
-        bad_trip: "BAD TRIP"
-      };
+  fim_de_tarde: "FIM DE TARDE",
+  party: "PARTY",
+  streets: "STREETS",
+  neon: "NEON",
+  foco: "FOCO"
+};
 
       const label = document.querySelector(".scene-label");
       if (label) label.textContent = nomes[moodKey] || "RITMO";
