@@ -497,7 +497,13 @@ body { overflow-x: hidden; }
 ========================================= */
 body[data-mood] { transition: background 0.6s ease, color 0.6s ease; }
 
-body[data-mood="fim_de_tarde"] .section-player { background: linear-gradient(rgba(10, 5, 20, 0.6), rgba(10, 5, 20, 0.8)), url("./assets/fim_de_tarde.jpg") center / cover no-repeat; }
+body[data-mood="fim_de_tarde"] .scene-top { background-image: url("./assets/fimdetarde.jpg"); }
+body[data-mood="party"] .scene-top { background-image: url("./assets/party.jpg"); }
+body[data-mood="streets"] .scene-top { background-image: url("./assets/streets.jpg"); }
+body[data-mood="neon"] .scene-top { background-image: url("./assets/neon.jpg"); }
+body[data-mood="foco"] .scene-top { background-image: url("./assets/foco.jpg"); }
+
+body[data-mood="fim_de_tarde"] .section-player { background: linear-gradient(rgba(10, 5, 20, 0.6), rgba(10, 5, 20, 0.8)), url("./assets/fimdetarde.jpg") center / cover no-repeat; }
 body[data-mood="fim_de_tarde"] .player-frame { background: #e07a5f; border: 4px solid #f4a261; border-radius: 20px; }
 
 body[data-mood="party"] .section-player { background: linear-gradient(rgba(8, 8, 20, 0.45), rgba(8, 8, 20, 0.7)), url("./assets/party.jpg") center / cover no-repeat; }
